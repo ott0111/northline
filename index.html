@@ -3,241 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Northline — Esports, Talent, Creative, Management</title>
-<meta name="description" content="Northline is an independent agency working across esports, talent, creative, and management to help people and organizations build something bigger.">
+<meta name="description" content="Northline is an independent creative and strategic agency helping ambitious brands, organizations, and talent build what comes next.">
+<title>Northline — Creative & Strategic Agency</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <header id="siteHeader">
   <a href="index.html" class="logo"><img src="assets/logo-mark.png" alt="Northline">Northline</a>
-  <nav class="primary-nav">
+  <nav class="primary-nav" aria-label="Primary navigation">
     <div class="nav-links">
-      <a href="work.html">Work</a>
       <a href="services.html">Services</a>
-      <a href="talent.html">Talent</a>
+      <a href="process.html">Process</a>
       <a href="about.html">About</a>
     </div>
-    <div class="nav-cta">
-      <a href="contact.html" class="btn btn-primary">Work With Us</a>
-    </div>
+    <a href="contact.html" class="btn btn-primary">Start a Project <span>↗</span></a>
   </nav>
-  <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
 </header>
-
 <div class="mobile-nav" id="mobileNav">
-  <a href="work.html">Work</a>
-  <a href="services.html">Services</a>
-  <a href="talent.html">Talent</a>
-  <a href="about.html">About</a>
-  <a href="contact.html" class="btn btn-primary mob-cta">Work With Us</a>
+  <div class="mobile-nav-inner">
+    <div class="mobile-label">Northline / Menu</div>
+    <a href="services.html">Services</a>
+    <a href="process.html">Process</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="btn btn-primary mob-cta">Start a Project <span>↗</span></a>
+  </div>
 </div>
-
-<main id="top">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <svg class="hero-lines" viewBox="0 0 1400 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="0" y1="1" x2="1400" y2="1" stroke="#1c1c1c" stroke-width="1"/>
-      <line x1="1050" y1="0" x2="1050" y2="800" stroke="#161616" stroke-width="1"/>
-      <line x1="1400" y1="0" x2="1400" y2="800" stroke="#161616" stroke-width="1"/>
-    </svg>
-    <div class="wrap hero-content">
-      <div class="eyebrow"><span>Northline</span><span class="dot">/</span><span>Agency</span></div>
-      <h1>We build what<br>moves forward.</h1>
-      <div class="hero-sub-row">
-        <p class="hero-sub">Northline is an independent agency working across esports, talent, creative, and management to help people and organizations build something bigger.</p>
-        <div class="hero-cta">
-          <a href="contact.html" class="btn btn-primary">Work With Northline <span class="btn-arrow">→</span></a>
-          <a href="work.html" class="btn btn-ghost">Explore Our Work</a>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll"><span class="line"></span> Scroll</div>
-  </section>
-
-  <!-- INTRODUCTION -->
-  <section id="intro">
-    <div class="wrap intro-grid reveal">
-      <h2>Built around<br>people. Built<br>for growth.</h2>
-      <div class="intro-copy">
-        <p>Northline works with the people and organizations shaping the next generation of esports and digital culture.</p>
-        <p>From talent representation and creative work to management and strategic support, we bring the right resources together to help our clients move forward.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES TEASER -->
-  <section id="services-teaser">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>What we do</h2>
-        <p class="section-note">Four disciplines, one agency. Each works on its own — and stronger together.</p>
-      </div>
-
-      <div class="services-teaser-grid reveal">
-        <div class="services-teaser-card">
-          <div>
-            <div class="mark">/ 01</div>
-            <h3>Creative</h3>
-            <p>Visual identity, video editing, graphics, and creative production.</p>
-          </div>
-        </div>
-        <div class="services-teaser-card">
-          <div>
-            <div class="mark">/ 02</div>
-            <h3>Talent</h3>
-            <p>Representation, development, and long-term career support.</p>
-          </div>
-        </div>
-        <div class="services-teaser-card">
-          <div>
-            <div class="mark">/ 03</div>
-            <h3>Esports</h3>
-            <p>Competitive support, coaching, and team operations.</p>
-          </div>
-        </div>
-        <div class="services-teaser-card">
-          <div>
-            <div class="mark">/ 04</div>
-            <h3>Management</h3>
-            <p>Social management, strategy, and partnerships.</p>
-          </div>
-        </div>
-      </div>
-      <a href="services.html" class="btn btn-ghost work-page-link">See All Services <span class="btn-arrow">→</span></a>
-    </div>
-  </section>
-
-  <!-- WORK TEASER -->
-  <section id="work-teaser">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>Selected work</h2>
-        <p class="section-note">A look at what we've built with our clients and talent.</p>
-      </div>
-
-      <div class="work-teaser-grid reveal">
-        <div class="work-card" data-cat="branding">
-          <div class="work-placeholder"></div>
-          <div class="work-placeholder-label">Project Image Placeholder</div>
-          <div class="work-card-info">
-            <div class="work-cat">Branding</div>
-            <div class="work-title">Project Title</div>
-            <div class="work-link">View Project <span class="btn-arrow">→</span></div>
-          </div>
-        </div>
-        <div class="work-card" data-cat="esports">
-          <div class="work-placeholder"></div>
-          <div class="work-placeholder-label">Project Image Placeholder</div>
-          <div class="work-card-info">
-            <div class="work-cat">Esports</div>
-            <div class="work-title">Project Title</div>
-            <div class="work-link">View Project <span class="btn-arrow">→</span></div>
-          </div>
-        </div>
-        <div class="work-card" data-cat="social">
-          <div class="work-placeholder"></div>
-          <div class="work-placeholder-label">Project Image Placeholder</div>
-          <div class="work-card-info">
-            <div class="work-cat">Social</div>
-            <div class="work-title">Project Title</div>
-            <div class="work-link">View Project <span class="btn-arrow">→</span></div>
-          </div>
-        </div>
-      </div>
-      <a href="work.html" class="btn btn-ghost work-page-link">View All Work <span class="btn-arrow">→</span></a>
-    </div>
-  </section>
-
-  <!-- WHY -->
-  <section id="why">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <h2>The Northline<br>approach</h2>
-      </div>
-      <div class="why-grid reveal">
-        <div class="why-card">
-          <div class="why-mark">/ 01</div>
-          <div>
-            <h3>Built around<br>the client</h3>
-            <p>Every project starts with understanding what the client actually needs.</p>
-          </div>
-        </div>
-        <div class="why-card">
-          <div class="why-mark">/ 02</div>
-          <div>
-            <h3>Long-term<br>thinking</h3>
-            <p>Focus on sustainable growth rather than short-term attention.</p>
-          </div>
-        </div>
-        <div class="why-card">
-          <div class="why-mark">/ 03</div>
-          <div>
-            <h3>Creative +<br>strategy</h3>
-            <p>Creative execution backed by thoughtful strategy.</p>
-          </div>
-        </div>
-        <div class="why-card">
-          <div class="why-mark">/ 04</div>
-          <div>
-            <h3>One<br>network</h3>
-            <p>Talent, esports, creative, and management working together.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <div class="final-cta-bg"></div>
-    <div class="wrap final-cta-inner reveal">
-      <h2>Let's build<br>something.</h2>
-      <p class="sub">Have a project, partnership, or opportunity in mind? Let's talk.</p>
-      <div class="final-cta-btns">
-        <a href="contact.html" class="btn btn-primary">Work With Northline <span class="btn-arrow">→</span></a>
-        <a href="contact.html" class="btn btn-ghost">Join Northline</a>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo"><img src="assets/logo-mark.png" alt="Northline">Northline</div>
-        <div class="tag">Esports • Talent • Creative • Management</div>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>Site</h4>
-          <a href="work.html">Work</a>
-          <a href="services.html">Services</a>
-          <a href="talent.html">Talent</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Northline. All rights reserved.</span>
-      <div class="footer-socials">
-        <a href="#" aria-label="Twitter">X/Twitter</a>
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="Discord">Discord</a>
-      </div>
+<main>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow reveal-fast"><span>Northline</span><span class="dot">/</span><span>Independent Agency</span></div>
+    <h1 class="hero-title reveal-fast">We build what<br><em>moves forward.</em></h1>
+    <div class="hero-bottom reveal-fast">
+      <p>Northline is an independent creative and strategic agency helping ambitious brands, organizations, and talent build what comes next.</p>
+      <div class="hero-actions"><a href="contact.html" class="btn btn-primary">Start a Project <span>↗</span></a><a href="services.html" class="btn btn-ghost">Explore Services <span>→</span></a></div>
     </div>
   </div>
-</footer>
-
+  <div class="hero-meta"><span>Creative / Strategy / Management</span><span>Scroll ↓</span></div>
+</section>
+<section class="intro-section">
+  <div class="wrap intro-grid reveal">
+    <div class="section-number">01 / INTRO</div>
+    <h2>Built around people.<br>Built for <span>progress.</span></h2>
+    <div class="intro-copy"><p class="lead">We work with people and organizations shaping digital culture — bringing strategy, creative thinking, and execution together under one roof.</p><p>Instead of forcing every client into the same process, we build around the problem in front of us. The result is focused work, clearer decisions, and partnerships designed to last.</p></div>
+  </div>
+</section>
+<section class="services-preview">
+  <div class="wrap">
+    <div class="section-heading reveal"><div><div class="section-number">02 / CAPABILITIES</div><h2>What we do.</h2></div><p>Focused disciplines. One connected agency.</p></div>
+    <div class="capability-list reveal">
+      <a class="capability" href="services.html#creative"><span class="cap-num">01</span><span><strong>Creative</strong><small>Brand identity, design, content, and production.</small></span><span class="cap-arrow">↗</span></a>
+      <a class="capability" href="services.html#strategy"><span class="cap-num">02</span><span><strong>Strategy</strong><small>Positioning, growth, partnerships, and direction.</small></span><span class="cap-arrow">↗</span></a>
+      <a class="capability" href="services.html#talent"><span class="cap-num">03</span><span><strong>Talent</strong><small>Representation, development, and career support.</small></span><span class="cap-arrow">↗</span></a>
+      <a class="capability" href="services.html#management"><span class="cap-num">04</span><span><strong>Management</strong><small>Operations, social, partnerships, and organizational support.</small></span><span class="cap-arrow">↗</span></a>
+    </div>
+  </div>
+</section>
+<section class="statement-section">
+  <div class="wrap statement-grid reveal"><div class="section-number">03 / WHY NORTHLINE</div><div><h2>Strategy without creativity is incomplete.<br>Creativity without direction is noise.</h2><p>Northline sits in the middle — turning ideas into clear direction and clear direction into work that has a reason to exist.</p></div></div>
+</section>
+<section class="approach-section">
+  <div class="wrap"><div class="section-heading reveal"><div><div class="section-number">04 / APPROACH</div><h2>How we move.</h2></div><a href="process.html" class="text-link">See our process <span>→</span></a></div>
+  <div class="approach-grid reveal">
+    <div><span>01</span><h3>Discover</h3><p>We understand the brand, audience, objective, and opportunity before deciding what needs to be made.</p></div>
+    <div><span>02</span><h3>Define</h3><p>We turn the problem into a clear strategy, creative direction, and set of priorities.</p></div>
+    <div><span>03</span><h3>Create</h3><p>We execute with the right people, tools, and creative discipline behind the idea.</p></div>
+    <div><span>04</span><h3>Move Forward</h3><p>We launch, refine, and build the next step instead of treating delivery as the finish line.</p></div>
+  </div></div>
+</section>
+<section class="final-cta"><div class="final-cta-bg"></div><div class="wrap final-cta-inner reveal"><div class="section-number">05 / NEXT</div><h2>Let's build<br><em>something.</em></h2><p>Have a project, partnership, or idea in mind? Tell us where you're going.</p><a href="contact.html" class="btn btn-primary">Start a Conversation <span>↗</span></a></div></section>
+</main>
+<footer><div class="wrap"><div class="footer-main"><div><a href="index.html" class="logo"><img src="assets/logo-mark.png" alt="Northline">Northline</a><p class="footer-tag">Creative / Strategy / Management</p></div><div class="footer-links"><div><span>Explore</span><a href="services.html">Services</a><a href="process.html">Process</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div><span>Connect</span><a href="contact.html">Start a Project</a></div></div></div><div class="footer-bottom"><span>© 2026 Northline. All rights reserved.</span><span>Independent / Built to move forward.</span></div></div></footer>
 <script src="script.js"></script>
 </body>
 </html>

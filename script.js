@@ -1,54 +1,42 @@
-// Header scroll state
 const header = document.getElementById('siteHeader');
-if (header) {
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive:true });
-}
-
-// Mobile nav
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
-if (menuToggle && mobileNav) {
+
+function updateHeader(){
+  if(header) header.classList.toggle('scrolled', window.scrollY > 20);
+}
+updateHeader();
+window.addEventListener('scroll', updateHeader, {passive:true});
+
+if(menuToggle && mobileNav){
+  const closeMenu = () => {
+    menuToggle.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    menuToggle.setAttribute('aria-expanded','false');
+    menuToggle.setAttribute('aria-label','Open menu');
+  };
   menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('open');
-    mobileNav.classList.toggle('open');
+    const open = !mobileNav.classList.contains('open');
+    menuToggle.classList.toggle('open', open);
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
-  mobileNav.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menuToggle.classList.remove('open');
-      mobileNav.classList.remove('open');
-    });
-  });
+  mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', event => { if(event.key === 'Escape') closeMenu(); });
 }
 
-// Scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
-if (revealEls.length) {
-  const io = new IntersectionObserver((entries) => {
+if(revealEls.length && 'IntersectionObserver' in window){
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
+      if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
     });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
-}
+  }, {threshold:0.12});
+  revealEls.forEach(el => observer.observe(el));
+} else { revealEls.forEach(el => el.classList.add('in')); }
 
-// Work filters (only present on the Work page)
-const filterBtns = document.querySelectorAll('.work-filters button');
-const workCards = document.querySelectorAll('.work-grid .work-card');
-if (filterBtns.length) {
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      workCards.forEach(card => {
-        const match = filter === 'all' || card.dataset.cat === filter;
-        card.style.display = match ? '' : 'none';
-      });
-    });
-  });
-}
+const fastEls = document.querySelectorAll('.reveal-fast');
+if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add('in'), 100 + i * 120));
