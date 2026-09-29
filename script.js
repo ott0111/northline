@@ -1,43 +1,4 @@
 
-/* Northline initial loading screen */
-const siteLoader = document.getElementById('siteLoader');
-const siteLoaderBar = document.getElementById('siteLoaderBar');
-const siteLoaderPercent = document.getElementById('siteLoaderPercent');
-if(siteLoader){
-  const loaderSeen = sessionStorage.getItem('northlineLoaderSeen') === '1';
-  if(loaderSeen){
-    siteLoader.remove();
-  }else{
-    document.body.classList.add('loader-active');
-    let progress = 0;
-    const startedAt = performance.now();
-    const updateLoader = value => {
-      progress = Math.min(100, Math.max(progress, value));
-      if(siteLoaderBar) siteLoaderBar.style.width = progress + '%';
-      if(siteLoaderPercent) siteLoaderPercent.textContent = Math.round(progress) + '%';
-    };
-    const timer = setInterval(() => {
-      if(progress < 88) updateLoader(progress + Math.max(1, (88 - progress) * .08));
-    }, 90);
-    const finishLoader = () => {
-      const elapsed = performance.now() - startedAt;
-      const remaining = Math.max(0, 700 - elapsed);
-      setTimeout(() => {
-        clearInterval(timer);
-        updateLoader(100);
-        setTimeout(() => {
-          siteLoader.classList.add('is-hidden');
-          document.body.classList.remove('loader-active');
-          sessionStorage.setItem('northlineLoaderSeen','1');
-          setTimeout(() => siteLoader.remove(), 750);
-        }, 220);
-      }, remaining);
-    };
-    if(document.readyState === 'complete') finishLoader();
-    else window.addEventListener('load', finishLoader, {once:true});
-  }
-}
-
 const header = document.getElementById('siteHeader');
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
