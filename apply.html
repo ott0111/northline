@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Apply to join Northline as represented talent.">
+<title>Apply — Northline</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="siteHeader"><a href="index.html" class="logo"><img src="assets/logo-mark.png" alt="">Northline</a>
+<nav class="primary-nav"><div class="nav-links"><a href="talent.html">Talent</a><a href="services.html">Services</a><a href="work.html">For Brands</a><a href="about.html">About</a></div><a href="apply.html" class="btn btn-primary">Apply <span>↗</span></a></nav>
+<button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></header>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-inner"><div class="mobile-label">Northline / Menu</div><a href="talent.html">Talent</a><a href="services.html">Services</a><a href="work.html">For Brands</a><a href="about.html">About</a><a href="apply.html" class="btn btn-primary mob-cta">Apply <span>↗</span></a></div></div>
+<main>
+<section class="page-hero application-hero"><div class="page-hero-bg"></div><div class="wrap"><div class="eyebrow">Northline <span class="dot">/</span> Talent Application</div><h1>Put your name<br><em>on the line.</em></h1><p class="page-sub">Tell us who you are, what you do, and where you're trying to go. If there's a fit, we'll take the next step with you.</p></div></section>
+<section class="dark-section application-section"><div class="wrap">
+<div class="application-layout">
+<div class="application-aside"><div class="section-number">01 / APPLY</div><h2>Start<br>here.</h2><p>Applications are reviewed by the Northline team. Keep it real, give us the useful details, and link your actual work.</p><div class="application-steps"><div><span>01</span><strong>Apply</strong><small>Send your details</small></div><div><span>02</span><strong>Review</strong><small>We look through your application</small></div><div><span>03</span><strong>Connect</strong><small>If it's a fit, we'll reach out</small></div></div></div>
+<form class="application-form" id="talentApplication">
+<div class="form-section"><div class="form-section-title"><span>01</span><h3>About you</h3></div>
+<div class="form-grid"><label>Full name<input name="name" type="text" placeholder="Your name" required></label><label>Discord username<input name="discord" type="text" placeholder="username" required></label><label>Email<input name="email" type="email" placeholder="you@example.com" required></label><label>Age<input name="age" type="number" min="13" max="99" placeholder="Age" required></label></div></div>
+<div class="form-section"><div class="form-section-title"><span>02</span><h3>Your lane</h3></div>
+<div class="form-grid"><label>What are you applying as?<select name="role" required><option value="">Select one</option><option>Creator</option><option>Competitive Player</option><option>Streamer</option><option>Content Creator</option><option>Coach</option><option>Other</option></select></label><label>Primary platform<input name="platform" type="text" placeholder="YouTube, TikTok, Twitch, X, etc." required></label><label class="full">Social / profile link<input name="profile" type="url" placeholder="https://..." required></label></div></div>
+<div class="form-section"><div class="form-section-title"><span>03</span><h3>Tell us more</h3></div>
+<label>What should we know about you?<textarea name="about" rows="6" placeholder="What you create, compete in, your audience, recent work, goals, etc." required></textarea>
+<label>What are you looking for from Northline?<textarea name="goals" rows="5" placeholder="Representation, partnerships, management, growth, opportunities, etc." required></textarea></div>
+<div class="form-section"><div class="form-section-title"><span>04</span><h3>Submit</h3></div>
+<label class="check-row"><input type="checkbox" required><span>I confirm the information above is accurate and I agree to be contacted about this application.</span></label>
+<button class="btn btn-primary form-submit" type="submit">Submit Application <span>↗</span></button>
+<p class="form-note">After submitting, you'll be given the Northline Discord so you can stay connected while your application is reviewed.</p>
+</div>
+</form>
+</div></div></section>
+<section class="final-cta"><div class="final-cta-bg"></div><div class="wrap final-cta-inner reveal"><div class="section-number">NOT READY?</div><h2>See what<br><em>we offer.</em></h2><p>Representation comes first. Creative and management support is available around it.</p><a href="services.html" class="btn btn-primary">View Services <span>→</span></a></div></section>
+</main>
+<footer><div class="wrap"><div class="footer-main"><div><a href="index.html" class="logo"><img src="assets/logo-mark.png" alt="">Northline</a><p class="footer-tag">Talent / Partnerships / Management</p></div><div class="footer-links"><div><span>Explore</span><a href="talent.html">Talent</a><a href="services.html">Services</a><a href="work.html">For Brands</a><a href="about.html">About</a><a href="apply.html">Apply</a></div><div><span>Start</span><a href="apply.html">Join Northline</a><a href="contact.html?type=brand">Start a Partnership</a></div></div></div><div class="footer-bottom"><span>© 2026 Northline. All rights reserved.</span><span>Independent / Talent first.</span></div></div></footer>
+<script src="script.js"></script>
+<script>
+document.getElementById('talentApplication').addEventListener('submit', function(e) {
+ e.preventDefault();
+ const form=this;
+ const button=form.querySelector('.form-submit');
+ button.disabled=true;
+ button.innerHTML='Application Ready <span>✓</span>';
+ const data=new FormData(form);
+ const payload=Object.fromEntries(data.entries());
+ localStorage.setItem('northlineApplication', JSON.stringify(payload));
+ form.innerHTML='<div class="application-success"><span class="success-mark">✓</span><div class="section-number">APPLICATION READY</div><h3>You’re on<br><em>the line.</em></h3><p>Your application has been captured as a draft on this device. The next integration will securely send it to Northline, generate the Discord invite, and route approved applicants into a private ticket.</p><a class="btn btn-primary" href="talent.html">Back to Talent <span>↗</span></a><p class="form-note">Discord invite + application review automation will be connected in the next integration phase.</p></div>';
+});
+</script>
+</body></html>
