@@ -42,24 +42,6 @@ const fastEls = document.querySelectorAll('.reveal-fast');
 if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add('in'), 100 + i * 120));
 
 
-// Northline roster filters
-const talentFilters = document.querySelectorAll('.talent-filter');
-const talentCards = document.querySelectorAll('#talentGrid .talent-card');
-const talentEmpty = document.getElementById('talentEmpty');
-if(talentFilters.length && talentCards.length){
-  talentFilters.forEach(button => button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-    talentFilters.forEach(b => b.classList.toggle('active', b === button));
-    let visible = 0;
-    talentCards.forEach(card => {
-      const show = filter === 'all' || (card.dataset.category || '').split(' ').includes(filter);
-      card.classList.toggle('is-hidden', !show);
-      if(show) visible++;
-    });
-    if(talentEmpty) talentEmpty.hidden = visible !== 0;
-  }));
-}
-
 // Brand-side talent matching
 const matchCategory = document.getElementById('matchCategory');
 const matchType = document.getElementById('matchType');
