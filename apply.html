@@ -44,7 +44,7 @@ document.getElementById('talentApplication').addEventListener('submit', function
  const data=new FormData(form);
  const payload=Object.fromEntries(data.entries());
  localStorage.setItem('northlineApplication', JSON.stringify(payload));
- form.innerHTML='<div class="application-success"><span class="success-mark">✓</span><div class="section-number">APPLICATION RECEIVED</div><h3>You’re on<br><em>the line.</em></h3><p>Your application has been saved on this device. The next step is connecting your application to Northline’s Discord workflow, where the team can review it and open your private application ticket.</p><a class="btn btn-primary" href="https://discord.gg/" target="_blank" rel="noopener">Join Northline Discord <span>↗</span></a><p class="form-note">Discord automation will be connected in the next integration phase.</p></div>';
+ form.innerHTML='<div class="application-success"><span class="success-mark">✓</span><div class="section-number">APPLICATION READY</div><h3>You’re on<br><em>the line.</em></h3><p>Your application has been captured as a draft on this device. The next integration will securely send it to Northline, generate the Discord invite, and route approved applicants into a private ticket.</p><a class="btn btn-primary" href="talent.html">Back to Talent <span>↗</span></a><p class="form-note">Discord invite + application review automation will be connected in the next integration phase.</p></div>';
 });
 </script>
 </body></html>
