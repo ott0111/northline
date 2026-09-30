@@ -42,3 +42,8 @@
 .match-results a.is-hidden{display:none}
 @media(max-width:600px){.match-results a{grid-template-columns:1fr;gap:.35rem}.match-results a strong{font-size:1.6rem}}
 .talent-card-placeholder{border:1px dashed #303030;background:#0b0b0b;cursor:default}.talent-card-placeholder .talent-photo{background:#101010;min-height:220px;display:block}.talent-card-placeholder h3{color:var(--grey)}
+
+/* Form state polish */
+.form-submit:disabled{opacity:.55;cursor:wait;transform:none!important}
+.form-error{margin-top:1rem;padding:.85rem 1rem;border:1px solid #4a3434;background:#140d0d;color:#d5aaa3;font-size:.76rem;line-height:1.5}
+.application-success[hidden],.form-error[hidden]{display:none}
