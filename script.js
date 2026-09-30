@@ -181,37 +181,68 @@ if (contactForm) {
 }
 
 
-/* Smooth interaction layer */
+/* Northline motion system */
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
-
   document.documentElement.classList.add('motion-ready');
 
-  // Stagger grid/card reveals without touching existing reveal logic.
+  requestAnimationFrame(()=>document.body.classList.add('page-ready'));
+
+  // Stagger visual systems.
   document.querySelectorAll('.talent-grid,.home-talent-grid,.ops-home-grid,.latest-grid,.feature-grid,.approach-grid,.points-grid,.values-grid,.brand-services,.brand-mini-grid,.brand-process,.profile-standard,.price-grid,.discord-steps').forEach(grid=>{
     [...grid.children].forEach((el,i)=>el.style.setProperty('--stagger',Math.min(i,7)*55+'ms'));
   });
 
-  // Lightweight cursor spotlight on interactive cards.
-  const spotlightSelectors='.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div';
-  document.querySelectorAll(spotlightSelectors).forEach(card=>{
-    card.addEventListener('pointermove',e=>{
-      const r=card.getBoundingClientRect();
-      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  // Header state.
+  const header=document.getElementById('siteHeader');
+  const setHeader=()=>header?.classList.toggle('scrolled',window.scrollY>24);
+  setHeader();
+  window.addEventListener('scroll',setHeader,{passive:true});
+
+  if(reduce) return;
+
+  // Internal page transitions.
+  document.querySelectorAll('a[href]').forEach(link=>{
+    const href=link.getAttribute('href')||'';
+    if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank') return;
+    const url=new URL(href,window.location.href);
+    if(url.origin!==window.location.origin) return;
+    link.addEventListener('click',e=>{
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+      if(url.pathname===window.location.pathname&&url.hash) return;
+      e.preventDefault();
+      document.body.classList.add('page-leaving');
+      setTimeout(()=>{window.location.href=url.href},180);
     });
   });
 
-  // Magnetic CTA/link movement, deliberately capped for a restrained feel.
+  // Cursor spotlight + restrained card tilt.
+  document.querySelectorAll('.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div').forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      if(matchMedia('(hover:none)').matches) return;
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.setProperty('--mx',((x+.5)*100)+'%');
+      card.style.setProperty('--my',((y+.5)*100)+'%');
+      if(card.matches('.talent-card,.home-talent-card,.ops-home-card')){
+        card.style.setProperty('--rx',(y*-1.4).toFixed(2)+'deg');
+        card.style.setProperty('--ry',(x*1.4).toFixed(2)+'deg');
+      }
+    });
+    card.addEventListener('pointerleave',()=>{
+      card.style.setProperty('--rx','0deg');
+      card.style.setProperty('--ry','0deg');
+    });
+  });
+
+  // Magnetic links.
   document.querySelectorAll('.btn,.text-link').forEach(el=>{
     if(el.closest('.mobile-nav')) return;
     el.addEventListener('pointermove',e=>{
       const r=el.getBoundingClientRect();
-      const x=(e.clientX-(r.left+r.width/2))/r.width;
-      const y=(e.clientY-(r.top+r.height/2))/r.height;
-      el.style.setProperty('--tx',(x*5).toFixed(2)+'px');
-      el.style.setProperty('--ty',(y*4).toFixed(2)+'px');
+      el.style.setProperty('--tx',(((e.clientX-(r.left+r.width/2))/r.width)*4).toFixed(2)+'px');
+      el.style.setProperty('--ty',(((e.clientY-(r.top+r.height/2))/r.height)*3).toFixed(2)+'px');
     });
     el.addEventListener('pointerleave',()=>{
       el.style.setProperty('--tx','0px');
@@ -219,45 +250,7 @@ if (contactForm) {
     });
   });
 
-  // Subtle hero/profile parallax.
-  const parallax=document.querySelectorAll('.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid');
-  let ticking=false;
-  window.addEventListener('scroll',()=>{
-    if(ticking) return;
-    ticking=true;
-    requestAnimationFrame(()=>{
-      const y=Math.min(window.scrollY,900);
-      parallax.forEach((el,i)=>el.style.transform='translate3d(0,'+(y*(i===3?.018:.028))+'px,0)');
-      ticking=false;
-    });
-  },{passive:true});
-})();
-
-
-/* Cinematic navigation + hero interactions */
-(function(){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
-
-  // Page entrance.
-  requestAnimationFrame(()=>document.body.classList.add('page-ready'));
-
-  // Smooth internal navigation overlay.
-  document.querySelectorAll('a[href]').forEach(link=>{
-    const href=link.getAttribute('href')||'';
-    if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target==='_blank') return;
-    const url=new URL(href,window.location.href);
-    if(url.origin!==window.location.origin) return;
-    link.addEventListener('click',e=>{
-      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
-      if(url.pathname===window.location.pathname && url.hash) return;
-      e.preventDefault();
-      document.body.classList.add('page-leaving');
-      setTimeout(()=>{window.location.href=url.href},180);
-    });
-  });
-
-  // Hero pointer depth. Very small movement keeps it premium.
+  // One transform system for hero depth.
   document.querySelectorAll('.hero,.page-hero,.profile-hero').forEach(hero=>{
     const layers=hero.querySelectorAll('.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image');
     hero.addEventListener('pointermove',e=>{
@@ -275,19 +268,8 @@ if (contactForm) {
     });
   });
 
-  // Talent cards get a restrained 3D response.
-  document.querySelectorAll('.home-talent-card,.ops-home-card,.talent-card').forEach(card=>{
-    card.addEventListener('pointermove',e=>{
-      if(window.matchMedia('(hover:none)').matches) return;
-      const r=card.getBoundingClientRect();
-      const x=(e.clientX-r.left)/r.width-.5;
-      const y=(e.clientY-r.top)/r.height-.5;
-      card.style.setProperty('--rx',(y*-1.8).toFixed(2)+'deg');
-      card.style.setProperty('--ry',(x*1.8).toFixed(2)+'deg');
-    });
-    card.addEventListener('pointerleave',()=>{
-      card.style.setProperty('--rx','0deg');
-      card.style.setProperty('--ry','0deg');
-    });
-  });
+  // Marquee subtly accelerates on hover.
+  const marquee=document.querySelector('.marquee');
+  marquee?.addEventListener('mouseenter',()=>marquee.classList.add('marquee-fast'));
+  marquee?.addEventListener('mouseleave',()=>marquee.classList.remove('marquee-fast'));
 })();
