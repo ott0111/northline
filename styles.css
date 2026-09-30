@@ -27,3 +27,17 @@
 .profile-actions .btn:first-child{order:-1}
 @media(max-width:900px){.latest-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.latest-section{padding:5rem 0}.latest-grid{grid-template-columns:1fr}.latest-grid a{min-height:190px}}
+
+/* Talent matching application layout */
+.talent-matching-section{background:var(--charcoal)}
+.match-form{height:100%}
+.match-controls{gap:1.2rem}
+.match-roster-section{padding-bottom:1.5rem}
+.match-results{border-top:1px solid var(--line);margin-top:.5rem}
+.match-results a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:1.5rem;padding:1.25rem 0;border-bottom:1px solid var(--line);transition:.25s}
+.match-results a:hover{padding-left:.5rem}
+.match-results a strong{font-family:var(--display);font-size:1.9rem;text-transform:uppercase}
+.match-results a span{font-size:.72rem;color:var(--grey)}
+.match-results a b{font-weight:400;color:var(--accent);margin-left:.5rem}
+.match-results a.is-hidden{display:none}
+@media(max-width:600px){.match-results a{grid-template-columns:1fr;gap:.35rem}.match-results a strong{font-size:1.6rem}}
