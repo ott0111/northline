@@ -1,5 +1,14 @@
 
 const header = document.getElementById('siteHeader');
+
+// Keep navigation state consistent across every page, including mobile navigation.
+const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
+  const href = link.getAttribute('href') || '';
+  if (!href || href.startsWith('http')) return;
+  const page = href.split('#')[0].split('?')[0].toLowerCase();
+  if (page === currentPage && page !== 'index.html') link.classList.add('active');
+});
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
 
@@ -63,7 +72,7 @@ if(brandBrief){
       if (!result.ok) throw new Error(result.error || 'Submission failed');
     } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
-      alert(error.message === 'Please complete all required fields.' || error.message === 'Please provide a valid email.' ? error.message : 'We could not send the brief right now. Please try again.');
+      if (briefError) { briefError.textContent = error.message === 'Please complete all required fields.' || error.message === 'Please provide a valid email.' ? error.message : 'We could not send the brief right now. Please try again.'; briefError.hidden = false; }
       return;
     }
     const brief = [
@@ -81,6 +90,7 @@ if(brandBrief){
     document.getElementById('briefOutput').hidden = false;
     brandBrief.hidden = true;
   });
+  const briefError = document.getElementById('briefError');
   document.getElementById('copyBrief')?.addEventListener('click', async () => {
     const textValue = document.getElementById('briefText')?.textContent || '';
     try{await navigator.clipboard.writeText(textValue)}catch{}
@@ -106,7 +116,8 @@ if(talentApplication){
       if (!result.ok) throw new Error(result.error || 'Submission failed');
     } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
-      alert(error.message === 'Please complete all required fields.' ? error.message : 'We could not send the application right now. Please try again.');
+      const applicationError = document.getElementById('applicationError');
+      if (applicationError) { applicationError.textContent = error.message === 'Please complete all required fields.' ? error.message : 'We could not send the application right now. Please try again.'; applicationError.hidden = false; }
       return;
     }
     const brief = [
@@ -149,7 +160,22 @@ if(contactForm){
       document.getElementById('contactSuccess').hidden=false;
     }catch(error){
       if(button){button.disabled=false;button.innerHTML=original}
-      alert(error.message==='Please complete all required fields.'||error.message==='Please provide a valid email.'?error.message:'We could not send your message right now. Please try again.');
+      const contactError=document.getElementById('contactError');
+      if(contactError){contactError.textContent=error.message==='Please complete all required fields.'||error.message==='Please provide a valid email.'?error.message:'We could not send your message right now. Please try again.';contactError.hidden=false;}
     }
   });
+}
+
+// Preselect contact intent from ?type=brand or ?type=talent links.
+if (contactForm) {
+  const requestedType = new URLSearchParams(window.location.search).get('type');
+  const select = contactForm.querySelector('[name="type"]');
+  if (select && requestedType) {
+    const normalized = requestedType.toLowerCase();
+    const match = Array.from(select.options).find(option => {
+      const value = option.value.toLowerCase();
+      return normalized === 'brand' ? value.includes('brand') : normalized === 'talent' ? value === 'talent' : value === normalized;
+    });
+    if (match) select.value = match.value;
+  }
 }
