@@ -43,26 +43,6 @@ const fastEls = document.querySelectorAll('.reveal-fast');
 if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add('in'), 100 + i * 120));
 
 
-// Brand-side talent matching
-const matchCategory = document.getElementById('matchCategory');
-const matchType = document.getElementById('matchType');
-const matchGoal = document.getElementById('matchGoal');
-const matchResults = document.querySelectorAll('#matchResults a');
-function updateMatches(){
-  if(!matchResults.length) return;
-  const category = matchCategory?.value || 'all';
-  const type = matchType?.value || 'all';
-  const goal = (matchGoal?.value || '').toLowerCase();
-  matchResults.forEach(item => {
-    const haystack = (item.dataset.match || '') + ' ' + item.textContent.toLowerCase();
-    const categoryOk = category === 'all' || haystack.includes(category);
-    const typeOk = type === 'all' || haystack.includes(type);
-    const goalOk = !goal || goal.split(/\s+/).filter(Boolean).some(word => haystack.includes(word));
-    item.classList.toggle('is-hidden', !(categoryOk && typeOk && goalOk));
-  });
-}
-[matchCategory,matchType,matchGoal].forEach(el => el?.addEventListener('input', updateMatches));
-[matchCategory,matchType,matchGoal].forEach(el => el?.addEventListener('change', updateMatches));
 
 // Copy-ready brand brief
 const brandBrief = document.getElementById('brandBrief');
