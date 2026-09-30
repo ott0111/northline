@@ -47,9 +47,25 @@ if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add(
 // Copy-ready brand brief
 const brandBrief = document.getElementById('brandBrief');
 if(brandBrief){
-  brandBrief.addEventListener('submit', e => {
+  brandBrief.addEventListener('submit', async e => {
     e.preventDefault();
+    const submitButton = brandBrief.querySelector('button[type="submit"]');
+    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span>→</span>'; }
     const data = Object.fromEntries(new FormData(brandBrief).entries());
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {'content-type':'application/json'},
+        body: JSON.stringify({type:'brand-brief', data})
+      });
+      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json();
+      if (!result.ok) throw new Error(result.error || 'Submission failed');
+    } catch {
+      if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
+      alert('We could not send the brief right now. Please try again.');
+      return;
+    }
     const brief = [
       'NORTHLINE BRAND BRIEF','',
       'Company: ' + data.company,
@@ -74,9 +90,25 @@ if(brandBrief){
 // Copy-ready talent application
 const talentApplication = document.getElementById('talentApplication');
 if(talentApplication){
-  talentApplication.addEventListener('submit', e => {
+  talentApplication.addEventListener('submit', async e => {
     e.preventDefault();
+    const submitButton = talentApplication.querySelector('button[type="submit"]');
+    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span>→</span>'; }
     const data = Object.fromEntries(new FormData(talentApplication).entries());
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {'content-type':'application/json'},
+        body: JSON.stringify({type:'talent-application', data})
+      });
+      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json();
+      if (!result.ok) throw new Error(result.error || 'Submission failed');
+    } catch {
+      if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
+      alert('We could not send the application right now. Please try again.');
+      return;
+    }
     const brief = [
       'NORTHLINE TALENT APPLICATION','',
       'Type: ' + data.type,
