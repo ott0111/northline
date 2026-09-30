@@ -132,3 +132,24 @@ if(talentApplication){
     try{await navigator.clipboard.writeText(textValue)}catch{}
   });
 }
+
+const contactForm = document.getElementById('contactForm');
+if(contactForm){
+  contactForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const button=contactForm.querySelector('button[type="submit"]');
+    const original=button?.innerHTML;
+    if(button){button.disabled=true;button.innerHTML='Sending <span>→</span>'}
+    const data=Object.fromEntries(new FormData(contactForm).entries());
+    try{
+      const response=await fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok||!result.ok) throw new Error(result.error||'Submission failed');
+      contactForm.hidden=true;
+      document.getElementById('contactSuccess').hidden=false;
+    }catch(error){
+      if(button){button.disabled=false;button.innerHTML=original}
+      alert(error.message==='Please complete all required fields.'||error.message==='Please provide a valid email.'?error.message:'We could not send your message right now. Please try again.');
+    }
+  });
+}
