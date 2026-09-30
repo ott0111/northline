@@ -55,6 +55,7 @@ if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add(
 
 // Copy-ready brand brief
 const brandBrief = document.getElementById('brandBrief');
+const briefError = document.getElementById('briefError');
 if(brandBrief){
   brandBrief.addEventListener('submit', async e => {
     e.preventDefault();
@@ -80,7 +81,7 @@ if(brandBrief){
       'Company: ' + data.company,
       'Contact: ' + data.name,
       'Email: ' + data.email,
-      'Campaign: ' + data.type,
+      'Partnership: ' + data.type,
       'Goal: ' + data.goal,
       'Budget: ' + (data.budget || 'Not provided'),
       'Timeline: ' + (data.timeline || 'Not provided'),
@@ -90,7 +91,6 @@ if(brandBrief){
     document.getElementById('briefOutput').hidden = false;
     brandBrief.hidden = true;
   });
-  const briefError = document.getElementById('briefError');
   document.getElementById('copyBrief')?.addEventListener('click', async () => {
     const textValue = document.getElementById('briefText')?.textContent || '';
     try{await navigator.clipboard.writeText(textValue)}catch{}
