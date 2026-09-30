@@ -60,7 +60,7 @@ if(brandBrief){
   brandBrief.addEventListener('submit', async e => {
     e.preventDefault();
     const submitButton = brandBrief.querySelector('button[type="submit"]');
-    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span>→</span>'; }
+    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(brandBrief).entries());
     try {
       const response = await fetch('/api/submissions', {
@@ -103,7 +103,7 @@ if(talentApplication){
   talentApplication.addEventListener('submit', async e => {
     e.preventDefault();
     const submitButton = talentApplication.querySelector('button[type="submit"]');
-    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span>→</span>'; }
+    if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(talentApplication).entries());
     try {
       const response = await fetch('/api/submissions', {
@@ -150,7 +150,7 @@ if(contactForm){
     e.preventDefault();
     const button=contactForm.querySelector('button[type="submit"]');
     const original=button?.innerHTML;
-    if(button){button.disabled=true;button.innerHTML='Sending <span>→</span>'}
+    if(button){button.disabled=true;button.innerHTML='Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'}
     const data=Object.fromEntries(new FormData(contactForm).entries());
     try{
       const response=await fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
