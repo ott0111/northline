@@ -168,3 +168,19 @@ footer .logo{width:max-content}
 .motion-ready .talent-photo img,.motion-ready .home-talent-card img,.motion-ready .ops-home-card img,.motion-ready .profile-image img{will-change:transform}
 @media(max-width:600px),(hover:none){.motion-ready .btn,.motion-ready .text-link{transform:none!important}.motion-ready .talent-card:before,.motion-ready .home-talent-card:before,.motion-ready .ops-home-card:before,.motion-ready .feature-card:before,.motion-ready .latest-grid>a:before,.motion-ready .brand-services>div:before,.motion-ready .brand-mini-grid>div:before,.motion-ready .brand-process>div:before,.motion-ready .profile-standard>div:before,.motion-ready .price-grid>div:before,.motion-ready .approach-grid>div:before,.motion-ready .points-grid>div:before,.motion-ready .values-grid>div:before{display:none}}
 @media(prefers-reduced-motion:reduce){.motion-ready .talent-card,.motion-ready .home-talent-card,.motion-ready .ops-home-card,.motion-ready .feature-card,.motion-ready .latest-grid>a,.motion-ready .brand-services>div,.motion-ready .brand-mini-grid>div,.motion-ready .brand-process>div,.motion-ready .profile-standard>div,.motion-ready .price-grid>div,.motion-ready .approach-grid>div,.motion-ready .points-grid>div,.motion-ready .values-grid>div,.motion-ready .discord-steps>div{animation:none!important}}
+
+
+/* Cinematic polish */
+html{background:var(--black)}
+body{opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+body.page-ready{opacity:1;transform:none}
+body.page-leaving{opacity:0;transform:translateY(-6px)}
+.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image{transform:translate3d(var(--px,0),var(--py,0),0);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.home-talent-card,.ops-home-card,.talent-card{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(0);transition:transform .45s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s}
+.home-talent-card:hover,.ops-home-card:hover,.talent-card:hover{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-3px)}
+.home-talent-card img,.ops-home-card img{transition:transform .7s cubic-bezier(.22,1,.36,1),filter .4s,opacity .4s}
+.home-talent-card:hover img,.ops-home-card:hover img{transform:scale(1.055)}
+.profile-image img{transition:transform .7s cubic-bezier(.22,1,.36,1),filter .4s}
+.profile-image:hover img{transform:scale(1.035)}
+@media(max-width:600px),(hover:none){body{opacity:1;transform:none;transition:none}.home-talent-card,.ops-home-card,.talent-card{transform:none!important}.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image{transform:none!important}}
+@media(prefers-reduced-motion:reduce){body{opacity:1;transform:none}.home-talent-card,.ops-home-card,.talent-card,.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image{transform:none!important}}
