@@ -232,3 +232,62 @@ if (contactForm) {
     });
   },{passive:true});
 })();
+
+
+/* Cinematic navigation + hero interactions */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+
+  // Page entrance.
+  requestAnimationFrame(()=>document.body.classList.add('page-ready'));
+
+  // Smooth internal navigation overlay.
+  document.querySelectorAll('a[href]').forEach(link=>{
+    const href=link.getAttribute('href')||'';
+    if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target==='_blank') return;
+    const url=new URL(href,window.location.href);
+    if(url.origin!==window.location.origin) return;
+    link.addEventListener('click',e=>{
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+      if(url.pathname===window.location.pathname && url.hash) return;
+      e.preventDefault();
+      document.body.classList.add('page-leaving');
+      setTimeout(()=>{window.location.href=url.href},180);
+    });
+  });
+
+  // Hero pointer depth. Very small movement keeps it premium.
+  document.querySelectorAll('.hero,.page-hero,.profile-hero').forEach(hero=>{
+    const layers=hero.querySelectorAll('.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image');
+    hero.addEventListener('pointermove',e=>{
+      const r=hero.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      layers.forEach((layer,i)=>{
+        const amount=(i+1)*2;
+        layer.style.setProperty('--px',(x*amount).toFixed(2)+'px');
+        layer.style.setProperty('--py',(y*amount).toFixed(2)+'px');
+      });
+    });
+    hero.addEventListener('pointerleave',()=>{
+      layers.forEach(layer=>{layer.style.setProperty('--px','0px');layer.style.setProperty('--py','0px')});
+    });
+  });
+
+  // Talent cards get a restrained 3D response.
+  document.querySelectorAll('.home-talent-card,.ops-home-card,.talent-card').forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      if(window.matchMedia('(hover:none)').matches) return;
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.setProperty('--rx',(y*-1.8).toFixed(2)+'deg');
+      card.style.setProperty('--ry',(x*1.8).toFixed(2)+'deg');
+    });
+    card.addEventListener('pointerleave',()=>{
+      card.style.setProperty('--rx','0deg');
+      card.style.setProperty('--ry','0deg');
+    });
+  });
+})();
