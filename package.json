@@ -1,0 +1,9 @@
+{
+  "name": "northline-web",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Northline talent agency website",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2"
+  }
+}
