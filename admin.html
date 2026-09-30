@@ -26,10 +26,17 @@ main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);f
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function showDetail(x){
  const d=document.querySelector('#detail'); d.style.display='block';
- d.innerHTML='<div class="detail-card"><div class="eyebrow">SUBMISSION #'+esc(x.id)+'</div><h2>'+esc(x.type.replace('-',' '))+'</h2>'+Object.entries(x.data||{}).map(([k,v])=>'<div class="detail-row"><div class="detail-key">'+esc(k)+'</div><div>'+esc(v)+'</div></div>').join('')+'<div class="actions"><button class="action" onclick="copySubmission()">Copy JSON</button><button class="action" onclick="document.querySelector('#detail').style.display='none'">Close</button></div></div>';
+ d.innerHTML='<div class="detail-card"><div class="eyebrow">SUBMISSION #'+esc(x.id)+'</div><h2>'+esc(x.type.replace('-',' '))+'</h2>'+Object.entries(x.data||{}).map(([k,v])=>'<div class="detail-row"><div class="detail-key">'+esc(k)+'</div><div>'+esc(v)+'</div></div>').join('')+'<div class="actions"><button class="action" onclick="copySubmission()">Copy JSON</button><button class="action danger" onclick="deleteSubmission()">Delete</button><button class="action" onclick="document.querySelector('#detail').style.display='none'">Close</button></div></div>';
  window.currentSubmission=x;
 }
 function copySubmission(){navigator.clipboard?.writeText(JSON.stringify(window.currentSubmission,null,2))}
+async function deleteSubmission(){
+ const x=window.currentSubmission;if(!x)return;
+ if(!confirm('Delete submission #'+x.id+'?'))return;
+ const r=await fetch('/api/submissions?id='+encodeURIComponent(x.id),{method:'DELETE'});
+ if(!r.ok){alert('Could not delete this submission.');return}
+ document.querySelector('#detail').style.display='none';load();
+}
 async function load(){
  const r=await fetch('/api/submissions');
  if(r.status===401){document.querySelector('#login').style.display='block';document.querySelector('#dashboard').style.display='none';return}
