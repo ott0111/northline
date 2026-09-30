@@ -334,3 +334,19 @@ header{will-change:background,border-color}
   html{scroll-behavior:auto}
   .motion-ready .talent-card,.motion-ready .home-talent-card,.motion-ready .ops-home-card,.motion-ready .reveal,.motion-ready .reveal-fast{animation:none!important;transition:none!important}
 }
+
+
+/* Final editorial details */
+body:before{content:'';position:fixed;left:0;top:0;width:var(--scroll-progress,0%);height:2px;background:var(--white);z-index:1001;pointer-events:none;transform-origin:left}
+.talent-card,.home-talent-card,.ops-home-card{isolation:isolate}
+.talent-card:after,.home-talent-card:after,.ops-home-card:after{content:'VIEW PROFILE';position:absolute;right:1rem;top:1rem;padding:.42rem .55rem;border:1px solid rgba(245,244,239,.18);background:rgba(7,7,7,.6);backdrop-filter:blur(8px);font-size:.55rem;letter-spacing:.12em;color:var(--white);opacity:0;transform:translateY(-5px);transition:.3s;z-index:5}
+.talent-card:hover:after,.home-talent-card:hover:after,.ops-home-card:hover:after{opacity:1;transform:none}
+.profile-copy{position:relative}
+.profile-copy:before{content:'REPRESENTATION / NORTHLINE';position:absolute;right:0;top:-2rem;color:var(--dim);font-size:.55rem;letter-spacing:.14em}
+.profile-label{letter-spacing:.12em}
+.talent-card-top span:last-child,.ops-home-card .talent-card-top span:last-child{letter-spacing:.08em}
+.application-form input,.application-form textarea,.application-form select{transition:border-color .25s,background .25s,box-shadow .25s}
+.application-form input:focus,.application-form textarea:focus,.application-form select:focus{border-color:var(--white);background:var(--charcoal-2);box-shadow:0 0 0 1px var(--line)}
+.text-link:hover{padding-right:.25rem}
+.footer-links a{transition:color .2s,transform .2s}
+.footer-links a:hover{transform:translateX(3px)}
