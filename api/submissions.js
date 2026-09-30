@@ -9,14 +9,15 @@ function authed(request){
   const a=Buffer.from(value),b=Buffer.from(token());
   return a.length===b.length&&timingSafeEqual(a,b);
 }
-async function ensure(sql){await sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`}
+async function ensure(sql){await sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`}
 
 export async function GET(request){
   if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
   const sql=neon(process.env.DATABASE_URL); await ensure(sql);
   const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
-  const recent=await sql`SELECT id,type,data,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
+  await sql`ALTER TABLE northline_submissions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new'`;
+  const recent=await sql`SELECT id,type,data,status,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
   const map=Object.fromEntries(counts.map(x=>[x.type==='brand-brief'?'brand':x.type==='talent-application'?'talent':x.type,x.count]));
   return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,total:(map.brand||0)+(map.talent||0)},recent});
 }
@@ -30,6 +31,17 @@ export async function DELETE(request){
   const rows=await sql`DELETE FROM northline_submissions WHERE id=${id} RETURNING id`;
   if(!rows.length)return json({ok:false,error:'Submission not found.'},404);
   return json({ok:true});
+}
+
+export async function PATCH(request){
+  if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
+  if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
+  const body=await request.json().catch(()=>null); const id=Number(body?.id); const status=String(body?.status||'');
+  if(!Number.isInteger(id)||id<1||!['new','reviewing','contacted','closed'].includes(status))return json({ok:false,error:'Invalid submission update.'},400);
+  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
+  const rows=await sql`UPDATE northline_submissions SET status=${status} WHERE id=${id} RETURNING id,status`;
+  if(!rows.length)return json({ok:false,error:'Submission not found.'},404);
+  return json({ok:true,...rows[0]});
 }
 
 export async function POST(request){
