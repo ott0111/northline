@@ -195,3 +195,42 @@ a:hover>.ui-icon-arrow{transform:translateX(2px)}
 .back-link>.ui-icon{width:11px;height:11px;margin-right:.2rem;vertical-align:-1px}
 .ui-icon-arrow{width:10px;height:10px}
 .ui-icon-down{width:10px;height:10px}
+
+
+/* Desktop / web layout */
+@media(min-width:901px){
+  :root{--edge:4vw;--max:1320px}
+  .wrap{max-width:var(--max)}
+  header{padding:1rem var(--edge)}
+  .primary-nav{gap:2.8rem}
+  .nav-links{gap:.2rem;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);padding:.28rem;border-radius:999px}
+  .nav-links a{padding:.55rem .85rem;border-radius:999px}
+  .nav-links a:after{display:none}
+  .nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,.07)}
+  .primary-nav>.btn{border-radius:999px}
+  section{padding:10rem 0}
+  .hero{min-height:92svh;padding:10rem 0 6rem}
+  .hero-content{max-width:1320px}
+  .hero-title{font-size:clamp(6rem,9vw,10rem);max-width:10ch}
+  .hero-bottom{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:5rem}
+  .hero-actions{margin-top:0;justify-content:flex-end}
+  .hero-meta{right:var(--edge);bottom:2.5rem}
+  .marquee-window{width:min(44vw,680px);margin-left:var(--edge)}
+  .marquee{font-size:1.7rem;gap:2.4rem}
+  .section-heading{margin-bottom:4.5rem}
+  .section-heading h2{font-size:clamp(4rem,5vw,5.8rem)}
+  .intro-grid{grid-template-columns:.42fr 1.05fr 1fr;gap:5rem}
+  .statement-grid{gap:5rem}
+  .latest-grid a{min-height:250px;padding:2rem}
+  .brand-mini-grid>div,.brand-services>div,.brand-process>div,.profile-standard>div,.standard-grid>div{min-height:280px;padding:2.25rem}
+  .talent-card{min-height:430px}
+  .home-talent-card,.ops-home-card{min-height:440px}
+  .service-detail{padding:6rem 0;grid-template-columns:7% 29% 1fr;gap:3rem}
+  .process-row{padding:6rem 0;grid-template-columns:7% 1fr 25%;gap:3rem}
+  .contact-grid{gap:8rem}
+  .application-layout{gap:8rem}
+  .profile-layout{gap:clamp(4rem,8vw,9rem)}
+  .profile-image{max-width:560px}
+  .profile-copy h1{font-size:clamp(6rem,9vw,10rem)}
+  .footer-main{padding-bottom:5rem}
+}
