@@ -18,9 +18,9 @@ main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);f
 <div id="login" style="max-width:420px;margin-bottom:34px"><form id="loginForm"><input id="password" type="password" placeholder="Admin password" required style="width:100%;padding:14px;background:#0d0d0d;border:1px solid #242424;color:#f5f4ef"><button style="margin-top:10px;padding:14px 18px;background:#f5f4ef;border:0;color:#070707;font-weight:700">Enter Admin</button></form></div><div class="grid" id="dashboard" style="display:none">
 <div class="card"><div class="num">01 / BRAND BRIEFS</div><div class="value" id="brands">—</div></div>
 <div class="card"><div class="num">02 / TALENT APPLICATIONS</div><div class="value" id="talent">—</div></div>
-<div class="card"><div class="num">03 / TOTAL SUBMISSIONS</div><div class="value" id="total">—</div></div>
+<div class="card"><div class="num">03 / CONTACTS</div><div class="value" id="contacts">—</div></div><div class="card"><div class="num">04 / TOTAL SUBMISSIONS</div><div class="value" id="total">—</div></div>
 </div>
-<section class="section" id="recentSection" style="display:none"><h2>Submissions</h2><div class="toolbar"><input id="search" class="control" placeholder="Search submissions..."><select id="typeFilter" class="control"><option value="all">All types</option><option value="brand-brief">Brand briefs</option><option value="talent-application">Talent applications</option></select><select id="statusFilter" class="control"><option value="all">All statuses</option><option value="new">New</option><option value="reviewing">Reviewing</option><option value="contacted">Contacted</option><option value="closed">Closed</option></select></div><div id="recent" class="empty">Loading...</div><div id="detail" style="display:none;margin-top:18px"></div></section>
+<section class="section" id="recentSection" style="display:none"><h2>Submissions</h2><div class="toolbar"><input id="search" class="control" placeholder="Search submissions..."><select id="typeFilter" class="control"><option value="all">All types</option><option value="brand-brief">Brand briefs</option><option value="talent-application">Talent applications</option><option value="contact">Contacts</option></select><select id="statusFilter" class="control"><option value="all">All statuses</option><option value="new">New</option><option value="reviewing">Reviewing</option><option value="contacted">Contacted</option><option value="closed">Closed</option></select></div><div id="recent" class="empty">Loading...</div><div id="detail" style="display:none;margin-top:18px"></div></section>
 </main>
 <script>
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -58,6 +58,7 @@ async function load(){
  document.querySelector('#login').style.display='none';document.querySelector('#dashboard').style.display='grid';document.querySelector('#recentSection').style.display='block';document.querySelector('#logout').hidden=false;document.querySelector('#status').textContent='Authenticated';
  document.querySelector('#brands').textContent=d.counts?.brand||0;
 document.querySelector('#talent').textContent=d.counts?.talent||0;
+document.querySelector('#contacts').textContent=d.counts?.contact||0;
 document.querySelector('#total').textContent=d.counts?.total||0;
 allSubmissions=d.recent||[]; renderList();
 }).catch(()=>document.querySelector('#recent').textContent='Admin API is not configured yet.');
