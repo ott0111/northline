@@ -196,8 +196,10 @@ if (contactForm) {
   // Header state.
   const header=document.getElementById('siteHeader');
   const setHeader=()=>header?.classList.toggle('scrolled',window.scrollY>24);
+  const updateProgress=()=>document.documentElement.style.setProperty('--scroll-progress',((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100).toFixed(2)+'%');
   setHeader();
-  window.addEventListener('scroll',setHeader,{passive:true});
+  updateProgress();
+  window.addEventListener('scroll',()=>{setHeader();updateProgress()},{passive:true});
 
   if(reduce) return;
 
