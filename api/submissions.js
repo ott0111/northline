@@ -15,8 +15,8 @@ export async function GET(request){
   if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
   const sql=neon(process.env.DATABASE_URL); await ensure(sql);
-  const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
   await sql`ALTER TABLE northline_submissions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new'`;
+  const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
   const recent=await sql`SELECT id,type,data,status,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
   const map=Object.fromEntries(counts.map(x=>[x.type==='brand-brief'?'brand':x.type==='talent-application'?'talent':x.type,x.count]));
   return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,total:(map.brand||0)+(map.talent||0)},recent});
