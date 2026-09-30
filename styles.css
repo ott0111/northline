@@ -41,3 +41,4 @@
 .match-results a b{font-weight:400;color:var(--accent);margin-left:.5rem}
 .match-results a.is-hidden{display:none}
 @media(max-width:600px){.match-results a{grid-template-columns:1fr;gap:.35rem}.match-results a strong{font-size:1.6rem}}
+.talent-card-placeholder{border:1px dashed #303030;background:#0b0b0b;cursor:default}.talent-card-placeholder .talent-photo{background:#101010;min-height:220px;display:block}.talent-card-placeholder h3{color:var(--grey)}
