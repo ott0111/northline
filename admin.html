@@ -26,10 +26,11 @@ main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);f
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function showDetail(x){
  const d=document.querySelector('#detail'); d.style.display='block';
- d.innerHTML='<div class="detail-card"><div class="eyebrow">SUBMISSION #'+esc(x.id)+'</div><h2>'+esc(x.type.replace('-',' '))+'</h2>'+Object.entries(x.data||{}).map(([k,v])=>'<div class="detail-row"><div class="detail-key">'+esc(k)+'</div><div>'+esc(v)+'</div></div>').join('')+'<div class="actions"><button class="action" onclick="copySubmission()">Copy JSON</button><button class="action danger" onclick="deleteSubmission()">Delete</button><button class="action" onclick="document.querySelector('#detail').style.display='none'">Close</button></div></div>';
- window.currentSubmission=x;
+ d.innerHTML='<div class="detail-card"><div class="eyebrow">SUBMISSION #'+esc(x.id)+'</div><h2>'+esc(x.type.replace('-',' '))+'</h2>'+Object.entries(x.data||{}).map(([k,v])=>'<div class="detail-row"><div class="detail-key">'+esc(k)+'</div><div>'+esc(v)+'</div></div>').join('')+'<div class="actions"><label class="detail-key" for="statusSelect">Status</label><select id="statusSelect" class="action"><option value="new">New</option><option value="reviewing">Reviewing</option><option value="contacted">Contacted</option><option value="closed">Closed</option></select><button class="action" onclick="saveStatus()">Save Status</button><button class="action" onclick="copySubmission()">Copy JSON</button><button class="action danger" onclick="deleteSubmission()">Delete</button><button class="action" onclick="document.querySelector('#detail').style.display='none'">Close</button></div></div>';
+ window.currentSubmission=x; document.querySelector('#statusSelect').value=x.status||'new';
 }
 function copySubmission(){navigator.clipboard?.writeText(JSON.stringify(window.currentSubmission,null,2))}
+async async function saveStatus(){const x=window.currentSubmission;if(!x)return;const status=document.querySelector('#statusSelect').value;const r=await fetch('/api/submissions',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({id:x.id,status})});if(!r.ok){alert('Could not update status.');return}x.status=status;load();showDetail(x)}
 async function deleteSubmission(){
  const x=window.currentSubmission;if(!x)return;
  if(!confirm('Delete submission #'+x.id+'?'))return;
