@@ -234,3 +234,18 @@ a:hover>.ui-icon-arrow{transform:translateX(2px)}
   .profile-copy h1{font-size:clamp(6rem,9vw,10rem)}
   .footer-main{padding-bottom:5rem}
 }
+
+
+/* Final desktop correction: full-width continuous marquee + monochrome UI */
+.marquee-section{width:100%;padding:1.2rem 0;background:var(--charcoal);color:var(--white);overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.marquee-window{width:100%;margin:0;overflow:hidden;position:relative}
+.marquee-window:before,.marquee-window:after{display:none}
+.marquee{display:flex;align-items:center;gap:2.4rem;white-space:nowrap;width:max-content;font-family:var(--display);font-size:1.5rem;font-weight:800;animation:marquee 28s linear infinite;will-change:transform}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(min-width:901px){
+  .nav-links{border:1px solid var(--line);background:var(--charcoal);padding:.2rem}
+  .nav-links a:hover,.nav-links a.active{background:var(--charcoal-2)}
+  .marquee-window{width:100%;margin:0}
+  .marquee{font-size:1.65rem;gap:2.8rem}
+}
+@media(max-width:600px){.marquee{font-size:1.5rem;gap:2rem}}
