@@ -48,10 +48,10 @@ export async function POST(request){
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
   let body;try{body=await request.json()}catch{return json({ok:false,error:'Invalid request.'},400)}
   const type=String(body.type||'').trim();
-  if(!['brand-brief','talent-application'].includes(type))return json({ok:false,error:'Invalid submission type.'},400);
+  if(!['brand-brief','talent-application','contact'].includes(type))return json({ok:false,error:'Invalid submission type.'},400);
   const payload=body.data&&typeof body.data==='object'?body.data:{};
   const data=Object.fromEntries(Object.entries(payload).map(([k,v])=>[String(k).slice(0,80),String(v??'').trim().slice(0,5000)]));
-  const required=type==='brand-brief'?['company','name','email','type','goal']:['type','name','social','category','about','why'];
+  const required=type==='brand-brief'?['company','name','email','type','goal']:type==='talent-application'?['type','name','social','category','about','why']:['name','email','type','subject','message'];
   const missing=required.filter(key=>!data[key]);
   if(missing.length)return json({ok:false,error:'Please complete all required fields.'},400);
   if(type==='brand-brief'&&!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(data.email))return json({ok:false,error:'Please provide a valid email.'},400);
