@@ -90,3 +90,20 @@ html{scroll-padding-top:90px}
 .roster-note{display:block}
 .roster-note p{margin-top:.5rem}
 }
+
+
+/* Talent profile polish */
+.profile-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+.profile-actions .btn{min-width:0}
+.profile-links a{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:.8rem}
+.profile-links .platform-icon{width:26px;height:26px;display:grid;place-items:center;border:1px solid #3a3a38;border-radius:6px;color:#b5b5b0}
+.platform-icon svg{width:13px;height:13px;fill:currentColor}
+.platform-icon .icon-cut{fill:var(--charcoal)}
+@media(max-width:600px){
+.profile-actions{display:grid;grid-template-columns:1fr}
+.profile-actions .btn{width:100%;justify-content:space-between}
+.profile-layout{gap:2rem}
+.profile-image{max-width:320px}
+.profile-copy h1{font-size:clamp(3rem,14vw,5rem)}
+.profile-links a{min-height:58px}
+}
