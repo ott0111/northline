@@ -179,3 +179,56 @@ if (contactForm) {
     if (match) select.value = match.value;
   }
 }
+
+
+/* Smooth interaction layer */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+
+  document.documentElement.classList.add('motion-ready');
+
+  // Stagger grid/card reveals without touching existing reveal logic.
+  document.querySelectorAll('.talent-grid,.home-talent-grid,.ops-home-grid,.latest-grid,.feature-grid,.approach-grid,.points-grid,.values-grid,.brand-services,.brand-mini-grid,.brand-process,.profile-standard,.price-grid,.discord-steps').forEach(grid=>{
+    [...grid.children].forEach((el,i)=>el.style.setProperty('--stagger',Math.min(i,7)*55+'ms'));
+  });
+
+  // Lightweight cursor spotlight on interactive cards.
+  const spotlightSelectors='.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div';
+  document.querySelectorAll(spotlightSelectors).forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    });
+  });
+
+  // Magnetic CTA/link movement, deliberately capped for a restrained feel.
+  document.querySelectorAll('.btn,.text-link').forEach(el=>{
+    if(el.closest('.mobile-nav')) return;
+    el.addEventListener('pointermove',e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-(r.left+r.width/2))/r.width;
+      const y=(e.clientY-(r.top+r.height/2))/r.height;
+      el.style.setProperty('--tx',(x*5).toFixed(2)+'px');
+      el.style.setProperty('--ty',(y*4).toFixed(2)+'px');
+    });
+    el.addEventListener('pointerleave',()=>{
+      el.style.setProperty('--tx','0px');
+      el.style.setProperty('--ty','0px');
+    });
+  });
+
+  // Subtle hero/profile parallax.
+  const parallax=document.querySelectorAll('.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid');
+  let ticking=false;
+  window.addEventListener('scroll',()=>{
+    if(ticking) return;
+    ticking=true;
+    requestAnimationFrame(()=>{
+      const y=Math.min(window.scrollY,900);
+      parallax.forEach((el,i)=>el.style.transform='translate3d(0,'+(y*(i===3?.018:.028))+'px,0)');
+      ticking=false;
+    });
+  },{passive:true});
+})();
