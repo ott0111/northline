@@ -19,7 +19,7 @@ export async function GET(request){
   const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
   const recent=await sql`SELECT id,type,data,status,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
   const map=Object.fromEntries(counts.map(x=>[x.type==='brand-brief'?'brand':x.type==='talent-application'?'talent':x.type,x.count]));
-  return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,total:(map.brand||0)+(map.talent||0)},recent});
+  return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,contact:map.contact||0,total:(map.brand||0)+(map.talent||0)+(map.contact||0)},recent});
 }
 
 export async function DELETE(request){
@@ -54,7 +54,7 @@ export async function POST(request){
   const required=type==='brand-brief'?['company','name','email','type','goal']:type==='talent-application'?['type','name','social','category','about','why']:['name','email','type','subject','message'];
   const missing=required.filter(key=>!data[key]);
   if(missing.length)return json({ok:false,error:'Please complete all required fields.'},400);
-  if(type==='brand-brief'&&!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(data.email))return json({ok:false,error:'Please provide a valid email.'},400);
+  if(['brand-brief','contact'].includes(type)&&!/^\S+@\S+\.\S+$/.test(data.email))return json({ok:false,error:'Please provide a valid email.'},400);
   const sql=neon(process.env.DATABASE_URL); await ensure(sql);
   const [row]=await sql`INSERT INTO northline_submissions(type,data) VALUES(${type},${JSON.stringify(data)}::jsonb) RETURNING id,created_at AS "createdAt"`;
   return json({ok:true,...row});
