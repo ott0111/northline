@@ -21,6 +21,17 @@ export async function GET(request){
   return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,total:(map.brand||0)+(map.talent||0)},recent});
 }
 
+export async function DELETE(request){
+  if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
+  if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
+  const id=Number(new URL(request.url).searchParams.get('id'));
+  if(!Number.isInteger(id)||id<1)return json({ok:false,error:'Invalid submission id.'},400);
+  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
+  const rows=await sql`DELETE FROM northline_submissions WHERE id=${id} RETURNING id`;
+  if(!rows.length)return json({ok:false,error:'Submission not found.'},404);
+  return json({ok:true});
+}
+
 export async function POST(request){
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
   let body;try{body=await request.json()}catch{return json({ok:false,error:'Invalid request.'},400)}
