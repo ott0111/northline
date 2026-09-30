@@ -61,9 +61,9 @@ if(brandBrief){
       if (!response.ok) throw new Error('Submission failed');
       const result = await response.json();
       if (!result.ok) throw new Error(result.error || 'Submission failed');
-    } catch {
+    } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
-      alert('We could not send the brief right now. Please try again.');
+      alert(error.message === 'Please complete all required fields.' || error.message === 'Please provide a valid email.' ? error.message : 'We could not send the brief right now. Please try again.');
       return;
     }
     const brief = [
@@ -104,9 +104,9 @@ if(talentApplication){
       if (!response.ok) throw new Error('Submission failed');
       const result = await response.json();
       if (!result.ok) throw new Error(result.error || 'Submission failed');
-    } catch {
+    } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
-      alert('We could not send the application right now. Please try again.');
+      alert(error.message === 'Please complete all required fields.' ? error.message : 'We could not send the application right now. Please try again.');
       return;
     }
     const brief = [
