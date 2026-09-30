@@ -8,7 +8,7 @@
 :root{--black:#070707;--charcoal:#0d0d0d;--line:#242424;--white:#f5f4ef;--grey:#989792}
 *{box-sizing:border-box}body{margin:0;background:var(--black);color:var(--white);font-family:Inter,Arial,sans-serif}
 main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);font-size:12px;letter-spacing:.14em}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:34px}h1{font-size:clamp(40px,7vw,76px);line-height:.9;margin:10px 0 0;letter-spacing:-.04em}.status{border:1px solid var(--line);padding:12px 14px;color:var(--grey);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);background:var(--charcoal);padding:22px;min-height:150px}.num{font-size:12px;color:var(--grey)}.value{font-size:42px;margin-top:28px}.section{margin-top:42px}.section h2{font-size:22px;margin:0 0 14px}.empty{border:1px dashed var(--line);padding:32px;color:var(--grey)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);background:var(--charcoal);padding:22px;min-height:150px}.num{font-size:12px;color:var(--grey)}.value{font-size:42px;margin-top:28px}.section{margin-top:42px}.section h2{font-size:22px;margin:0 0 14px}.empty{border:1px dashed var(--line);padding:20px;color:var(--grey)}.submission{padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer}.submission:hover{background:#111}.meta{color:var(--grey);font-size:12px;margin-top:5px}.detail-card{border:1px solid var(--line);background:var(--charcoal);padding:24px}.detail-row{display:grid;grid-template-columns:180px 1fr;gap:20px;padding:13px 0;border-bottom:1px solid #1b1b1b}.detail-key{color:var(--grey);font-size:12px;text-transform:uppercase;letter-spacing:.08em}.actions{display:flex;gap:8px;margin-top:18px}.action{padding:10px 14px;border:1px solid var(--line);background:#111;color:var(--white);cursor:pointer}.danger{border-color:#553333}@media(max-width:700px){.detail-row{grid-template-columns:1fr;gap:5px}}
 @media(max-width:700px){.head{display:block}.status{display:inline-block;margin-top:20px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -20,9 +20,16 @@ main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);f
 <div class="card"><div class="num">02 / TALENT APPLICATIONS</div><div class="value" id="talent">—</div></div>
 <div class="card"><div class="num">03 / TOTAL SUBMISSIONS</div><div class="value" id="total">—</div></div>
 </div>
-<section class="section" id="recentSection" style="display:none"><h2>Recent submissions</h2><div id="recent" class="empty">Loading...</div></section>
+<section class="section" id="recentSection" style="display:none"><h2>Recent submissions</h2><div id="recent" class="empty">Loading...</div><div id="detail" style="display:none;margin-top:18px"></div></section>
 </main>
 <script>
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function showDetail(x){
+ const d=document.querySelector('#detail'); d.style.display='block';
+ d.innerHTML='<div class="detail-card"><div class="eyebrow">SUBMISSION #'+esc(x.id)+'</div><h2>'+esc(x.type.replace('-',' '))+'</h2>'+Object.entries(x.data||{}).map(([k,v])=>'<div class="detail-row"><div class="detail-key">'+esc(k)+'</div><div>'+esc(v)+'</div></div>').join('')+'<div class="actions"><button class="action" onclick="copySubmission()">Copy JSON</button><button class="action" onclick="document.querySelector('#detail').style.display='none'">Close</button></div></div>';
+ window.currentSubmission=x;
+}
+function copySubmission(){navigator.clipboard?.writeText(JSON.stringify(window.currentSubmission,null,2))}
 async function load(){
  const r=await fetch('/api/submissions');
  if(r.status===401){document.querySelector('#login').style.display='block';document.querySelector('#dashboard').style.display='none';return}
@@ -34,7 +41,8 @@ document.querySelector('#talent').textContent=d.counts?.talent||0;
 document.querySelector('#total').textContent=d.counts?.total||0;
 const el=document.querySelector('#recent');
 if(!d.recent?.length){el.textContent='No submissions yet.';return}
-el.innerHTML=d.recent.map(x=>'<div style="padding:14px 0;border-bottom:1px solid #242424"><b>'+x.type.replace('-',' ')+'</b><div style="color:#989792;margin-top:5px">'+new Date(x.createdAt).toLocaleString()+'</div></div>').join('');
+el.innerHTML=d.recent.map(x=>'<div class="submission" data-id="'+x.id+'"><b>'+x.type.replace('-',' ')+'</b><div class="meta">#'+x.id+' · '+new Date(x.createdAt).toLocaleString()+'</div></div>').join('');
+el.querySelectorAll('.submission').forEach(row=>row.addEventListener('click',()=>showDetail(d.recent.find(x=>String(x.id)===row.dataset.id))));
 }).catch(()=>document.querySelector('#recent').textContent='Admin API is not configured yet.');
 }
 document.querySelector('#loginForm').addEventListener('submit',async e=>{
