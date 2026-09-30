@@ -146,3 +146,25 @@ header .logo{padding:.45rem .7rem;border:1px solid rgba(255,255,255,.07);backgro
 footer .logo{width:max-content}
 @media(max-width:900px){header{padding:.7rem var(--edge)}.nav-links{border:0;background:none;padding:0}}
 @media(max-width:600px){header .logo{padding:.4rem .6rem}.hero:before,.page-hero:before,.profile-hero:before{background-size:52px 52px}.section-heading:after{bottom:-1rem}.btn{min-height:50px}}
+
+
+/* Motion layer: additive only */
+.motion-ready .talent-card,.motion-ready .home-talent-card,.motion-ready .ops-home-card,.motion-ready .feature-card,.motion-ready .latest-grid>a,.motion-ready .brand-services>div,.motion-ready .brand-mini-grid>div,.motion-ready .brand-process>div,.motion-ready .profile-standard>div,.motion-ready .price-grid>div,.motion-ready .approach-grid>div,.motion-ready .points-grid>div,.motion-ready .values-grid>div,.motion-ready .discord-steps>div{
+  animation:cardIn .7s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:var(--stagger,0ms);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.motion-ready .talent-card,.motion-ready .home-talent-card,.motion-ready .ops-home-card,.motion-ready .feature-card,.motion-ready .latest-grid>a,.motion-ready .brand-services>div,.motion-ready .brand-mini-grid>div,.motion-ready .brand-process>div,.motion-ready .profile-standard>div,.motion-ready .price-grid>div,.motion-ready .approach-grid>div,.motion-ready .points-grid>div,.motion-ready .values-grid>div{
+  position:relative;overflow:hidden;
+}
+.motion-ready .talent-card:before,.motion-ready .home-talent-card:before,.motion-ready .ops-home-card:before,.motion-ready .feature-card:before,.motion-ready .latest-grid>a:before,.motion-ready .brand-services>div:before,.motion-ready .brand-mini-grid>div:before,.motion-ready .brand-process>div:before,.motion-ready .profile-standard>div:before,.motion-ready .price-grid>div:before,.motion-ready .approach-grid>div:before,.motion-ready .points-grid>div:before,.motion-ready .values-grid>div:before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.055),transparent 70%);
+  transition:opacity .3s ease;
+}
+.motion-ready .talent-card:hover:before,.motion-ready .home-talent-card:hover:before,.motion-ready .ops-home-card:hover:before,.motion-ready .feature-card:hover:before,.motion-ready .latest-grid>a:hover:before,.motion-ready .brand-services>div:hover:before,.motion-ready .brand-mini-grid>div:hover:before,.motion-ready .brand-process>div:hover:before,.motion-ready .profile-standard>div:hover:before,.motion-ready .price-grid>div:hover:before,.motion-ready .approach-grid>div:hover:before,.motion-ready .points-grid>div:hover:before,.motion-ready .values-grid>div:hover:before{opacity:1}
+.motion-ready .btn,.motion-ready .text-link{transform:translate3d(var(--tx,0),var(--ty,0),0);transition:transform .22s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s,color .25s}
+.motion-ready .hero-bg,.motion-ready .page-hero-bg,.motion-ready .profile-hero-bg,.motion-ready .hero-grid{will-change:transform}
+.motion-ready .talent-photo img,.motion-ready .home-talent-card img,.motion-ready .ops-home-card img,.motion-ready .profile-image img{will-change:transform}
+@media(max-width:600px),(hover:none){.motion-ready .btn,.motion-ready .text-link{transform:none!important}.motion-ready .talent-card:before,.motion-ready .home-talent-card:before,.motion-ready .ops-home-card:before,.motion-ready .feature-card:before,.motion-ready .latest-grid>a:before,.motion-ready .brand-services>div:before,.motion-ready .brand-mini-grid>div:before,.motion-ready .brand-process>div:before,.motion-ready .profile-standard>div:before,.motion-ready .price-grid>div:before,.motion-ready .approach-grid>div:before,.motion-ready .points-grid>div:before,.motion-ready .values-grid>div:before{display:none}}
+@media(prefers-reduced-motion:reduce){.motion-ready .talent-card,.motion-ready .home-talent-card,.motion-ready .ops-home-card,.motion-ready .feature-card,.motion-ready .latest-grid>a,.motion-ready .brand-services>div,.motion-ready .brand-mini-grid>div,.motion-ready .brand-process>div,.motion-ready .profile-standard>div,.motion-ready .price-grid>div,.motion-ready .approach-grid>div,.motion-ready .points-grid>div,.motion-ready .values-grid>div,.motion-ready .discord-steps>div{animation:none!important}}
