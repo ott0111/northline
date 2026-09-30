@@ -14,23 +14,36 @@ main{max-width:1200px;margin:auto;padding:56px 24px}.eyebrow{color:var(--grey);f
 </head>
 <body>
 <main>
-<div class="head"><div><div class="eyebrow">NORTHLINE / INTERNAL</div><h1>Admin.</h1></div><div class="status">Protected dashboard foundation</div></div>
-<div class="grid">
+<div class="head"><div><div class="eyebrow">NORTHLINE / INTERNAL</div><h1>Admin.</h1></div><div class="status" id="status">Admin access</div></div>
+<div id="login" style="max-width:420px;margin-bottom:34px"><form id="loginForm"><input id="password" type="password" placeholder="Admin password" required style="width:100%;padding:14px;background:#0d0d0d;border:1px solid #242424;color:#f5f4ef"><button style="margin-top:10px;padding:14px 18px;background:#f5f4ef;border:0;color:#070707;font-weight:700">Enter Admin</button></form></div><div class="grid" id="dashboard" style="display:none">
 <div class="card"><div class="num">01 / BRAND BRIEFS</div><div class="value" id="brands">—</div></div>
 <div class="card"><div class="num">02 / TALENT APPLICATIONS</div><div class="value" id="talent">—</div></div>
 <div class="card"><div class="num">03 / TOTAL SUBMISSIONS</div><div class="value" id="total">—</div></div>
 </div>
-<section class="section"><h2>Recent submissions</h2><div id="recent" class="empty">Loading...</div></section>
+<section class="section" id="recentSection" style="display:none"><h2>Recent submissions</h2><div id="recent" class="empty">Loading...</div></section>
 </main>
 <script>
-fetch('/api/submissions').then(r=>r.json()).then(d=>{
-document.querySelector('#brands').textContent=d.counts?.brand||0;
+async function load(){
+ const r=await fetch('/api/submissions');
+ if(r.status===401){document.querySelector('#login').style.display='block';document.querySelector('#dashboard').style.display='none';return}
+ const d=await r.json();
+ if(!d.ok) return;
+ document.querySelector('#login').style.display='none';document.querySelector('#dashboard').style.display='grid';document.querySelector('#recentSection').style.display='block';document.querySelector('#status').textContent='Authenticated';
+ document.querySelector('#brands').textContent=d.counts?.brand||0;
 document.querySelector('#talent').textContent=d.counts?.talent||0;
 document.querySelector('#total').textContent=d.counts?.total||0;
 const el=document.querySelector('#recent');
 if(!d.recent?.length){el.textContent='No submissions yet.';return}
 el.innerHTML=d.recent.map(x=>'<div style="padding:14px 0;border-bottom:1px solid #242424"><b>'+x.type.replace('-',' ')+'</b><div style="color:#989792;margin-top:5px">'+new Date(x.createdAt).toLocaleString()+'</div></div>').join('');
 }).catch(()=>document.querySelector('#recent').textContent='Admin API is not configured yet.');
+}
+document.querySelector('#loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const r=await fetch('/api/admin',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({password:document.querySelector('#password').value})});
+ if(!r.ok){document.querySelector('#status').textContent='Invalid password';return}
+ document.querySelector('#password').value=''; load();
+});
+load();
 </script>
 </body>
 </html>
