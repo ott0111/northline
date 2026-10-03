@@ -1,4 +1,66 @@
 
+/* Northline first-load screen */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const seen = sessionStorage.getItem('northlineLoaded') === 'true';
+  if (seen) return;
+
+  const loader = document.createElement('div');
+  loader.id = 'nl-loader';
+  loader.setAttribute('aria-label','Loading Northline');
+  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
+  document.body.prepend(loader);
+
+  const track = loader.querySelector('.nl-loader-track i');
+  const status = loader.querySelector('.nl-loader-status b');
+  const label = loader.querySelector('.nl-loader-status span');
+  let progress = 0;
+  let finished = false;
+
+  const labels = [
+    [0,'Initializing'],
+    [28,'Loading interface'],
+    [56,'Preparing roster'],
+    [78,'Loading Northline'],
+    [92,'Almost ready'],
+    [100,'Ready']
+  ];
+
+  const render = value => {
+    progress = Math.min(100, Math.max(progress, value));
+    if(track) track.style.width = progress + '%';
+    if(status) status.textContent = Math.round(progress) + '%';
+    for(let i=labels.length-1;i>=0;i--){ if(progress >= labels[i][0]){ if(label) label.textContent=labels[i][1]; break; } }
+  };
+
+  const finish = () => {
+    if(finished) return;
+    finished = true;
+    render(100);
+    sessionStorage.setItem('northlineLoaded','true');
+    const delay = reduce ? 80 : 420;
+    setTimeout(() => {
+      loader.classList.add('is-done');
+      setTimeout(() => loader.remove(), reduce ? 120 : 700);
+    }, delay);
+  };
+
+  const start = performance.now();
+  const tick = now => {
+    if(finished) return;
+    const elapsed = now - start;
+    const target = Math.min(92, 18 + elapsed / 12);
+    render(target);
+    if(elapsed < 900) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
+  if(document.readyState === 'complete') finish();
+  else window.addEventListener('load', finish, {once:true});
+
+  setTimeout(finish, 1200);
+})();
+
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
