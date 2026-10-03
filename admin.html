@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive">
 <title>Northline Admin</title>
 <style>
 :root{--black:#070707;--charcoal:#0d0d0d;--line:#242424;--white:#f5f4ef;--grey:#989792}
@@ -61,7 +61,7 @@ document.querySelector('#talent').textContent=d.counts?.talent||0;
 document.querySelector('#contacts').textContent=d.counts?.contact||0;
 document.querySelector('#total').textContent=d.counts?.total||0;
 allSubmissions=d.recent||[]; renderList();
-}).catch(()=>document.querySelector('#recent').textContent='Admin API is not configured yet.');
+}catch(error){document.querySelector('#recent').textContent='Admin API is not configured yet.';}
 }
 ['search','typeFilter','statusFilter'].forEach(id=>document.querySelector('#'+id).addEventListener('input',renderList));
 document.querySelector('#logout').addEventListener('click',async()=>{await fetch('/api/admin',{method:'DELETE'});location.reload()});
