@@ -275,3 +275,21 @@ if (contactForm) {
   marquee?.addEventListener('mouseenter',()=>marquee.classList.add('marquee-fast'));
   marquee?.addEventListener('mouseleave',()=>marquee.classList.remove('marquee-fast'));
 })();
+
+
+/* Past work full-image viewer */
+(function(){
+  const items=document.querySelectorAll('[data-lightbox="work"]');
+  if(!items.length)return;
+  const box=document.createElement('div');
+  box.className='nl-lightbox';
+  box.setAttribute('aria-hidden','true');
+  box.innerHTML='<button class="nl-lightbox-close" type="button" aria-label="Close image">×</button><img alt=""><div class="nl-lightbox-title"></div>';
+  document.body.appendChild(box);
+  const img=box.querySelector('img'), title=box.querySelector('.nl-lightbox-title');
+  const close=()=>{box.classList.remove('is-open');box.setAttribute('aria-hidden','true');document.body.style.overflow='';};
+  items.forEach(item=>item.addEventListener('click',e=>{e.preventDefault();img.src=item.href;img.alt=item.dataset.title||'';title.textContent=item.dataset.title||'';box.classList.add('is-open');box.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}));
+  box.addEventListener('click',e=>{if(e.target===box)close();});
+  box.querySelector('.nl-lightbox-close').addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-open'))close();});
+})();
