@@ -75,6 +75,24 @@
   // Safety cap in case a resource never finishes.
   setTimeout(finishWhenReady, 5000);
 })();
+/* Reliable image fallback for mobile/network failures */
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.classList.add('is-broken');
+    img.removeAttribute('srcset');
+    if (img.alt && !img.dataset.fallback) {
+      img.dataset.fallback = 'true';
+      const fallback = document.createElement('span');
+      fallback.textContent = img.alt;
+      fallback.setAttribute('aria-hidden','true');
+      fallback.style.cssText = 'position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;text-transform:uppercase;color:var(--grey);background:#101010;';
+      const parent = img.parentElement;
+      if (parent && getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
+      if (parent) parent.appendChild(fallback);
+    }
+  }, {once:true});
+});
+
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
