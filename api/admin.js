@@ -14,7 +14,9 @@ export async function POST(request){
   if(recent.length>=LIMIT)return json({ok:false,error:'Too many login attempts. Try again later.'},429,{'retry-after':'600'});
   recent.push(now); loginAttempts.set(key,recent);
   let body;try{body=await request.json()}catch{return json({ok:false,error:'Invalid request.'},400)}
-  if(String(body.password||'')!==process.env.ADMIN_SECRET)return json({ok:false,error:'Invalid password.'},401);
+  const supplied=Buffer.from(String(body.password||''));
+  const expected=Buffer.from(String(process.env.ADMIN_SECRET));
+  if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected))return json({ok:false,error:'Invalid password.'},401);
   loginAttempts.delete(key);
   const {createHmac}=await import('node:crypto');
   const value=createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin').digest('hex');
