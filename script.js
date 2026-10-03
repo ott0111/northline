@@ -300,3 +300,24 @@ if (contactForm) {
   const links=document.querySelectorAll('a[href$=".html"],a[href*=".html#"]');
   links.forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href'); if(!href||href.startsWith('#')||a.target==='_blank')return; e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>{window.location.href=href},180);});});
 })();
+
+/* Northline premium cursor + magnetic interactions */
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const dot=document.createElement('div'), ring=document.createElement('div'), label=document.createElement('div');
+  dot.className='nl-cursor'; ring.className='nl-cursor-ring'; label.className='nl-cursor-label'; label.textContent='VIEW';
+  document.body.append(dot,ring,label);
+  let mx=-100,my=-100,rx=-100,ry=-100;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;document.body.classList.add('cursor-ready')},{passive:true});
+  function tick(){rx+=(mx-rx)*.22;ry+=(my-ry)*.22;dot.style.transform=`translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;ring.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;label.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;requestAnimationFrame(tick)} tick();
+  document.querySelectorAll('a,button,input,select,textarea,.work-piece').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+  document.querySelectorAll('.work-piece-view').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-view'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-view'))});
+  document.querySelectorAll('.btn,.nl-magnetic').forEach(el=>{
+    el.classList.add('nl-magnetic');
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-(r.left+r.width/2))*.08}px,${(e.clientY-(r.top+r.height/2))*.08}px)`});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+})();
