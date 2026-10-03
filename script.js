@@ -293,3 +293,10 @@ if (contactForm) {
   box.querySelector('.nl-lightbox-close').addEventListener('click',close);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-open'))close();});
 })();
+
+/* Northline UX utilities */
+(function(){
+  document.querySelectorAll('img').forEach((img,i)=>{ if(!img.hasAttribute('loading') && i>3) img.loading='lazy'; if(!img.hasAttribute('decoding')) img.decoding='async'; });
+  const links=document.querySelectorAll('a[href$=".html"],a[href*=".html#"]');
+  links.forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href'); if(!href||href.startsWith('#')||a.target==='_blank')return; e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>{window.location.href=href},180);});});
+})();
