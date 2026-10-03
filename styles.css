@@ -432,3 +432,86 @@ body:before{content:'';position:fixed;left:0;top:0;width:var(--scroll-progress,0
 
 /* Northline interaction system */
 html{scroll-behavior:smooth}
+
+/* Northline first-load screen */
+#nl-loader{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  background:var(--black);
+  color:var(--white);
+  opacity:1;
+  visibility:visible;
+  transition:opacity .55s ease,visibility .55s ease;
+}
+#nl-loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.nl-loader-inner{
+  width:100%;
+  max-width:var(--max);
+  min-height:100%;
+  padding:2rem var(--edge) 1.75rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.nl-loader-top{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  font-family:var(--display);
+  font-size:1.45rem;
+  font-weight:800;
+  letter-spacing:.01em;
+}
+.nl-loader-top img{width:1.1rem;height:1.1rem;object-fit:contain}
+.nl-loader-center{padding-bottom:5vh}
+.nl-loader-center>span,.nl-loader-status{
+  font-size:.65rem;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.nl-loader-center strong{
+  display:block;
+  margin-top:1rem;
+  font-family:var(--display);
+  font-size:clamp(3.5rem,7vw,7rem);
+  line-height:.86;
+  text-transform:uppercase;
+  letter-spacing:-.025em;
+}
+.nl-loader-center em{font-style:normal;color:var(--accent)}
+.nl-loader-bottom{width:100%;max-width:760px}
+.nl-loader-track{
+  width:100%;
+  height:1px;
+  background:var(--line);
+  overflow:hidden;
+}
+.nl-loader-track i{
+  display:block;
+  width:0;
+  height:100%;
+  background:var(--white);
+  transition:width .18s linear;
+}
+.nl-loader-status{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:.7rem;
+}
+.nl-loader-status b{font-weight:600;color:var(--white)}
+@media(max-width:600px){
+  .nl-loader-inner{padding:1.5rem var(--edge) 1.25rem}
+  .nl-loader-center strong{font-size:clamp(3.25rem,15vw,5.4rem)}
+  .nl-loader-center{padding-bottom:7vh}
+}
+@media(prefers-reduced-motion:reduce){
+  #nl-loader{transition:opacity .12s ease,visibility .12s ease}
+  .nl-loader-track i{transition:none}
+}
