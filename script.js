@@ -52,7 +52,7 @@
 
   // Give the intro enough time to actually be seen, while still waiting
   // for the page to finish loading when that takes longer.
-  const minimumVisible = reduce ? 300 : 8000;
+  const minimumVisible = reduce ? 300 : 1000;
   const started = performance.now();
   const finishWhenReady = () => {
     const remaining = Math.max(0, minimumVisible - (performance.now() - started));
@@ -73,7 +73,7 @@
   else window.addEventListener('load', finishWhenReady, {once:true});
 
   // Safety cap in case a resource never finishes.
-  setTimeout(finishWhenReady, 5000);
+  setTimeout(finishWhenReady, 4500);
 })();
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
@@ -297,14 +297,14 @@ if (contactForm) {
 
   if(reduce) return;
 
-  // Internal page transitions.
+  // Internal page transitions. Preserve normal browser link behavior.
   document.querySelectorAll('a[href]').forEach(link=>{
     const href=link.getAttribute('href')||'';
     if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank') return;
     const url=new URL(href,window.location.href);
     if(url.origin!==window.location.origin) return;
     link.addEventListener('click',e=>{
-      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+      if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
       if(url.pathname===window.location.pathname&&url.hash) return;
       e.preventDefault();
       document.body.classList.add('page-leaving');
@@ -391,11 +391,7 @@ if (contactForm) {
 /* Northline UX utilities */
 (function(){
   document.querySelectorAll('img').forEach((img,i)=>{ if(!img.hasAttribute('loading') && i>3) img.loading='lazy'; if(!img.hasAttribute('decoding')) img.decoding='async'; });
-  const links=document.querySelectorAll('a[href$=".html"],a[href*=".html#"]');
-  links.forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href'); if(!href||href.startsWith('#')||a.target==='_blank')return; e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>{window.location.href=href},180);});});
 })();
-
-
 /* Northline roster filters */
 (function(){
   const grid=document.getElementById('talentGrid');
