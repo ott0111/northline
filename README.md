@@ -23,7 +23,7 @@ Serve the repository with any static web server. The API routes require Vercel's
 
 ## Database
 
-Apply `migrations/001_submissions.sql` once before using the submission API.
+The submission API initializes its table when needed.
 
 ## Validation
 
