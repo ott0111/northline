@@ -423,3 +423,8 @@ body:before{content:'';position:fixed;left:0;top:0;width:var(--scroll-progress,0
 .nl-lightbox-close:hover{background:#181818}
 .nl-lightbox-title{position:absolute;left:1.5rem;bottom:1.25rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
 @media(max-width:600px){.nl-lightbox{padding:4.5rem 1rem 3.5rem}.nl-lightbox img{max-width:96vw;max-height:82vh}.work-piece-view:after{opacity:1;transform:none;font-size:.52rem;right:.65rem;bottom:.65rem}.nl-lightbox-title{left:1rem;bottom:1rem}.nl-lightbox-close{top:1rem;right:1rem}}
+
+/* Card hover profile treatment */
+.home-talent-card,.team-card,.ops-home-card{position:relative;overflow:hidden}
+.home-talent-card:after,.team-card:after,.ops-home-card:after{content:'VIEW PROFILE';position:absolute;right:1rem;bottom:1rem;z-index:5;padding:.45rem .65rem;background:rgba(7,7,7,.88);border:1px solid #3a3a38;color:var(--white);font-size:.56rem;font-weight:700;letter-spacing:.12em;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s}
+.home-talent-card:hover:after,.team-card:hover:after,.ops-home-card:hover:after{opacity:0;transform:none}
