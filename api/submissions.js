@@ -3,6 +3,8 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
 function token(){return createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin').digest('hex')}
+async function ensure(sql){await sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`}
+
 function authed(request){
   const value=request.headers.get('cookie')?.match(/northline_admin=([^;]+)/)?.[1];
   if(!value||!process.env.ADMIN_SECRET)return false;
@@ -12,7 +14,7 @@ function authed(request){
 export async function GET(request){
   if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
-  const sql=neon(process.env.DATABASE_URL);
+  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
   const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
   const recent=await sql`SELECT id,type,data,status,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
   const map=Object.fromEntries(counts.map(x=>[x.type==='brand-brief'?'brand':x.type==='talent-application'?'talent':x.type,x.count]));
