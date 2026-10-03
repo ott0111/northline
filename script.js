@@ -63,7 +63,7 @@
     if(finished) return;
     const elapsed = now - started;
     // Hold the final stretch so the screen doesn't instantly jump to 100%.
-    const target = Math.min(94, 12 + elapsed / 32);
+    const target = Math.min(94, 12 + elapsed / 62);
     render(target);
     requestAnimationFrame(animate);
   };
