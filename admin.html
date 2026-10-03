@@ -51,17 +51,25 @@ async function deleteSubmission(){
  document.querySelector('#detail').style.display='none';load();
 }
 async function load(){
- const r=await fetch('/api/submissions');
- if(r.status===401){document.querySelector('#login').style.display='block';document.querySelector('#dashboard').style.display='none';return}
- const d=await r.json();
- if(!d.ok) return;
- document.querySelector('#login').style.display='none';document.querySelector('#dashboard').style.display='grid';document.querySelector('#recentSection').style.display='block';document.querySelector('#logout').hidden=false;document.querySelector('#status').textContent='Authenticated';
- document.querySelector('#brands').textContent=d.counts?.brand||0;
-document.querySelector('#talent').textContent=d.counts?.talent||0;
-document.querySelector('#contacts').textContent=d.counts?.contact||0;
-document.querySelector('#total').textContent=d.counts?.total||0;
-allSubmissions=d.recent||[]; renderList();
-}catch(error){document.querySelector('#recent').textContent='Admin API is not configured yet.';}
+ try{
+  const r=await fetch('/api/submissions');
+  if(r.status===401){document.querySelector('#login').style.display='block';document.querySelector('#dashboard').style.display='none';return}
+  const d=await r.json();
+  if(!d.ok) throw new Error(d.error||'Admin API error');
+  document.querySelector('#login').style.display='none';
+  document.querySelector('#dashboard').style.display='grid';
+  document.querySelector('#recentSection').style.display='block';
+  document.querySelector('#logout').hidden=false;
+  document.querySelector('#status').textContent='Authenticated';
+  document.querySelector('#brands').textContent=d.counts?.brand||0;
+  document.querySelector('#talent').textContent=d.counts?.talent||0;
+  document.querySelector('#contacts').textContent=d.counts?.contact||0;
+  document.querySelector('#total').textContent=d.counts?.total||0;
+  allSubmissions=d.recent||[];
+  renderList();
+ }catch(error){
+  document.querySelector('#recent').textContent='Admin API is not configured yet.';
+ }
 }
 ['search','typeFilter','statusFilter'].forEach(id=>document.querySelector('#'+id).addEventListener('input',renderList));
 document.querySelector('#logout').addEventListener('click',async()=>{await fetch('/api/admin',{method:'DELETE'});location.reload()});
