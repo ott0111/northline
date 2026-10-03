@@ -428,3 +428,36 @@ body:before{content:'';position:fixed;left:0;top:0;width:var(--scroll-progress,0
 .home-talent-card,.team-card,.ops-home-card{position:relative;overflow:hidden}
 .home-talent-card:after,.team-card:after,.ops-home-card:after{content:'VIEW PROFILE';position:absolute;right:1rem;bottom:1rem;z-index:5;padding:.45rem .65rem;background:rgba(7,7,7,.88);border:1px solid #3a3a38;color:var(--white);font-size:.56rem;font-weight:700;letter-spacing:.12em;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s}
 .home-talent-card:hover:after,.team-card:hover:after,.ops-home-card:hover:after{opacity:0;transform:none}
+
+
+/* Northline interaction system */
+html{scroll-behavior:smooth}
+body{cursor:none}
+a,button,input,select,textarea{cursor:none}
+.nl-cursor,.nl-cursor-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:10000;transform:translate3d(-50%,-50%,0);opacity:0}
+.nl-cursor{width:7px;height:7px;border-radius:50%;background:var(--white);mix-blend-mode:difference;transition:width .18s,height .18s,opacity .2s}
+.nl-cursor-ring{width:34px;height:34px;border:1px solid rgba(245,244,239,.65);border-radius:50%;transition:width .25s cubic-bezier(.22,1,.36,1),height .25s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s,opacity .2s}
+body.cursor-ready .nl-cursor,body.cursor-ready .nl-cursor-ring{opacity:1}
+body.cursor-hover .nl-cursor{width:4px;height:4px}
+body.cursor-hover .nl-cursor-ring{width:52px;height:52px;background:rgba(245,244,239,.06);border-color:rgba(245,244,239,.9)}
+body.cursor-view .nl-cursor-ring{width:72px;height:72px;background:rgba(245,244,239,.94);border-color:var(--white)}
+.nl-cursor-label{position:fixed;left:0;top:0;z-index:10001;pointer-events:none;transform:translate3d(-50%,-50%,0);font-size:.5rem;font-weight:800;letter-spacing:.12em;color:#070707;opacity:0;transition:opacity .2s}
+body.cursor-view .nl-cursor-label{opacity:1}
+@media(pointer:coarse), (prefers-reduced-motion:reduce){body{cursor:auto}a,button,input,select,textarea{cursor:auto}.nl-cursor,.nl-cursor-ring,.nl-cursor-label{display:none}}
+.page-leaving{opacity:0;transition:opacity .18s ease}
+.btn,.text-link{transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s}
+.nl-magnetic{will-change:transform}
+.nav-links a{position:relative}
+.nav-links a:after{content:'';position:absolute;left:0;right:0;bottom:-.35rem;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.nav-links a:hover:after,.nav-links a.active:after{transform:scaleX(1);transform-origin:left}
+.talent-card,.home-talent-card,.team-card,.ops-home-card,.service-card,.contact-option{transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s,box-shadow .3s}
+.talent-card:hover,.home-talent-card:hover,.team-card:hover,.ops-home-card:hover,.service-card:hover,.contact-option:hover{box-shadow:0 22px 60px rgba(0,0,0,.28)}
+.talent-card:after,.home-talent-card:after,.ops-home-card:after,.team-card:after{content:none!important;display:none!important}
+.work-piece-view:after{content:'VIEW FULL'}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 1px rgba(245,244,239,.5)}
+.nl-404{min-height:70vh;display:grid;place-items:center;text-align:center}
+.nl-404-code{font-family:var(--display);font-size:clamp(7rem,22vw,18rem);line-height:.72;letter-spacing:-.07em;color:#151515;user-select:none}
+.nl-404-copy{position:relative;margin-top:-1rem}
+.nl-404-copy h1{font-size:clamp(2.4rem,6vw,5rem);line-height:.9;margin-bottom:1rem}
+.nl-404-copy p{max-width:34rem;margin:0 auto 1.5rem;color:var(--grey)}
+@media(max-width:900px){body{cursor:auto}.nl-magnetic{transform:none!important}}
