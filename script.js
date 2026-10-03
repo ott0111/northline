@@ -395,3 +395,70 @@ if (contactForm) {
   links.forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href'); if(!href||href.startsWith('#')||a.target==='_blank')return; e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>{window.location.href=href},180);});});
 })();
 
+
+/* Northline roster filters */
+(function(){
+  const grid=document.getElementById('talentGrid');
+  if(!grid)return;
+  const cards=[...grid.querySelectorAll('.talent-card')];
+  const filters=[...document.querySelectorAll('.talent-filter')];
+  const search=document.getElementById('talentSearch');
+  const empty=document.getElementById('talentNoResults');
+  let active='all';
+  const apply=()=>{
+    const q=(search?.value||'').trim().toLowerCase();
+    let shown=0;
+    cards.forEach(card=>{
+      const text=card.textContent.toLowerCase();
+      const cats=(card.dataset.category||'').toLowerCase();
+      const matchFilter=active==='all'||cats.includes(active);
+      const matchSearch=!q||text.includes(q);
+      const show=matchFilter&&matchSearch;
+      card.classList.toggle('is-hidden',!show);
+      if(show)shown++;
+    });
+    if(empty)empty.hidden=shown!==0;
+  };
+  filters.forEach(btn=>btn.addEventListener('click',()=>{
+    active=btn.dataset.filter||'all';
+    filters.forEach(b=>b.classList.toggle('active',b===btn));
+    apply();
+  }));
+  search?.addEventListener('input',apply);
+})();
+
+/* Northline brand brief choices */
+(function(){
+  const choices=[...document.querySelectorAll('[data-brief-type]')];
+  const select=document.getElementById('briefType');
+  if(!choices.length||!select)return;
+  const choose=value=>{
+    [...select.options].forEach(o=>{if(o.value===value||o.text===value)select.value=o.value||o.text;});
+    choices.forEach(c=>c.classList.toggle('is-selected',c.dataset.briefType===value));
+  };
+  choices.forEach(choice=>choice.addEventListener('click',()=>choose(choice.dataset.briefType)));
+  const params=new URLSearchParams(location.search);
+  const talent=params.get('talent');
+  const talentInput=document.querySelector('[name="talent"]');
+  if(talent&&talentInput)talentInput.value=talent;
+  if(talent)choose('Talent Partnership');
+})();
+
+/* Small mobile-friendly back-to-top control */
+(function(){
+  const btn=document.createElement('button');
+  btn.className='nl-back-top';
+  btn.type='button';
+  btn.setAttribute('aria-label','Back to top');
+  btn.innerHTML='<svg class="ui-icon ui-icon-up" viewBox="0 0 16 16" aria-hidden="true"><path d="M7 14V5.83L4.41 8.41 3 7l5-5 5 5-1.41 1.41L9 5.83V14H7Z" fill="currentColor"/></svg>';
+  document.body.appendChild(btn);
+  const sync=()=>btn.classList.toggle('is-visible',window.scrollY>600);
+  window.addEventListener('scroll',sync,{passive:true});
+  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  sync();
+})();
+
+/* Lazy-load non-critical images without changing existing hero images. */
+document.querySelectorAll('img:not(.profile-image img):not(.hero img)').forEach(img=>{
+  if(!img.loading)img.loading='lazy';
+});
