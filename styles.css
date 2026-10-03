@@ -353,3 +353,21 @@ body:before{content:'';position:fixed;left:0;top:0;width:var(--scroll-progress,0
 
 /* Northline team + past work */
 .team-section{padding:7rem 0}.team-grid{display:grid;gap:1rem}.team-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}.team-card{position:relative;display:flex;flex-direction:column;min-height:420px;padding:1rem;background:var(--charcoal-2);border:1px solid var(--line);color:var(--white);overflow:hidden;transition:transform .35s ease,border-color .35s ease,background .35s ease}.team-card:hover{transform:translateY(-6px);border-color:#44433f;background:#101010}.team-card-top{display:flex;justify-content:space-between;gap:1rem;font-family:var(--display);font-size:.68rem;letter-spacing:.08em;color:var(--grey);position:relative;z-index:2}.team-photo{display:block;position:absolute;inset:0;overflow:hidden;background:#111}.team-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.05) 25%,rgba(7,7,7,.35) 55%,rgba(7,7,7,.96) 100%)}.team-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transform:scale(1.01);transition:filter .5s ease,transform .7s cubic-bezier(.2,.7,.2,1)}.team-card:hover .team-photo img{filter:grayscale(0);transform:scale(1.05)}.team-card>div:last-child{position:relative;z-index:2;margin-top:auto}.team-card h3{margin:0;font-family:var(--display);font-size:clamp(2rem,3vw,3rem);line-height:.95;letter-spacing:-.03em}.team-card small{display:block;margin-top:.45rem;color:var(--grey);font-size:.78rem}.work-archive-section{padding:7rem 0}.work-placeholder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.work-empty-card{min-height:260px;padding:1.2rem;border:1px dashed #303030;background:var(--charcoal-2);display:flex;flex-direction:column;justify-content:flex-end}.work-empty-card span{font-family:var(--display);font-size:.7rem;letter-spacing:.08em;color:var(--grey);margin-bottom:auto}.work-empty-card strong{font-family:var(--display);font-size:1.8rem;line-height:1}.work-empty-card small{margin-top:.5rem;color:var(--dim)}.work-archive-section .section-heading p{max-width:340px}.work-archive-section .section-heading p strong{color:var(--white);font-weight:500}@media(max-width:900px){.team-grid-three,.work-placeholder-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.team-card{min-height:390px}}@media(max-width:600px){.team-section,.work-archive-section{padding:5rem 0}.team-grid-three,.work-placeholder-grid{grid-template-columns:1fr}.team-card{min-height:370px}}
+
+/* Past work archive */
+.past-work-group{margin-top:4rem}
+.past-work-person{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1.25rem;padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.past-work-person span,.past-work-person small{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.past-work-person h3{margin:0;font-family:var(--display);font-size:2rem;text-transform:uppercase;line-height:.95}
+.work-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.work-gallery-featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+.work-piece{min-width:0;background:var(--charcoal-2);border:1px solid var(--line);overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+.work-piece:hover{transform:translateY(-4px);border-color:#3a3a38}
+.work-piece-media{background:#090909;overflow:hidden}
+.work-piece-media img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;transition:transform .55s ease}
+.work-piece:hover .work-piece-media img{transform:scale(1.025)}
+.work-piece-meta{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 1rem}
+.work-piece-meta strong{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.work-piece-meta span{font-size:.68rem;color:var(--grey);text-align:right}
+@media(max-width:900px){.work-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.work-gallery,.work-gallery-featured{grid-template-columns:1fr}.past-work-person{align-items:flex-start;flex-direction:column;gap:.35rem}.work-piece-meta{flex-direction:column;gap:.25rem}.work-piece-meta span{text-align:left}}
