@@ -1,3 +1,5 @@
+import { timingSafeEqual } from 'node:crypto';
+
 export const runtime='nodejs';
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
