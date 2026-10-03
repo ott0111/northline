@@ -3,6 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "description": "Northline talent agency website",
+  "engines": {"node": ">=20"},
+  "scripts": {"check": "node --check script.js && node --check api/admin.js && node --check api/submissions.js"},
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2"
   }
