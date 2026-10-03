@@ -3,12 +3,22 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
 function token(){return createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin').digest('hex')}
+const submissionAttempts=new Map();
+const SUBMISSION_WINDOW=10*60*1000;
+const SUBMISSION_LIMIT=12;
+const MAX_BODY_BYTES=25000;
+const getClientKey=request=>request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()||'unknown';
+
 async function ensure(sql){await sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`}
 
 function authed(request){
   const value=request.headers.get('cookie')?.match(/northline_admin=([^;]+)/)?.[1];
   if(!value||!process.env.ADMIN_SECRET)return false;
-  const a=Buffer.from(value),b=Buffer.from(token());
+  const [payload,sig]=String(value).split('.');
+  const exp=Number(payload);
+  if(!Number.isFinite(exp)||exp<Date.now()||!sig)return false;
+  const expected=createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin:'+payload).digest('hex');
+  const a=Buffer.from(sig),b=Buffer.from(expected);
   return a.length===b.length&&timingSafeEqual(a,b);
 }
 export async function GET(request){
@@ -44,8 +54,12 @@ export async function PATCH(request){
 }
 
 export async function POST(request){
+  const key=getClientKey(request),now=Date.now();
+  const recent=(submissionAttempts.get(key)||[]).filter(t=>now-t<SUBMISSION_WINDOW);
+  if(recent.length>=SUBMISSION_LIMIT)return json({ok:false,error:'Too many submissions. Please try again later.'},429,{'retry-after':'600'});
+  recent.push(now); submissionAttempts.set(key,recent);
   if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
-  let body;try{body=await request.json()}catch{return json({ok:false,error:'Invalid request.'},400)}
+  let body;try{const raw=await request.text();if(raw.length>MAX_BODY_BYTES)return json({ok:false,error:'Request is too large.'},413);body=JSON.parse(raw)}catch{return json({ok:false,error:'Invalid request.'},400)}
   const type=String(body.type||'').trim();
   if(!['brand-brief','talent-application','contact'].includes(type))return json({ok:false,error:'Invalid submission type.'},400);
   const payload=body.data&&typeof body.data==='object'?body.data:{};
