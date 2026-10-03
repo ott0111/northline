@@ -1,8 +1,9 @@
-
 /* Northline first-load screen */
 (function(){
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const seen = sessionStorage.getItem('northlineLoaded') === 'true';
+  let seen = false;
+  try { seen = sessionStorage.getItem('northlineLoaded') === 'true'; } catch {}
+
   if (seen) return;
 
   const loader = document.createElement('div');
@@ -19,10 +20,10 @@
 
   const labels = [
     [0,'Initializing'],
-    [28,'Loading interface'],
-    [56,'Preparing roster'],
-    [78,'Loading Northline'],
-    [92,'Almost ready'],
+    [25,'Loading interface'],
+    [50,'Preparing roster'],
+    [72,'Loading Northline'],
+    [90,'Almost ready'],
     [100,'Ready']
   ];
 
@@ -30,37 +31,50 @@
     progress = Math.min(100, Math.max(progress, value));
     if(track) track.style.width = progress + '%';
     if(status) status.textContent = Math.round(progress) + '%';
-    for(let i=labels.length-1;i>=0;i--){ if(progress >= labels[i][0]){ if(label) label.textContent=labels[i][1]; break; } }
+    for(let i=labels.length-1;i>=0;i--){
+      if(progress >= labels[i][0]){
+        if(label) label.textContent = labels[i][1];
+        break;
+      }
+    }
   };
 
   const finish = () => {
     if(finished) return;
     finished = true;
     render(100);
-    sessionStorage.setItem('northlineLoaded','true');
-    const delay = reduce ? 80 : 420;
+    try { sessionStorage.setItem('northlineLoaded','true'); } catch {}
     setTimeout(() => {
       loader.classList.add('is-done');
       setTimeout(() => loader.remove(), reduce ? 120 : 700);
-    }, delay);
+    }, reduce ? 80 : 900);
   };
 
-  const start = performance.now();
-  const tick = now => {
+  // Give the intro enough time to actually be seen, while still waiting
+  // for the page to finish loading when that takes longer.
+  const minimumVisible = reduce ? 300 : 2400;
+  const started = performance.now();
+  const finishWhenReady = () => {
+    const remaining = Math.max(0, minimumVisible - (performance.now() - started));
+    setTimeout(finish, remaining);
+  };
+
+  const animate = now => {
     if(finished) return;
-    const elapsed = now - start;
-    const target = Math.min(92, 18 + elapsed / 12);
+    const elapsed = now - started;
+    // Hold the final stretch so the screen doesn't instantly jump to 100%.
+    const target = Math.min(94, 12 + elapsed / 32);
     render(target);
-    if(elapsed < 900) requestAnimationFrame(tick);
+    requestAnimationFrame(animate);
   };
-  requestAnimationFrame(tick);
+  requestAnimationFrame(animate);
 
-  if(document.readyState === 'complete') finish();
-  else window.addEventListener('load', finish, {once:true});
+  if(document.readyState === 'complete') finishWhenReady();
+  else window.addEventListener('load', finishWhenReady, {once:true});
 
-  setTimeout(finish, 1200);
+  // Safety cap in case a resource never finishes.
+  setTimeout(finishWhenReady, 5000);
 })();
-
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
