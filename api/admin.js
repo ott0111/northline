@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 export const runtime='nodejs';
 
-function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
+function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json','cache-control':'no-store',...headers}})}
 
 const loginAttempts=new Map();
 const WINDOW=10*60*1000;
@@ -27,7 +27,7 @@ function validSession(value){
 }
 
 export function isAdminRequest(request){
-  const value=request.headers.get('cookie')?.match(/northline_admin=([^;]+)/)?.[1];
+  const value=request.headers.get('cookie')?.match(/__Host-northline_admin=([^;]+)/)?.[1];
   return validSession(value);
 }
 
@@ -45,9 +45,9 @@ export async function POST(request){
   if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected))return json({ok:false,error:'Invalid password.'},401);
 
   loginAttempts.delete(key);
-  const cookie=`northline_admin=${sessionToken()}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${Math.floor(SESSION_TTL/1000)}`;
+  const cookie=`__Host-northline_admin=${sessionToken()}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${Math.floor(SESSION_TTL/1000)}`;
   return json({ok:true},200,{'set-cookie':cookie});
 }
 export async function DELETE(){
-  return new Response(null,{status:204,headers:{'set-cookie':'northline_admin=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0'}});
+  return new Response(null,{status:204,headers:{'set-cookie':'__Host-northline_admin=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0'}});
 }
