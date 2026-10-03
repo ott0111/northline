@@ -52,7 +52,7 @@
 
   // Give the intro enough time to actually be seen, while still waiting
   // for the page to finish loading when that takes longer.
-  const minimumVisible = reduce ? 300 : 5000;
+  const minimumVisible = reduce ? 300 : 8000;
   const started = performance.now();
   const finishWhenReady = () => {
     const remaining = Math.max(0, minimumVisible - (performance.now() - started));
@@ -63,7 +63,7 @@
     if(finished) return;
     const elapsed = now - started;
     // Hold the final stretch so the screen doesn't instantly jump to 100%.
-    const target = Math.min(94, 12 + elapsed / 62);
+    const target = Math.min(94, 8 + elapsed / 115);
     render(target);
     requestAnimationFrame(animate);
   };
