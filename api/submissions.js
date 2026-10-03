@@ -12,7 +12,7 @@ const getClientKey=request=>request.headers.get('x-forwarded-for')?.split(',')[0
 let schemaReady;\nasync function ensure(sql){\n  if(schemaReady)return schemaReady;\n  schemaReady=sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`.catch(error=>{schemaReady=null;throw error});\n  return schemaReady;\n}
 
 function authed(request){
-  const value=request.headers.get('cookie')?.match(/northline_admin=([^;]+)/)?.[1];
+  const value=request.headers.get('cookie')?.match(/(?:^|; )__Host-northline_admin=([^;]+)/)?.[1];
   if(!value||!process.env.ADMIN_SECRET)return false;
   const [payload,sig]=String(value).split('.');
   const exp=Number(payload);
