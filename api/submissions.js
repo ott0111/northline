@@ -9,7 +9,12 @@ const SUBMISSION_LIMIT=12;
 const MAX_BODY_BYTES=25000;
 const getClientKey=request=>request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()||'unknown';
 
-let schemaReady;\nasync function ensure(sql){\n  if(schemaReady)return schemaReady;\n  schemaReady=sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`.catch(error=>{schemaReady=null;throw error});\n  return schemaReady;\n}
+let schemaReady;
+async function ensure(sql){
+  if(schemaReady)return schemaReady;
+  schemaReady=sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`.catch(error=>{schemaReady=null;throw error});
+  return schemaReady;
+}
 
 function authed(request){
   const value=request.headers.get('cookie')?.match(/(?:^|; )__Host-northline_admin=([^;]+)/)?.[1];
