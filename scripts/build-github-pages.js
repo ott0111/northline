@@ -17,10 +17,18 @@ const publicPages = fs.readdirSync(path.join(root, 'pages'))
   .filter(file => file.endsWith('.html') && file !== 'admin.html');
 
 const rewriteForPages = html => html
-  // GitHub Pages project sites live under /northline-web/, so site-internal
-  // root-relative links must become relative links. Absolute external URLs stay intact.
+  // GitHub Pages project sites live under /northline-web/, so every internal
+  // root-relative URL must become a project-safe relative URL. External URLs
+  // such as https://... are left untouched.
   .replace(/(href|src)=(["'])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((["']?)\/(?!\/)/g, 'url($1./');
+
+const rewriteSiteJsForPages = js => js
+  .replaceAll("fetch('/api/submissions'", "fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions'")
+  .replaceAll('src="/assets/', 'src="./assets/');
+
+const rewrite404ForPages = html => rewriteForPages(html)
+  .replace('<head>', '<head><base href="/northline-web/">');
 
 const injectPagesConfig = html => {
   const config = '<script>window.NORTHLINE_API_ORIGIN=' + JSON.stringify(apiOrigin) + ';</script>';
@@ -28,9 +36,8 @@ const injectPagesConfig = html => {
 };
 
 const sourceSiteJs = fs.readFileSync(path.join(root, 'scripts', 'site.js'), 'utf8');
-const githubSiteJs = sourceSiteJs
-  .replaceAll('src="/assets/logo-mark.png"', 'src="./assets/logo-mark.png"')
-  .replaceAll("fetch('/api/submissions'", "fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions'");
+const githubSiteJs = rewriteSiteJsForPages(sourceSiteJs);
+fs.mkdirSync(path.join(dist, 'scripts'), { recursive: true });
 fs.writeFileSync(path.join(dist, 'scripts', 'site.js'), githubSiteJs);
 
 // The root entry remains the shared homepage source. On GitHub Pages we also
@@ -45,7 +52,8 @@ for (const file of publicPages) {
 }
 
 if (fs.existsSync(path.join(root, '404.html'))) {
-  fs.copyFileSync(path.join(root, '404.html'), path.join(dist, '404.html'));
+  const notFound = fs.readFileSync(path.join(root, '404.html'), 'utf8');
+  fs.writeFileSync(path.join(dist, '404.html'), rewrite404ForPages(notFound));
 }
 
 console.log('GitHub Pages build complete:', dist);
