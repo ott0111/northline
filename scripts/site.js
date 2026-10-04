@@ -478,3 +478,35 @@ document.querySelectorAll('img:not(.profile-image img):not(.hero img)').forEach(
   const footer=document.querySelector('footer') || document.body.appendChild(document.createElement('footer'));
   footer.innerHTML='<div class="wrap"><div class="footer-main"><div><a href="./index.html" class="logo"><img src="./assets/logo-mark.png" alt="">Northline</a><p class="footer-tag">Talent / Partnerships / Management</p></div><div class="footer-links"><div><span>Explore</span><a href="./talent.html">Talent</a><a href="./services.html">Services</a><a href="./work.html">For Brands</a><a href="./contact.html">Contact</a></div><div><span>Legal</span><a href="./privacy.html">Privacy</a><a href="./terms.html">Terms</a><a href="./cookies.html">Cookies</a><a href="https://x.com/N0RTHLINE" target="_blank" rel="noopener noreferrer">X / @N0RTHLINE <svg class="ui-icon ui-icon-external" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8h-2V6.41l-6.29 6.3-1.42-1.42-1.42 1.42L9.59 5H5V3Z" fill="currentColor"/></svg></a></div></div></div><div class="footer-bottom"><span>© 2026 Northline. All rights reserved.</span><span>Independent / Talent first.</span></div></div>';
 })();
+
+
+/* Northline public talent sync */
+(function(){
+  const root=document.querySelector('[data-talent-handle]');
+  if(!root)return;
+  const handle=root.dataset.talentHandle;
+  if(!handle)return;
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const icon='<svg class="ui-icon ui-icon-external" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8h-2V6.41l-6.29 6.3-1.42-1.42L9.59 5H5V3Z" fill="currentColor"/></svg>';
+  fetch('/api/talent?handle='+encodeURIComponent(handle),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{
+    const p=d?.profile;if(!p)return;
+    const socials=p.socials||{};
+    document.title=(p.name||handle)+' — Northline Talent';
+    document.querySelectorAll('[data-talent-name]').forEach(el=>el.textContent=p.name||handle);
+    document.querySelectorAll('[data-talent-bio]').forEach(el=>el.textContent=p.bio||'Represented on the Northline roster.');
+    document.querySelectorAll('[data-talent-category]').forEach(el=>el.textContent=(p.discipline||p.category||'Talent')+' / '+(p.category||''));
+    const img=document.querySelector('[data-talent-pfp]');
+    if(img&&p.pfp)img.src=p.pfp;
+    document.querySelectorAll('[data-talent-handle-label]').forEach(el=>el.textContent='@'+(p.handle||p.talentHandle||handle));
+    document.querySelectorAll('[data-talent-socials]').forEach(box=>{
+      const labels={x:'X',youtube:'YouTube',twitch:'Twitch',instagram:'Instagram',tiktok:'TikTok',tracker:'Fortnite Tracker',website:'Website'};
+      box.innerHTML=Object.entries(labels).filter(([key])=>socials[key]).map(([key,label])=>'<a href="'+esc(socials[key])+'" target="_blank" rel="noopener noreferrer"><strong>'+label+'</strong><b>'+icon+'</b></a>').join('');
+      box.hidden=!box.children.length;
+    });
+    const work=document.querySelector('[data-talent-work]');
+    if(work)work.textContent='02 / WORK WITH '+String(p.name||handle).toUpperCase();
+    const brief=document.querySelectorAll('[data-talent-brief]');
+    brief.forEach(a=>a.href='/work.html?talent='+encodeURIComponent(p.name||handle)+'#brand-brief');
+    document.querySelectorAll('[data-talent-profile-url]').forEach(a=>a.href=p.profile||a.href);
+  }).catch(()=>{});
+})();
