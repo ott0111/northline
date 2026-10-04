@@ -12,6 +12,7 @@ const copyDir = (src, dest) => fs.cpSync(src, dest, { recursive: true });
 
 copyDir(path.join(root, 'assets'), path.join(dist, 'assets'));
 copyDir(path.join(root, 'styles'), path.join(dist, 'styles'));
+copyDir(path.join(root, 'Work'), path.join(dist, 'Work'));
 
 const publicPages = fs.readdirSync(path.join(root, 'pages'))
   .filter(file => file.endsWith('.html') && file !== 'admin.html');
