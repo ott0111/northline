@@ -41,8 +41,7 @@ export default async function LegacyPage({ file }: Props) {
 
   return (
     <main data-next-migration="legacy-content" data-page={file}>
-      <title>{titles[file] ?? 'Northline'}</title>
-      <div dangerouslySetInnerHTML={{ __html: body }} />
+            <div dangerouslySetInnerHTML={{ __html: body }} />
     </main>
   );
 }
