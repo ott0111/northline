@@ -17,6 +17,24 @@ copyDir(path.join(root, 'Work'), path.join(dist, 'Work'));
 const publicPages = fs.readdirSync(path.join(root, 'pages'))
   .filter(file => file.endsWith('.html') && file !== 'admin.html');
 
+// Validate every local Work image referenced by the public pages before publishing.
+// This prevents GitHub Pages from deploying empty gallery placeholders when a file
+// was renamed, omitted, or not checked out correctly.
+const publicPageSources = publicPages.map(file => fs.readFileSync(path.join(root, 'pages', file), 'utf8'));
+const workReferences = new Set();
+for (const html of publicPageSources) {
+  for (const match of html.matchAll(/(?:src|href)=["'](\\/Work\\/[^"']+)["']/g)) {
+    workReferences.add(match[1].slice(1));
+  }
+}
+for (const relativePath of workReferences) {
+  const sourcePath = path.join(root, relativePath);
+  if (!fs.existsSync(sourcePath) || !fs.statSync(sourcePath).isFile()) {
+    throw new Error('Missing Work asset referenced by the site: ' + relativePath);
+  }
+}
+console.log('Validated Work assets:', workReferences.size);
+
 const rewriteForPages = html => html
   // GitHub Pages project sites live under /northline-web/, so every internal
   // root-relative URL must become a project-safe relative URL. External URLs
