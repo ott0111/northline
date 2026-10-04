@@ -3,8 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "description": "Northline talent agency website",
-  "engines": {"node": ">=20"},
-  "scripts": {"check": "node --check scripts/site.js && node --check api/admin.js && node --check api/submissions.js"},
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check scripts/site.js && node --check api/admin.js && node --check api/submissions.js && node --check api/talent.js"
+  },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2"
   }
