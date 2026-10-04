@@ -105,46 +105,6 @@
       "destination": "/pages/talent-drgxpb.html"
     },
     {
-      "source": "/talent-highr.html",
-      "destination": "/pages/talent-highr.html"
-    },
-    {
-      "source": "/talent-highr",
-      "destination": "/pages/talent-highr.html"
-    },
-    {
-      "source": "/talent-jpfking.html",
-      "destination": "/pages/talent-jpfking.html"
-    },
-    {
-      "source": "/talent-jpfking",
-      "destination": "/pages/talent-jpfking.html"
-    },
-    {
-      "source": "/talent-listen.html",
-      "destination": "/pages/talent-listen.html"
-    },
-    {
-      "source": "/talent-listen",
-      "destination": "/pages/talent-listen.html"
-    },
-    {
-      "source": "/talent-maddenv.html",
-      "destination": "/pages/talent-maddenv.html"
-    },
-    {
-      "source": "/talent-maddenv",
-      "destination": "/pages/talent-maddenv.html"
-    },
-    {
-      "source": "/talent-stiffaroonie.html",
-      "destination": "/pages/talent-stiffaroonie.html"
-    },
-    {
-      "source": "/talent-stiffaroonie",
-      "destination": "/pages/talent-stiffaroonie.html"
-    },
-    {
       "source": "/admin.html",
       "destination": "/pages/admin.html"
     },
@@ -175,6 +135,30 @@
     {
       "source": "/cookies",
       "destination": "/pages/cookies.html"
+    },
+    {
+      "source": "/talent-creep.html",
+      "destination": "/pages/talent-creep.html"
+    },
+    {
+      "source": "/talent-creep",
+      "destination": "/pages/talent-creep.html"
+    },
+    {
+      "source": "/talent-joki.html",
+      "destination": "/pages/talent-joki.html"
+    },
+    {
+      "source": "/talent-joki",
+      "destination": "/pages/talent-joki.html"
+    },
+    {
+      "source": "/talent-devade.html",
+      "destination": "/pages/talent-devade.html"
+    },
+    {
+      "source": "/talent-devade",
+      "destination": "/pages/talent-devade.html"
     }
   ],
   "headers": [
