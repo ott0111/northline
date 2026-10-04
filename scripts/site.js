@@ -89,6 +89,7 @@ document.querySelectorAll('img').forEach(img => {
   }, {once:true});
 });
 
+window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
