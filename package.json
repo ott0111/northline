@@ -1,16 +1,10 @@
 {
-  "name": "northline-web",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Northline talent agency website",
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "check": "node --check scripts/site.js && node --check scripts/build-github-pages.js && node --check api/submissions.js",
-    "build:pages": "node scripts/build-github-pages.js"
-  },
-  "dependencies": {
-    "@neondatabase/serverless": "^1.0.2"
-  }
+  "name":"northline-web",
+  "private":true,
+  "version":"2.0.0",
+  "description":"Northline — modern talent agency platform",
+  "engines":{"node":">=20"},
+  "scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"next lint","typecheck":"tsc --noEmit","check":"npm run typecheck","build:pages":"node scripts/build-github-pages.js"},
+  "dependencies":{"@neondatabase/serverless":"^1.0.2","next":"^16.3.8","react":"^19.2.0","react-dom":"^19.2.0"},
+  "devDependencies":{"@types/node":"^22.0.0","@types/react":"^19.0.0","@types/react-dom":"^19.0.0","typescript":"^5.7.0"}
 }
