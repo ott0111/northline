@@ -445,7 +445,7 @@ html{scroll-behavior:smooth}
   color:var(--white);
   opacity:1;
   visibility:visible;
-  transition:opacity 2s cubic-bezier(.22,1,.36,1),visibility 2s ease;
+  transition:opacity .35s cubic-bezier(.22,1,.36,1),visibility .35s ease;
 }
 #nl-loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
 .nl-loader-inner{
