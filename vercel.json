@@ -141,6 +141,22 @@
       "destination": "/pages/cookies.html"
     },
     {
+      "source": "/talent-hxvacfn.html",
+      "destination": "/pages/talent-hxvacfn.html"
+    },
+    {
+      "source": "/talent-hxvacfn",
+      "destination": "/pages/talent-hxvacfn.html"
+    },
+    {
+      "source": "/talent-kingston.html",
+      "destination": "/pages/talent-kingston.html"
+    },
+    {
+      "source": "/talent-kingston",
+      "destination": "/pages/talent-kingston.html"
+    },
+    {
       "source": "/talent-creep.html",
       "destination": "/pages/talent-creep.html"
     },
