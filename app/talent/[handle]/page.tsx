@@ -1,21 +1,7 @@
 import Link from 'next/link';
 import { db, ensureTalentTable } from '@/lib/db';
-import type { Talent } from '../../roster/page';
+import { seedTalent, type Talent } from '@/lib/talent';
 
-const seed: Record<string, Talent & { socials: Record<string,string> }> = {
-  hxvacfn:{talentHandle:'hxvacfn',name:'Hxvacfn',bio:'Competitive talent represented on the Northline roster.',category:'Talent',discipline:'Fortnite / Competitive',pfp:'/assets/hxvacfnpfp.jpg',socials:{x:'https://x.com/hxvacfn',youtube:'https://www.youtube.com/@HxvacfnFN',twitch:'https://www.twitch.tv/hxvac_'}},
-  kingston:{talentHandle:'kingston',name:'Kingston',bio:'Competitive talent represented on the Northline roster.',category:'Talent',discipline:'Fortnite / Competitive',pfp:'/assets/kingstonfnpfp.jpg',socials:{x:'https://x.com/KingstonFN_',twitch:'https://www.twitch.tv/kingstonfn_'}},
-  creep:{talentHandle:'creep',name:'Creep',bio:'Competitive talent represented on the Northline roster.',category:'Talent',discipline:'Fortnite / Competitive',pfp:'/assets/creeppfp.jpg',socials:{x:'https://x.com/CreepWtff'}},
-  joki:{talentHandle:'joki',name:'Joki',bio:'Competitive talent represented on the Northline roster.',category:'Talent',discipline:'Fortnite / Competitive',pfp:'/assets/jokifnxpfp.jpg',socials:{x:'https://x.com/jokifnx'}},
-  devade:{talentHandle:'devade',name:'Devade',bio:'Competitive talent represented on the Northline roster.',category:'Talent',discipline:'Fortnite / Competitive',pfp:'/assets/devadefvpfp.jpg',socials:{x:'https://x.com/devadefv'}},
-  drgxpb:{talentHandle:'drgxpb',name:'drgxpb',bio:'Creator talent represented on the Northline roster.',category:'Creator',discipline:'Creator / Digital',pfp:'',socials:{x:'https://x.com/drgxpb'}},
-};
-
-async function getProfile(handle:string) {
-  const fallback=seed[handle.toLowerCase()];
-  if (!db) return fallback;
-  try {
-    await ensureTalentTable();
     const rows=await db`SELECT talent_handle AS "talentHandle", name, bio, category, discipline, pfp, socials
       FROM northline_talent_profiles WHERE lower(talent_handle)=lower(${handle}) AND public_status='published' LIMIT 1`;
     return rows[0] ? rows[0] as typeof fallback : fallback;
