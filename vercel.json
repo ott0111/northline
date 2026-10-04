@@ -109,14 +109,6 @@
       "destination": "/pages/talent-drgxpb.html"
     },
     {
-      "source": "/admin.html",
-      "destination": "/pages/admin.html"
-    },
-    {
-      "source": "/admin",
-      "destination": "/pages/admin.html"
-    },
-    {
       "source": "/privacy.html",
       "destination": "/pages/privacy.html"
     },
@@ -204,33 +196,6 @@
         {
           "key": "X-Permitted-Cross-Domain-Policies",
           "value": "none"
-        }
-      ]
-    },
-    {
-      "source": "/admin.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        }
-      ]
-    },
-    {
-      "source": "/admin",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        }
-      ]
-    },
-    {
-      "source": "/pages/admin.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
         }
       ]
     },
