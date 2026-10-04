@@ -644,3 +644,6 @@ img.is-broken{object-fit:contain!important;opacity:.45;}
 
 /* Talent roster cards do not show the VIEW PROFILE hover badge. */
 .talent-card:after{display:none!important}
+
+/* Talent PFP grayscale until hover */
+.talent-photo img,.home-talent-photo img{filter:grayscale(100%);transition:filter .35s ease,transform .35s ease}.talent-card:hover .talent-photo img,.home-talent-card:hover .home-talent-photo img{filter:grayscale(0)}
