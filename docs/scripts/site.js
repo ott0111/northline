@@ -474,7 +474,6 @@ document.querySelectorAll('img:not(.profile-image img):not(.hero img)').forEach(
 
 /* Northline shared footer */
 (function(){
-  const footer=document.querySelector('footer');
-  if(!footer)return;
+  const footer=document.querySelector('footer') || document.body.appendChild(document.createElement('footer'));
   footer.innerHTML='<div class="wrap"><div class="footer-main"><div><a href="./index.html" class="logo"><img src="./assets/logo-mark.png" alt="">Northline</a><p class="footer-tag">Talent / Partnerships / Management</p></div><div class="footer-links"><div><span>Explore</span><a href="./talent.html">Talent</a><a href="./services.html">Services</a><a href="./work.html">For Brands</a><a href="./contact.html">Contact</a></div><div><span>Legal</span><a href="./privacy.html">Privacy</a><a href="./terms.html">Terms</a><a href="./cookies.html">Cookies</a><a href="https://x.com/N0RTHLINE" target="_blank" rel="noopener noreferrer">X / @N0RTHLINE <svg class="ui-icon ui-icon-external" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8h-2V6.41l-6.29 6.3-1.42-1.42-1.42 1.42L9.59 5H5V3Z" fill="currentColor"/></svg></a></div></div></div><div class="footer-bottom"><span>© 2026 Northline. All rights reserved.</span><span>Independent / Talent first.</span></div></div>';
 })();
