@@ -9,7 +9,7 @@
   const loader = document.createElement('div');
   loader.id = 'nl-loader';
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
+  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="/assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
@@ -96,12 +96,12 @@ document.querySelectorAll('img').forEach(img => {
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
-const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+const currentPage = ((window.location.pathname.split('/').pop() || 'index.html').toLowerCase().replace(/\.html$/, '') || 'index');
 document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
   const href = link.getAttribute('href') || '';
   if (!href || href.startsWith('http')) return;
   const page = href.split('#')[0].split('?')[0].toLowerCase();
-  if (page === currentPage && page !== 'index.html') link.classList.add('active');
+  const normalizedPage = page.replace(/^\//,'').replace(/\.html$/, '') || 'index'; if (normalizedPage === currentPage && currentPage !== 'index') link.classList.add('active');
 });
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
