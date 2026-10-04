@@ -1,8 +1,74 @@
 [
-  {"name":"Hxvacfn","handle":"hxvacfn","category":"competitive","discipline":"Fortnite","bio":"Competitive Fortnite player.","status":"Represented","profile":"/talent-hxvacfn.html","socials":{"x":"https://x.com/hxvacfn"}},
-  {"name":"Kingston","handle":"KingstonFN_","category":"competitive","discipline":"Fortnite","bio":"Competitive Fortnite player.","status":"Represented","profile":"/talent-kingston.html","socials":{"x":"https://x.com/KingstonFN_"}},
-  {"name":"Creep","handle":"CreepWtfffn","category":"competitive","discipline":"Fortnite","bio":"Competitive Fortnite player.","status":"Represented","profile":"/talent-creep.html","socials":{"x":"https://x.com/CreepWtfffn"}},
-  {"name":"Joki","handle":"jokifnx","category":"competitive","discipline":"Fortnite","bio":"Competitive Fortnite player.","status":"Represented","profile":"/talent-joki.html","socials":{"x":"https://x.com/jokifnx"}},
-  {"name":"Devade","handle":"devadefv","category":"competitive","discipline":"Fortnite","bio":"Competitive Fortnite player.","status":"Represented","profile":"/talent-devade.html","socials":{"x":"https://x.com/devadefv"}},
-  {"name":"drgxpb","handle":"drgxpb","category":"creator","discipline":"Content Creator","bio":"Content creator.","status":"Represented","profile":"/talent-drgxpb.html","socials":{"x":"https://x.com/drgxpb"}}
+  {
+    "name": "Hxvacfn",
+    "handle": "hxvacfn",
+    "category": "competitive",
+    "discipline": "Fortnite",
+    "bio": "Competitive Fortnite player.",
+    "status": "Represented",
+    "profile": "/talent-hxvacfn.html",
+    "socials": {
+      "x": "https://x.com/hxvacfn"
+    }
+  },
+  {
+    "name": "Kingston",
+    "handle": "KingstonFN_",
+    "category": "competitive",
+    "discipline": "Fortnite",
+    "bio": "Competitive Fortnite player.",
+    "status": "Represented",
+    "profile": "/talent-kingston.html",
+    "socials": {
+      "x": "https://x.com/KingstonFN_"
+    }
+  },
+  {
+    "name": "Creep",
+    "handle": "CreepWtff",
+    "category": "competitive",
+    "discipline": "Fortnite",
+    "bio": "Competitive Fortnite player.",
+    "status": "Represented",
+    "profile": "/talent-creep.html",
+    "socials": {
+      "x": "https://x.com/CreepWtff"
+    }
+  },
+  {
+    "name": "Joki",
+    "handle": "jokifnx",
+    "category": "competitive",
+    "discipline": "Fortnite",
+    "bio": "Competitive Fortnite player.",
+    "status": "Represented",
+    "profile": "/talent-joki.html",
+    "socials": {
+      "x": "https://x.com/jokifnx"
+    }
+  },
+  {
+    "name": "Devade",
+    "handle": "devadefv",
+    "category": "competitive",
+    "discipline": "Fortnite",
+    "bio": "Competitive Fortnite player.",
+    "status": "Represented",
+    "profile": "/talent-devade.html",
+    "socials": {
+      "x": "https://x.com/devadefv"
+    }
+  },
+  {
+    "name": "drgxpb",
+    "handle": "drgxpb",
+    "category": "creator",
+    "discipline": "Content Creator",
+    "bio": "Content creator.",
+    "status": "Represented",
+    "profile": "/talent-drgxpb.html",
+    "socials": {
+      "x": "https://x.com/drgxpb"
+    }
+  }
 ]
