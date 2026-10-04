@@ -46,13 +46,13 @@
     try { sessionStorage.setItem('northlineLoaded','true'); } catch {}
     setTimeout(() => {
       loader.classList.add('is-done');
-      setTimeout(() => loader.remove(), reduce ? 80 : 350);
+      setTimeout(() => loader.remove(), reduce ? 50 : 250);
     }, reduce ? 80 : 900);
   };
 
   // Give the intro enough time to actually be seen, while still waiting
   // for the page to finish loading when that takes longer.
-  const minimumVisible = reduce ? 250 : 700;
+  const minimumVisible = reduce ? 150 : 450;
   const started = performance.now();
   const finishWhenReady = () => {
     const remaining = Math.max(0, minimumVisible - (performance.now() - started));
@@ -73,7 +73,7 @@
   else window.addEventListener('load', finishWhenReady, {once:true});
 
   // Safety cap in case a resource never finishes.
-  setTimeout(finishWhenReady, 4500);
+  setTimeout(finishWhenReady, 2200);
 })();
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
