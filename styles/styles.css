@@ -687,3 +687,13 @@ img.is-broken{object-fit:contain!important;opacity:.45;}
 .legal-copy strong{color:var(--white);font-weight:600}
 .legal-copy>p:last-child{display:inline-block;margin-top:1.25rem;margin-bottom:0;padding:.65rem .8rem;border:1px solid var(--line);background:var(--charcoal-2);font-size:.62rem;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 @media(max-width:600px){.legal-copy{padding-top:0;padding-bottom:5rem}.legal-copy h2{font-size:2.25rem;padding-top:1.8rem}.legal-copy p{font-size:.84rem;line-height:1.75}.legal-copy h2+p{padding-bottom:2rem}}
+
+/* Northline 2026 visual refinement */
+:root{--radius-card:18px;--radius-control:12px;--radius-pill:999px}
+.btn{border-radius:10px}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div,.talent-opportunity-grid,.profile-info-grid{border-radius:var(--radius-card);overflow:hidden}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div{border:1px solid rgba(255,255,255,.09);box-shadow:0 14px 45px rgba(0,0,0,.12)}
+.talent-card img,.home-talent-card img,.profile-image img{border-radius:14px}
+.profile-links a{border-radius:12px}
+.profile-image{border-radius:18px;overflow:hidden}
+input,select,textarea{border-radius:10px}
