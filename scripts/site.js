@@ -385,7 +385,10 @@ if (contactForm) {
   items.forEach(item=>item.addEventListener('click',e=>{e.preventDefault();img.src=item.href;img.alt=item.dataset.title||'';title.textContent=item.dataset.title||'';box.classList.add('is-open');box.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}));
   box.addEventListener('click',e=>{if(e.target===box)close();});
   box.querySelector('.nl-lightbox-close').addEventListener('click',close);
+  img.addEventListener('click',e=>e.stopPropagation());
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-open'))close();});
+  // Keep the viewer self-contained: closing the image never requires browser back navigation.
+  window.addEventListener('popstate',()=>{if(box.classList.contains('is-open'))close();});
 })();
 
 /* Northline UX utilities */
