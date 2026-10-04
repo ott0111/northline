@@ -17,7 +17,15 @@ async function ensure(sql){return sql`CREATE TABLE IF NOT EXISTS northline_talen
 const clean=v=>String(v??'').trim();
 const safeUrl=v=>{const value=clean(v).slice(0,1000);if(!value)return '';if(/^https?:\/\//i.test(value)||value.startsWith('/')||value.startsWith('./'))return value;return ''};
 export async function GET(request){
- if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
+ const publicHandle=new URL(request.url).searchParams.get('handle');
+ if(!authed(request)){
+  if(!publicHandle)return json({ok:false,error:'Unauthorized.'},401);
+  if(!process.env.DATABASE_URL)return json({ok:false,error:'Not found.'},404);
+  const sql=neon(process.env.DATABASE_URL);await ensure(sql);
+  const [row]=await sql`SELECT talent_handle AS "talentHandle",name,bio,category,discipline,public_status AS "publicStatus",pfp,socials FROM northline_talent_profiles WHERE lower(talent_handle)=lower(${clean(publicHandle)}) LIMIT 1`;
+  if(!row)return json({ok:false,error:'Not found.'},404);
+  return json({ok:true,profile:row});
+ }
  const base=await fetch(new URL('/data/talent/index.json',request.url),{cache:'no-store'}).then(r=>r.ok?r.json():[]).catch(()=>[]);
  if(!process.env.DATABASE_URL)return json({ok:true,talent:base.map(x=>({...x,internalStatus:'active',note:''}))});
  const sql=neon(process.env.DATABASE_URL);await ensure(sql);
