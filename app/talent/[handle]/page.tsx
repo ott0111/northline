@@ -1,13 +1,18 @@
 import Link from 'next/link';
 import { db, ensureTalentTable } from '@/lib/db';
-import { seedTalent, type Talent } from '@/lib/talent';
+import { seedTalent } from '@/lib/talent';
 
-    const rows=await db`SELECT talent_handle AS "talentHandle", name, bio, category, discipline, pfp, socials
-      FROM northline_talent_profiles WHERE lower(talent_handle)=lower(${handle}) AND public_status='published' LIMIT 1`;
-    return rows[0] ? rows[0] as typeof fallback : fallback;
-  } catch { return fallback; }
+async function getProfile(handle: string) {
+  const fallback = seedTalent.find((item) => item.talentHandle.toLowerCase() === handle.toLowerCase());
+  if (!db) return fallback;
+  try {
+    await ensureTalentTable();
+    const rows = await db`SELECT talent_handle AS "talentHandle", name, bio, category, discipline, pfp, socials FROM northline_talent_profiles WHERE lower(talent_handle)=lower(${handle}) AND public_status='published' LIMIT 1`;
+    return rows[0] ? rows[0] : fallback;
+  } catch {
+    return fallback;
+  }
 }
-
 export default async function TalentProfilePage({handle}:{handle:string}) {
   const profile=await getProfile(handle);
   if (!profile) return <main className="wrap"><h1>Talent not found.</h1><Link href="/roster">Back to roster</Link></main>;
