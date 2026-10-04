@@ -39,10 +39,8 @@ for (const relativePath of workReferences) {
 console.log('Validated Work assets:', workReferences.size);
 
 const rewriteForPages = html => html
-  .replace('<head>', '<head><base href="/northline-web/">')
-  // GitHub Pages project sites live under /northline-web/, so every internal
-  // root-relative URL must become a project-safe relative URL. External URLs
-  // such as https://... are left untouched.
+  // GitHub Pages is deployed as a project site. Keep published pages self-contained
+  // with relative URLs so the site works regardless of the repository/project slug.
   .replace(/(href|src)=(["'])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((["']?)\/(?!\/)/g, 'url($1./');
 
