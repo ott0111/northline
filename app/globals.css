@@ -1,2 +1,5 @@
 @import url('/styles/styles.css');
+
 html,body{margin:0;padding:0;min-height:100%;background:#070707;color:#fff}
+body > main{min-height:100vh}
+[data-next-migration="legacy-content"]{display:contents}
