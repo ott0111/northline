@@ -50,8 +50,6 @@
     }, reduce ? 80 : 900);
   };
 
-  // Give the intro enough time to actually be seen, while still waiting
-  // for the page to finish loading when that takes longer.
   const minimumVisible = reduce ? 150 : 450;
   const started = performance.now();
   const finishWhenReady = () => {
@@ -62,7 +60,6 @@
   const animate = now => {
     if(finished) return;
     const elapsed = now - started;
-    // Hold the final stretch so the screen doesn't instantly jump to 100%.
     const target = Math.min(94, 8 + elapsed / 115);
     render(target);
     requestAnimationFrame(animate);
@@ -72,7 +69,6 @@
   if(document.readyState === 'complete') finishWhenReady();
   else window.addEventListener('load', finishWhenReady, {once:true});
 
-  // Safety cap in case a resource never finishes.
   setTimeout(finishWhenReady, 2200);
 })();
 /* Reliable image fallback for mobile/network failures */
@@ -147,7 +143,7 @@ if(fastEls.length) fastEls.forEach((el, i) => setTimeout(() => el.classList.add(
 
 
 
-// Copy-ready brand brief
+/* Copy-ready brand brief */
 const brandBrief = document.getElementById('brandBrief');
 const briefError = document.getElementById('briefError');
 if(brandBrief){
@@ -191,7 +187,7 @@ if(brandBrief){
   });
 }
 
-// Copy-ready talent application
+/* Copy-ready talent application */
 const talentApplication = document.getElementById('talentApplication');
 if(talentApplication){
   talentApplication.addEventListener('submit', async e => {
@@ -260,7 +256,7 @@ if(contactForm){
   });
 }
 
-// Preselect contact intent from ?type=brand or ?type=talent links.
+/* Preselect contact intent from ?type=brand or ?type=talent links. */
 if (contactForm) {
   const requestedType = new URLSearchParams(window.location.search).get('type');
   const select = contactForm.querySelector('[name="type"]');
@@ -282,12 +278,10 @@ if (contactForm) {
 
   requestAnimationFrame(()=>document.body.classList.add('page-ready'));
 
-  // Stagger visual systems.
   document.querySelectorAll('.talent-grid,.home-talent-grid,.ops-home-grid,.latest-grid,.feature-grid,.approach-grid,.points-grid,.values-grid,.brand-services,.brand-mini-grid,.brand-process,.profile-standard,.price-grid,.discord-steps').forEach(grid=>{
     [...grid.children].forEach((el,i)=>el.style.setProperty('--stagger',Math.min(i,7)*55+'ms'));
   });
 
-  // Header state.
   const header=document.getElementById('siteHeader');
   const setHeader=()=>header?.classList.toggle('scrolled',window.scrollY>24);
   const updateProgress=()=>document.documentElement.style.setProperty('--scroll-progress',((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100).toFixed(2)+'%');
@@ -297,10 +291,11 @@ if (contactForm) {
 
   if(reduce) return;
 
-  // Internal page transitions. Preserve normal browser link behavior.
+  // Internal page transitions. Lightbox links are handled by the image viewer
+  // below and must never be intercepted as normal page navigation.
   document.querySelectorAll('a[href]').forEach(link=>{
     const href=link.getAttribute('href')||'';
-    if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank') return;
+    if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank'||link.hasAttribute('data-lightbox')) return;
     const url=new URL(href,window.location.href);
     if(url.origin!==window.location.origin) return;
     link.addEventListener('click',e=>{
@@ -312,7 +307,6 @@ if (contactForm) {
     });
   });
 
-  // Cursor spotlight + restrained card tilt.
   document.querySelectorAll('.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div').forEach(card=>{
     card.addEventListener('pointermove',e=>{
       if(matchMedia('(hover:none)').matches) return;
@@ -332,7 +326,6 @@ if (contactForm) {
     });
   });
 
-  // Magnetic links.
   document.querySelectorAll('.btn,.text-link').forEach(el=>{
     if(el.closest('.mobile-nav')) return;
     el.addEventListener('pointermove',e=>{
@@ -346,7 +339,6 @@ if (contactForm) {
     });
   });
 
-  // One transform system for hero depth.
   document.querySelectorAll('.hero,.page-hero,.profile-hero').forEach(hero=>{
     const layers=hero.querySelectorAll('.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image');
     hero.addEventListener('pointermove',e=>{
@@ -364,7 +356,6 @@ if (contactForm) {
     });
   });
 
-  // Marquee subtly accelerates on hover.
   const marquee=document.querySelector('.marquee');
   marquee?.addEventListener('mouseenter',()=>marquee.classList.add('marquee-fast'));
   marquee?.addEventListener('mouseleave',()=>marquee.classList.remove('marquee-fast'));
@@ -381,16 +372,34 @@ if (contactForm) {
   box.innerHTML='<button class="nl-lightbox-close" type="button" aria-label="Close image">×</button><img alt=""><div class="nl-lightbox-title"></div>';
   document.body.appendChild(box);
   const img=box.querySelector('img'), title=box.querySelector('.nl-lightbox-title');
-  const close=()=>{box.classList.remove('is-open');box.setAttribute('aria-hidden','true');document.body.style.overflow='';};
-  items.forEach(item=>item.addEventListener('click',e=>{e.preventDefault();img.src=item.href;img.alt=item.dataset.title||'';title.textContent=item.dataset.title||'';box.classList.add('is-open');box.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}));
+  const close=()=>{
+    box.classList.remove('is-open');
+    box.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    img.removeAttribute('src');
+  };
+  items.forEach(item=>item.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    img.src=item.href;
+    img.alt=item.dataset.title||'';
+    title.textContent=item.dataset.title||'';
+    box.classList.add('is-open');
+    box.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }));
   box.addEventListener('click',e=>{if(e.target===box)close();});
-  box.querySelector('.nl-lightbox-close').addEventListener('click',close);
+  box.querySelector('.nl-lightbox-close').addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    close();
+  });
   img.addEventListener('click',e=>e.stopPropagation());
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-open'))close();});
-  // Keep the viewer self-contained: closing the image never requires browser back navigation.
-  window.addEventListener('popstate',()=>{if(box.classList.contains('is-open'))close();});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&box.classList.contains('is-open'))close();
+  });
 })();
-
+ 
 /* Northline UX utilities */
 (function(){
   document.querySelectorAll('img').forEach((img,i)=>{ if(!img.hasAttribute('loading') && i>3) img.loading='lazy'; if(!img.hasAttribute('decoding')) img.decoding='async'; });
