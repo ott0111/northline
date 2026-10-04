@@ -697,3 +697,99 @@ img.is-broken{object-fit:contain!important;opacity:.45;}
 .profile-links a{border-radius:12px}
 .profile-image{border-radius:18px;overflow:hidden}
 input,select,textarea{border-radius:10px}
+
+
+/* Northline editorial system — 2026 */
+:root{
+  --editorial-radius:22px;
+  --editorial-radius-sm:14px;
+  --editorial-border:rgba(255,255,255,.10);
+  --editorial-muted:rgba(255,255,255,.58);
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(900px 500px at 82% -8%,rgba(255,255,255,.055),transparent 65%),
+    radial-gradient(700px 420px at 8% 18%,rgba(255,255,255,.025),transparent 70%),
+    #070707;
+}
+#siteHeader{
+  border-bottom-color:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.logo{letter-spacing:-.025em}
+.primary-nav,.mobile-nav-inner{border-radius:var(--editorial-radius-sm)}
+.primary-nav a,.mobile-nav a{transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.btn{
+  border-radius:999px;
+  min-height:46px;
+  padding-inline:18px;
+  letter-spacing:-.01em;
+  transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,
+.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,
+.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div,
+.talent-opportunity-grid,.profile-info-grid{
+  border:1px solid var(--editorial-border);
+  border-radius:var(--editorial-radius);
+  box-shadow:0 18px 55px rgba(0,0,0,.18);
+}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,
+.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,
+.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div{
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+}
+.talent-card img,.home-talent-card img,.profile-image img{
+  border-radius:18px;
+}
+.talent-card:hover,.home-talent-card:hover,.ops-home-card:hover,.feature-card:hover,
+.latest-grid>a:hover,.brand-services>div:hover,.brand-mini-grid>div:hover,
+.brand-process>div:hover,.profile-standard>div:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,.18);
+  box-shadow:0 24px 70px rgba(0,0,0,.25);
+}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,
+.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div{
+  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+}
+.profile-hero{
+  overflow:hidden;
+}
+.profile-hero .profile-image{
+  border-radius:var(--editorial-radius);
+  border:1px solid var(--editorial-border);
+  box-shadow:0 28px 90px rgba(0,0,0,.28);
+}
+.profile-metrics>div{
+  border-radius:var(--editorial-radius-sm);
+  border:1px solid var(--editorial-border);
+  background:rgba(255,255,255,.025);
+}
+.profile-links a{
+  border-radius:var(--editorial-radius-sm);
+  border-color:var(--editorial-border);
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.profile-links a:hover{transform:translateX(5px);border-color:rgba(255,255,255,.2)}
+.section-number,.eyebrow{
+  letter-spacing:.16em;
+}
+h1,h2,h3{
+  letter-spacing:-.055em;
+}
+.lead{
+  color:rgba(255,255,255,.82);
+}
+footer{
+  border-top-color:rgba(255,255,255,.08);
+}
+@media(max-width:700px){
+  :root{--editorial-radius:18px}
+  .btn{min-height:44px;padding-inline:16px}
+  .profile-hero .profile-image{border-radius:18px}
+}
