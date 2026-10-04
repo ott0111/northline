@@ -2,6 +2,7 @@ import { neon } from '@neondatabase/serverless';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
+export function OPTIONS(){return new Response(null,{status:204})}
 function token(){return createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin').digest('hex')}
 const submissionAttempts=new Map();
 const SUBMISSION_WINDOW=10*60*1000;
