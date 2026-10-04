@@ -229,6 +229,27 @@
           "value": "noindex, nofollow, noarchive"
         }
       ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://ott0111.github.io"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,PATCH,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        },
+        {
+          "key": "Access-Control-Max-Age",
+          "value": "600"
+        }
+      ]
     }
   ]
 }
