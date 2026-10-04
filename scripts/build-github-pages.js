@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const dist = path.join(root, 'dist');
+const dist = path.join(root, 'github-pages');
 const apiOrigin = process.env.NORTHLINE_API_ORIGIN || 'https://northline-web-three.vercel.app';
 
 fs.rmSync(dist, { recursive: true, force: true });
