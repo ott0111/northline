@@ -7,7 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "check": "node --check scripts/site.js && node --check api/admin.js && node --check api/submissions.js && node --check api/talent.js"
+    "check": "node --check scripts/site.js && node --check scripts/build-github-pages.js && node --check api/admin.js && node --check api/submissions.js && node --check api/talent.js",
+    "build:pages": "node scripts/build-github-pages.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2"
