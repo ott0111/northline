@@ -50,8 +50,7 @@ const rewriteSiteJsForPages = js => js
   .replaceAll("fetch('/api/submissions'", "fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions'")
   .replaceAll('src="/assets/', 'src="./assets/');
 
-const rewrite404ForPages = html => rewriteForPages(html)
-  .replace('<head>', '<head><base href="/northline-web/">');
+const rewrite404ForPages = html => rewriteForPages(html);
 
 const injectPagesConfig = html => {
   const config = '<script>window.NORTHLINE_API_ORIGIN=' + JSON.stringify(apiOrigin) + ';</script>';
