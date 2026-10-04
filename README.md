@@ -27,4 +27,4 @@ The submission API initializes its table when needed.
 
 ## Validation
 
-Run `npm run check` to syntax-check the JavaScript files used by the site.
+Run `npm run check` to syntax-check the JavaScript files used by the site. The Vercel project is linked to `ott0111/northline` on `main`; production deployments are managed through that Git integration.
