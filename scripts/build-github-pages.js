@@ -14,10 +14,27 @@ copyDir(path.join(root, 'assets'), path.join(dist, 'assets'));
 copyDir(path.join(root, 'styles'), path.join(dist, 'styles'));
 copyDir(path.join(root, 'Work'), path.join(dist, 'Work'));
 
-for (const file of ['robots.txt', 'sitemap.xml']) {
-  const sourcePath = path.join(root, 'docs', file);
-  if (fs.existsSync(sourcePath)) fs.copyFileSync(sourcePath, path.join(dist, file));
-}
+fs.writeFileSync(path.join(dist, 'robots.txt'), [
+  'User-agent: *',
+  'Allow: /',
+  'Disallow: /admin.html',
+  'Disallow: /admin',
+  'Disallow: /pages/',
+  'Disallow: /api/',
+  '',
+  'Sitemap: https://northline.co/sitemap.xml',
+  ''
+].join('\n'));
+
+const sitemapPages = publicPages
+  .map(file => file === 'index.html' ? 'https://northline.co/' : 'https://northline.co/' + file)
+  .map(url => '<url><loc>' + url + '</loc></url>')
+  .join('');
+
+fs.writeFileSync(
+  path.join(dist, 'sitemap.xml'),
+  '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + sitemapPages + '</urlset>'
+);
 
 const publicPages = fs.readdirSync(path.join(root, 'pages'))
   .filter(file => file.endsWith('.html') && file !== 'admin.html');
