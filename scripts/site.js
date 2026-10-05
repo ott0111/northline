@@ -410,6 +410,15 @@ if (contactForm) {
   document.querySelectorAll('img').forEach(img=>{
     if(!img.hasAttribute('loading')) img.loading='lazy';
     if(!img.hasAttribute('decoding')) img.decoding='async';
+    if(img.classList.contains('work-thumb')){
+      img.addEventListener('error',()=>{
+        const full=img.dataset.fullSrc;
+        if(full && img.src!==full){
+          img.src=full;
+          img.removeAttribute('srcset');
+        }
+      },{once:true});
+    }
   });
 })();
 /* Northline roster filters */
