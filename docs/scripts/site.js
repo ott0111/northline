@@ -9,7 +9,7 @@
   const loader = document.createElement('div');
   loader.id = 'nl-loader';
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="./assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
+  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="/assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
@@ -410,6 +410,15 @@ if (contactForm) {
   document.querySelectorAll('img').forEach(img=>{
     if(!img.hasAttribute('loading')) img.loading='lazy';
     if(!img.hasAttribute('decoding')) img.decoding='async';
+    if(img.classList.contains('work-thumb')){
+      img.addEventListener('error',()=>{
+        const full=img.dataset.fullSrc;
+        if(full && img.src!==full){
+          img.src=full;
+          img.removeAttribute('srcset');
+        }
+      },{once:true});
+    }
   });
 })();
 /* Northline roster filters */
