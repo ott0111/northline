@@ -718,7 +718,7 @@ body{
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
-.logo{letter-spacing:-.025em}
+.logo{letter-spacing:-.025em;padding:0;border:0;background:transparent;box-shadow:none}
 .primary-nav,.mobile-nav-inner{border-radius:var(--editorial-radius-sm)}
 .primary-nav a,.mobile-nav a{transition:background .2s ease,border-color .2s ease,transform .2s ease}
 .btn{
