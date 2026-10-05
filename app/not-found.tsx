@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <main className="wrap" style={{minHeight:'70vh',display:'grid',placeItems:'center'}}><div><div className="section-number">404 / NORTHLINE</div><h1>Page not <em>found.</em></h1><p>That page doesn't exist or has moved.</p><Link href="/" className="btn btn-primary">Back Home →</Link></div></main>;}
