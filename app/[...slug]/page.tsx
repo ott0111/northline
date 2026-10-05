@@ -3,6 +3,8 @@ import LegacyPage, { readLegacyPage } from '../legacy-page';
 import RosterPage from '../roster/page';
 import TalentLandingPage from '../talent/page';
 import TalentProfilePage from '../talent/[handle]/page';
+import TeamPage from '../team/page';
+import ServicesPage from '../services/page';
 
 const legacyRoutes = new Set(['about','apply','contact','faq','past-work','process','services','talent','team','work','privacy','terms','cookies']);
 const talentRoutes = new Set(['talent-hxvacfn','talent-kingston','talent-creep','talent-joki','talent-devade','talent-drgxpb']);
@@ -13,6 +15,8 @@ export default async function RoutePage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   if (slug.length !== 1) notFound();
   if (slug[0] === 'roster') return <RosterPage />;
+  if (slug[0] === 'team') return <TeamPage />;
+  if (slug[0] === 'services') return <ServicesPage />;
   if (slug[0] === 'talent') return <TalentLandingPage />;
   if (talentRoutes.has(slug[0])) return <TalentProfilePage handle={slug[0].replace('talent-','')} />;
   if (!legacyRoutes.has(slug[0])) notFound();
