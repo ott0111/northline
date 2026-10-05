@@ -66,10 +66,14 @@
   };
   requestAnimationFrame(animate);
 
-  if(document.readyState === 'complete') finishWhenReady();
-  else window.addEventListener('load', finishWhenReady, {once:true});
+  // Never block the whole page behind every image/network request.
+  // The old window.load dependency made image-heavy pages appear completely black.
+  const startFinish = () => finishWhenReady();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startFinish, {once:true});
+  else startFinish();
 
-  setTimeout(finishWhenReady, 2200);
+  // Hard safety cap so the loader can never trap the user on a black screen.
+  setTimeout(finish, 1600);
 })();
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
@@ -89,6 +93,7 @@ document.querySelectorAll('img').forEach(img => {
   }, {once:true});
 });
 
+window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
@@ -153,7 +158,7 @@ if(brandBrief){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(brandBrief).entries());
     try {
-      const response = await fetch((window.NORTHLINE_API_ORIGIN || 'https://northline-web-three.vercel.app') + '/api/submissions', {
+      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'brand-brief', data})
@@ -196,7 +201,7 @@ if(talentApplication){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(talentApplication).entries());
     try {
-      const response = await fetch((window.NORTHLINE_API_ORIGIN || 'https://northline-web-three.vercel.app') + '/api/submissions', {
+      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'talent-application', data})
@@ -243,7 +248,7 @@ if(contactForm){
     if(button){button.disabled=true;button.innerHTML='Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'}
     const data=Object.fromEntries(new FormData(contactForm).entries());
     try{
-      const response=await fetch((window.NORTHLINE_API_ORIGIN || 'https://northline-web-three.vercel.app') + '/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
+      const response=await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
       const result=await response.json().catch(()=>({}));
       if(!response.ok||!result.ok) throw new Error(result.error||'Submission failed');
       contactForm.hidden=true;
@@ -403,7 +408,7 @@ if (contactForm) {
 /* Northline image handling */
 (function(){
   document.querySelectorAll('img').forEach(img=>{
-    if(!img.hasAttribute('loading')) img.loading='eager';
+    if(!img.hasAttribute('loading')) img.loading='lazy';
     if(!img.hasAttribute('decoding')) img.decoding='async';
   });
 })();
@@ -469,9 +474,9 @@ if (contactForm) {
   sync();
 })();
 
-/* Keep image loading deterministic across mobile browsers and GitHub Pages. */
+/* Keep normal pages lightweight. Past Work controls its own gallery loading. */
 document.querySelectorAll('img').forEach(img=>{
-  img.loading='eager';
+  if(!img.hasAttribute('loading')) img.loading='lazy';
   if(!img.hasAttribute('decoding')) img.decoding='async';
 });
 
