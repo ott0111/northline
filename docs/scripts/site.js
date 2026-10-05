@@ -400,9 +400,12 @@ if (contactForm) {
   });
 })();
  
-/* Northline UX utilities */
+/* Northline image handling */
 (function(){
-  document.querySelectorAll('img').forEach((img,i)=>{ if(!img.hasAttribute('loading') && i>3) img.loading='lazy'; if(!img.hasAttribute('decoding')) img.decoding='async'; });
+  document.querySelectorAll('img').forEach(img=>{
+    if(!img.hasAttribute('loading')) img.loading='eager';
+    if(!img.hasAttribute('decoding')) img.decoding='async';
+  });
 })();
 /* Northline roster filters */
 (function(){
@@ -466,9 +469,10 @@ if (contactForm) {
   sync();
 })();
 
-/* Lazy-load non-critical images without changing existing hero images. */
-document.querySelectorAll('img:not(.profile-image img):not(.hero img)').forEach(img=>{
-  if(!img.loading)img.loading='lazy';
+/* Keep image loading deterministic across mobile browsers and GitHub Pages. */
+document.querySelectorAll('img').forEach(img=>{
+  img.loading='eager';
+  if(!img.hasAttribute('decoding')) img.decoding='async';
 });
 
 
