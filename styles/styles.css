@@ -1092,3 +1092,13 @@ header.scrolled{background:rgba(7,7,7,.96)}
   .page-hero{padding-bottom:5.5rem}
   .logo{font-size:1.3rem}
 }
+
+/* Clear spacing around calls to action */
+.hero-actions,.cta-row{display:flex;align-items:center;gap:1rem;row-gap:1rem;margin-top:2.25rem}
+.hero-actions .btn,.cta-row .btn{flex:0 0 auto}
+.section-heading{margin-bottom:3.5rem}
+.section-heading>p{margin-bottom:.2rem}
+.feature-card .btn,.feature-card .text-link,.talent-card .btn,.talent-card .text-link,.work-piece-meta .btn,.work-piece-meta .text-link,.service-detail .btn,.service-detail .text-link,.contact-option .btn,.contact-option .text-link{margin-top:1.25rem}
+.btn{min-height:46px;padding:.85rem 1.35rem;line-height:1.2;white-space:normal;text-align:center}
+.btn span{display:inline-flex;align-items:center;flex:0 0 auto}
+@media(max-width:600px){.hero-actions,.cta-row{gap:.85rem;margin-top:1.75rem}.hero-actions .btn,.cta-row .btn{max-width:100%}.section-heading{margin-bottom:2.75rem}}
