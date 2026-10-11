@@ -75,24 +75,7 @@
   // Hard safety cap so the loader can never trap the user on a black screen.
   setTimeout(finish, 1600);
 })();
-/* Reliable image fallback for mobile/network failures */
-document.querySelectorAll('img').forEach(img => {
-  img.addEventListener('error', () => {
-    img.classList.add('is-broken');
-    img.removeAttribute('srcset');
-    if (img.alt && !img.dataset.fallback) {
-      img.dataset.fallback = 'true';
-      const fallback = document.createElement('span');
-      fallback.textContent = img.alt;
-      fallback.setAttribute('aria-hidden','true');
-      fallback.style.cssText = 'position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;text-transform:uppercase;color:var(--grey);background:#101010;';
-      const parent = img.parentElement;
-      if (parent && getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
-      if (parent) parent.appendChild(fallback);
-    }
-  }, {once:true});
-});
-
+/* Image errors are handled by the single Northline avatar fallback below. */
 window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
 const header = document.getElementById('siteHeader');
 
@@ -518,20 +501,61 @@ document.querySelectorAll('img').forEach(img=>{
 })();
 
 
-/* Reliable image fallback: never leave a broken-image icon in the roster. */
+/* Reliable image fallback: remote avatar providers can fail, so never show a broken-image icon. */
 (function(){
-  function useInitialsAvatar(img){
-    if(img.dataset.avatarFallback) return;
-    img.dataset.avatarFallback = '1';
-    const words = (img.alt || 'Northline').trim().split(' ').filter(Boolean);
-    const initials = (words.length > 1 ? words[0][0] + words[words.length - 1][0] : (words[0] || 'N').slice(0, 2)).toUpperCase();
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" fill="#111111"/><rect x="9" y="9" width="142" height="142" fill="none" stroke="#454545"/><text x="80" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="43" font-weight="700" letter-spacing="-2" fill="#eeeeee">' + initials + '</text><path d="M25 126H135" stroke="#666666"/></svg>';
+  function fallbackAvatar(img){
+    if(img.dataset.nlFallbackApplied === 'true') return;
+    img.dataset.nlFallbackApplied = 'true';
+    img.removeAttribute('srcset');
+    img.removeAttribute('sizes');
+    const name = (img.getAttribute('alt') || 'Northline').trim();
+    const words = name.split(/\\s+/).filter(Boolean);
+    const initials = (words.length > 1
+      ? words[0].charAt(0) + words[words.length - 1].charAt(0)
+      : (words[0] || 'N').slice(0, 2)).toUpperCase();
+    const safeInitials = initials.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><rect width="320" height="320" fill="#111111"/><rect x="18" y="18" width="284" height="284" rx="24" fill="none" stroke="#414141" stroke-width="2"/><path d="M42 250H278" stroke="#5a5a5a" stroke-width="2"/><text x="160" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="86" font-weight="700" letter-spacing="-4" fill="#f2f2f2">' + safeInitials + '</text></svg>';
     img.onerror = null;
-    img.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
     img.classList.add('avatar-fallback');
+    img.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
   }
-  document.querySelectorAll('img').forEach(function(img){
-    img.addEventListener('error', function(){ useInitialsAvatar(img); }, { once: true });
-    if (img.complete && img.naturalWidth === 0) useInitialsAvatar(img);
+  function bindAvatar(img){
+    if(img.dataset.nlFallbackBound === 'true') return;
+    img.dataset.nlFallbackBound = 'true';
+    img.addEventListener('error', function(){ fallbackAvatar(img); });
+    if(img.complete && img.naturalWidth === 0) fallbackAvatar(img);
+  }
+  document.querySelectorAll('img').forEach(bindAvatar);
+  // Catch images inserted later by galleries or shared page components.
+  const observer = new MutationObserver(function(records){
+    records.forEach(function(record){
+      record.addedNodes.forEach(function(node){
+        if(node.nodeType !== 1) return;
+        if(node.matches && node.matches('img')) bindAvatar(node);
+        if(node.querySelectorAll) node.querySelectorAll('img').forEach(bindAvatar);
+      });
+    });
   });
+  observer.observe(document.documentElement, {childList:true, subtree:true});
+})();
+
+/* Subtle scroll-linked movement inspired by cinematic product reveals. */
+(function(){
+  const hero = document.querySelector('.hero');
+  if(!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let queued = false;
+  const update = function(){
+    if(queued) return;
+    queued = true;
+    requestAnimationFrame(function(){
+      const rect = hero.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height)));
+      hero.style.setProperty('--nl-scroll-progress', progress.toFixed(3));
+      const bg = hero.querySelector('.hero-bg');
+      if(bg) bg.style.transform = 'translate3d(0,' + (progress * 7).toFixed(2) + '%,0) scale(' + (1.04 + progress * .025).toFixed(3) + ')';
+      queued = false;
+    });
+  };
+  window.addEventListener('scroll', update, {passive:true});
+  update();
 })();
