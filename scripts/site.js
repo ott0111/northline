@@ -514,6 +514,6 @@ document.querySelectorAll('img').forEach(img=>{
   banner.querySelector('[data-cookie-essential]').addEventListener('click',()=>saveConsent(false));
   customize.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;});
   save.addEventListener('click',()=>saveConsent(analytics.checked));
-  manage.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();});
+  manage.addEventListener('click',()=>{if(!banner.isConnected)document.body.appendChild(banner);options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();});
 })();
 
