@@ -1134,3 +1134,21 @@ header.scrolled{background:rgba(7,7,7,.96)}
 @media(max-width:700px){.nl-cookie-banner{left:12px;right:12px;bottom:12px;padding:1rem;display:block;max-height:85vh;overflow:auto}.nl-cookie-actions{justify-content:stretch;margin-top:1rem;min-width:0}.nl-cookie-actions button{flex:1 1 45%}.nl-cookie-copy h2{font-size:1.45rem}.nl-cookie-options small{display:block;margin-left:auto}}
 @media(prefers-reduced-motion:reduce){.nl-cookie-banner{transition:none}}
 
+
+
+/* Northline card polish — consistent spacing, restrained borders, and cleaner responsive sizing */
+.team-grid{gap:1.1rem}
+.team-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.team-card{min-height:360px;padding:1.15rem;border-radius:10px;border-color:rgba(255,255,255,.09);background:#0d0d0d;isolation:isolate}
+.team-card:focus-visible,.talent-card:focus-visible,.work-piece-view:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.team-card-top{font-size:.62rem;letter-spacing:.12em}
+.team-photo:after{background:linear-gradient(180deg,rgba(7,7,7,.08) 12%,rgba(7,7,7,.12) 42%,rgba(7,7,7,.92) 100%)}
+.team-card>div:last-child{padding:0 .15rem .15rem}
+.team-card h3{font-size:clamp(1.8rem,2.6vw,2.6rem);line-height:1;letter-spacing:-.035em}
+.team-card small{font-size:.76rem;color:#b5b5b5;letter-spacing:.02em}
+.talent-card,.home-talent-card,.work-piece,.work-empty-card{border-radius:10px;overflow:hidden}
+.work-piece{border-color:rgba(255,255,255,.09)}
+.work-piece-meta{align-items:flex-start;padding:1rem 1.05rem}
+@media(max-width:900px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}.team-card{min-height:340px}}
+@media(max-width:600px){.team-grid-three{grid-template-columns:1fr}.team-card{min-height:360px}.work-piece-meta{padding:.85rem}}
+@media(prefers-reduced-motion:reduce){.team-card,.team-photo img,.work-piece,.work-piece-media img{transition:none!important}.team-card:hover,.work-piece:hover{transform:none}}
