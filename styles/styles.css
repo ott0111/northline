@@ -1152,3 +1152,12 @@ header.scrolled{background:rgba(7,7,7,.96)}
 @media(max-width:900px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}.team-card{min-height:340px}}
 @media(max-width:600px){.team-grid-three{grid-template-columns:1fr}.team-card{min-height:360px}.work-piece-meta{padding:.85rem}}
 @media(prefers-reduced-motion:reduce){.team-card,.team-photo img,.work-piece,.work-piece-media img{transition:none!important}.team-card:hover,.work-piece:hover{transform:none}}
+
+
+/* Sitewide rhythm polish */
+:where(p, li){text-wrap:pretty}
+:where(section > .wrap > p, .section-intro, .page-intro){max-width:68ch}
+:where(.section-heading, .section-head){margin-bottom:1.5rem}
+:where(input, textarea, select){line-height:1.5}
+:where(.btn, button){line-height:1.25}
+@media(max-width:700px){.wrap{padding-left:clamp(1rem,5vw,var(--edge));padding-right:clamp(1rem,5vw,var(--edge))} :where(.section-heading, .section-head){margin-bottom:1.15rem}}
