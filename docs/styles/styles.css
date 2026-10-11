@@ -1221,25 +1221,13 @@ header, header.scrolled {
   header, header.scrolled { background-position: center; }
 }
 
-/* Northline final override: use the actual project-pages asset path and win against the scroll-state shorthand. */
+/* Navbar: remove the photographic banner and keep a clean, solid dark surface. */
 #siteHeader, #siteHeader.scrolled {
-  background: linear-gradient(90deg, rgba(5,5,5,.78), rgba(5,5,5,.42) 48%, rgba(5,5,5,.72)) , url("../assets/1500x500%20%281%29.jpg") center 43% / cover no-repeat !important;
-  background-color: rgba(5,5,5,.88) !important;
-  border-bottom: 1px solid rgba(255,255,255,.16) !important;
+  background: rgba(8,8,8,.94) !important;
+  background-image: none !important;
+  background-color: rgba(8,8,8,.94) !important;
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
   box-shadow: 0 8px 28px rgba(0,0,0,.2) !important;
-}
-#siteHeader .primary-nav .btn,
-#siteHeader .primary-nav .btn.btn-primary {
-  background: rgba(255,255,255,.035) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255,255,255,.38) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(8px);
-}
-#siteHeader .primary-nav .btn:hover,
-#siteHeader .primary-nav .btn.btn-primary:hover {
-  background: rgba(255,255,255,.14) !important;
-  border-color: rgba(255,255,255,.8) !important;
 }
 #main-content .price-grid {
   display: grid !important;
