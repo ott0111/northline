@@ -1313,3 +1313,217 @@ header, header.scrolled {
   #main-content .price-grid { grid-template-columns: 1fr !important; }
   #main-content .price-grid > div { min-height: 160px !important; padding: 22px !important; }
 }
+
+
+/* NORTHLINE DESIGN SYSTEM — rounded surfaces, editorial scale, quiet motion. */
+:root {
+  --nl-radius-sm: 12px;
+  --nl-radius-card: 18px;
+  --nl-radius-feature: 22px;
+  --nl-surface: #0e0e0e;
+  --nl-surface-raised: #131313;
+  --nl-border: rgba(255,255,255,.105);
+  --nl-border-hover: rgba(255,255,255,.34);
+}
+html { scroll-padding-top: 88px; }
+body { background: #080808; }
+::selection { background: #f5f4ef; color: #080808; }
+
+/* Every card/panel surface shares the same rounded language. */
+:is(
+  [class*="card"], [class*="tile"], [class*="panel"], [class*="feature"],
+  [class*="stat"], [class*="testimonial"], [class*="service-detail"],
+  .price-grid > div, .profile-info-grid, .nl-cookie-banner, .nl-cookie-manage
+) {
+  border-radius: var(--nl-radius-card) !important;
+}
+:is(
+  [class*="card"], [class*="tile"], [class*="panel"], [class*="feature"],
+  [class*="stat"], [class*="testimonial"], .price-grid > div, .profile-info-grid
+) {
+  border-color: var(--nl-border);
+}
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+) {
+  overflow: hidden;
+  background-color: var(--nl-surface);
+  transition:
+    border-color .28s ease,
+    background-color .28s ease,
+    box-shadow .28s ease,
+    transform .28s cubic-bezier(.2,.75,.25,1);
+}
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+):hover {
+  border-color: var(--nl-border-hover);
+  box-shadow: 0 18px 48px rgba(0,0,0,.22);
+}
+:is(.home-talent-card, .ops-home-card, .talent-card, .team-card) img {
+  border-radius: inherit;
+}
+#siteHeader, #siteHeader.scrolled {
+  border-radius: 0 !important;
+  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
+}
+#main-content .price-grid > div {
+  border-radius: var(--nl-radius-card) !important;
+  border: 1px solid var(--nl-border) !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)) !important;
+  min-height: 200px !important;
+}
+#main-content .price-grid > div:hover {
+  border-color: var(--nl-border-hover) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.02)) !important;
+  box-shadow: 0 16px 42px rgba(0,0,0,.24) !important;
+  transform: translateY(-3px) !important;
+}
+#main-content .price-grid > div:nth-child(11) { grid-column: auto !important; }
+
+/* Monochrome animated edge — restrained, only active on hover/focus. */
+@property --nl-edge-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes nl-edge-sweep {
+  to { --nl-edge-angle: 360deg; }
+}
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+) {
+  position: relative;
+  isolation: isolate;
+}
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: conic-gradient(from var(--nl-edge-angle), transparent 0 58%, rgba(255,255,255,.62) 68%, rgba(255,255,255,.08) 78%, transparent 90% 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity .25s ease;
+}
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+):hover::after,
+:is(
+  .talent-card, .team-card, .home-talent-card, .ops-home-card,
+  .work-piece, .work-empty-card, .price-grid > div,
+  .service-detail, .profile-info-grid, .service-card, .faq-item,
+  .contact-card, .brand-card, .feature-card, .about-card
+):focus-visible::after {
+  opacity: 1;
+  animation: nl-edge-sweep 3.8s linear infinite;
+}
+
+/* Landing page: bold product-like scale with the agency's editorial tone. */
+.hero {
+  min-height: min(900px, 94svh);
+  isolation: isolate;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-bg {
+  will-change: transform;
+  transform: translate3d(0,0,0) scale(1.04);
+}
+.hero-title {
+  font-size: clamp(4.1rem, 10.2vw, 10.5rem);
+  letter-spacing: -.075em;
+  line-height: .84;
+  max-width: 12ch;
+  text-wrap: balance;
+}
+.hero-title em,
+.final-cta h2 em,
+.statement-grid em {
+  color: #aaa9a3;
+}
+.hero-lead {
+  max-width: 52ch;
+  color: rgba(245,244,239,.76);
+  line-height: 1.8;
+}
+.section-heading h2, .intro-grid h2, .statement-grid h2 {
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.home-talent-grid, .ops-home-grid {
+  gap: clamp(.8rem, 1.4vw, 1.25rem);
+}
+.home-talent-card, .ops-home-card {
+  border: 1px solid var(--nl-border);
+  background: linear-gradient(150deg, #141414, #0b0b0b);
+}
+.home-talent-card img, .ops-home-card img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.marquee-section { overflow: hidden; }
+.marquee i { color: #a5a5a0; }
+.final-cta {
+  overflow: hidden;
+  border-radius: var(--nl-radius-feature) var(--nl-radius-feature) 0 0;
+}
+.final-cta-inner {
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: var(--nl-radius-feature);
+  background: linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.008));
+  padding: clamp(2rem, 6vw, 5.5rem);
+}
+.btn {
+  border-radius: 999px !important;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+footer .footer-main { border-top-color: rgba(255,255,255,.12); }
+footer .footer-bottom { border-top-color: rgba(255,255,255,.09); }
+
+/* Avatar fallbacks stay clipped inside the intended crop. */
+img.avatar-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111;
+  color: #f5f4ef;
+}
+@media (max-width: 900px) {
+  .hero { min-height: 82svh; }
+  .hero-title { font-size: clamp(3.5rem, 12vw, 7rem); }
+}
+@media (max-width: 600px) {
+  :root { --nl-radius-card: 15px; --nl-radius-feature: 18px; }
+  .hero { min-height: 78svh; }
+  .hero-title { font-size: clamp(3rem, 14vw, 5.3rem); letter-spacing: -.065em; }
+  #main-content .price-grid > div { min-height: 168px !important; padding: 22px !important; }
+  .final-cta-inner { padding: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .hero-bg { transform: none !important; }
+}
