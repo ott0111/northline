@@ -523,7 +523,7 @@ document.querySelectorAll('img').forEach(img=>{
   function useInitialsAvatar(img){
     if(img.dataset.avatarFallback) return;
     img.dataset.avatarFallback = '1';
-    const words = (img.alt || 'Northline').trim().split(/\\s+/).filter(Boolean);
+    const words = (img.alt || 'Northline').trim().split(' ').filter(Boolean);
     const initials = (words.length > 1 ? words[0][0] + words[words.length - 1][0] : (words[0] || 'N').slice(0, 2)).toUpperCase();
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" fill="#111111"/><rect x="9" y="9" width="142" height="142" fill="none" stroke="#454545"/><text x="80" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="43" font-weight="700" letter-spacing="-2" fill="#eeeeee">' + initials + '</text><path d="M25 126H135" stroke="#666666"/></svg>';
     img.onerror = null;
