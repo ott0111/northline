@@ -1167,3 +1167,23 @@ header.scrolled{background:rgba(7,7,7,.96)}
 .profile-info-grid{padding:clamp(1.5rem,3vw,3rem);border:1px solid rgba(255,255,255,.09);background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(255,255,255,.008))}
 .profile-info-grid .section-number{display:block;margin:0 0 1.5rem;line-height:1.5}
 @media(max-width:700px){.profile-info-grid{padding:1.35rem;gap:2rem}.profile-info-grid .section-number{margin-bottom:1.25rem}}
+
+
+/* Northline visual refinement: banner-backed navigation and cleaner service cards */
+header, header.scrolled {
+  background-image: linear-gradient(90deg, rgba(5,5,5,.88), rgba(5,5,5,.62) 48%, rgba(5,5,5,.82)), url("../assets/1500x500%20%281%29.jpg");
+  background-size: cover; background-position: center 43%; background-repeat: no-repeat;
+  border-bottom-color: rgba(255,255,255,.14); box-shadow: 0 8px 28px rgba(0,0,0,.2);
+}
+.primary-nav > .btn.btn-primary { background: rgba(255,255,255,.035); color: var(--white); border: 1px solid rgba(255,255,255,.38); backdrop-filter: blur(8px); }
+.primary-nav > .btn.btn-primary:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.8); transform: translateY(-1px); }
+.primary-nav > .btn.btn-primary span { color: inherit; }
+.price-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; border:0; }
+.price-grid > div { min-height:230px; padding:clamp(1.25rem,2.1vw,2rem); gap:1.25rem; justify-content:flex-start; border:1px solid #282828; background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); transition:background .25s,border-color .25s,transform .25s; }
+.price-grid > div:hover { background:#111; border-color:#555; transform:translateY(-3px); }
+.price-grid > div > span { color:#a7a7a1; letter-spacing:.12em; }
+.price-grid h3 { font-size:clamp(1.35rem,2vw,1.8rem); line-height:1; }
+.price-grid strong { font-size:clamp(2.1rem,3vw,2.8rem); line-height:.95; margin-top:auto; }
+.price-grid p { max-width:30ch; font-size:.82rem; line-height:1.6; }
+@media(max-width:900px){.price-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:560px){.price-grid{grid-template-columns:1fr;gap:10px}.price-grid>div{min-height:190px}header,header.scrolled{background-position:center}}
