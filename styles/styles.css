@@ -1161,3 +1161,9 @@ header.scrolled{background:rgba(7,7,7,.96)}
 :where(input, textarea, select){line-height:1.5}
 :where(.btn, button){line-height:1.25}
 @media(max-width:700px){.wrap{padding-left:clamp(1rem,5vw,var(--edge));padding-right:clamp(1rem,5vw,var(--edge))} :where(.section-heading, .section-head){margin-bottom:1.15rem}}
+
+
+/* Talent profile card spacing fix */
+.profile-info-grid{padding:clamp(1.5rem,3vw,3rem);border:1px solid rgba(255,255,255,.09);background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(255,255,255,.008))}
+.profile-info-grid .section-number{display:block;margin:0 0 1.5rem;line-height:1.5}
+@media(max-width:700px){.profile-info-grid{padding:1.35rem;gap:2rem}.profile-info-grid .section-number{margin-bottom:1.25rem}}
