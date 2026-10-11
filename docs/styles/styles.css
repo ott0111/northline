@@ -1223,7 +1223,7 @@ header, header.scrolled {
 
 /* Northline final override: use the actual project-pages asset path and win against the scroll-state shorthand. */
 #siteHeader, #siteHeader.scrolled {
-  background: linear-gradient(90deg, rgba(5,5,5,.78), rgba(5,5,5,.42) 48%, rgba(5,5,5,.72)) , url("/northline/assets/1500x500%20%281%29.jpg") center 43% / cover no-repeat !important;
+  background: linear-gradient(90deg, rgba(5,5,5,.78), rgba(5,5,5,.42) 48%, rgba(5,5,5,.72)) , url("../assets/1500x500%20%281%29.jpg") center 43% / cover no-repeat !important;
   background-color: rgba(5,5,5,.88) !important;
   border-bottom: 1px solid rgba(255,255,255,.16) !important;
   box-shadow: 0 8px 28px rgba(0,0,0,.2) !important;
