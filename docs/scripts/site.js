@@ -509,7 +509,7 @@ document.querySelectorAll('img').forEach(img=>{
     img.removeAttribute('srcset');
     img.removeAttribute('sizes');
     const name = (img.getAttribute('alt') || 'Northline').trim();
-    const words = name.split(/\\s+/).filter(Boolean);
+    const words = name.split(/\s+/).filter(Boolean);
     const initials = (words.length > 1
       ? words[0].charAt(0) + words[words.length - 1].charAt(0)
       : (words[0] || 'N').slice(0, 2)).toUpperCase();
