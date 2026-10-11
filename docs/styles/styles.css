@@ -1220,3 +1220,96 @@ header, header.scrolled {
   .price-grid > div { min-height: 190px; }
   header, header.scrolled { background-position: center; }
 }
+
+/* Northline final override: use the actual project-pages asset path and win against the scroll-state shorthand. */
+#siteHeader, #siteHeader.scrolled {
+  background: linear-gradient(90deg, rgba(5,5,5,.78), rgba(5,5,5,.42) 48%, rgba(5,5,5,.72)) , url("/northline/assets/1500x500%20%281%29.jpg") center 43% / cover no-repeat !important;
+  background-color: rgba(5,5,5,.88) !important;
+  border-bottom: 1px solid rgba(255,255,255,.16) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.2) !important;
+}
+#siteHeader .primary-nav .btn,
+#siteHeader .primary-nav .btn.btn-primary {
+  background: rgba(255,255,255,.035) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(8px);
+}
+#siteHeader .primary-nav .btn:hover,
+#siteHeader .primary-nav .btn.btn-primary:hover {
+  background: rgba(255,255,255,.14) !important;
+  border-color: rgba(255,255,255,.8) !important;
+}
+#main-content .price-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+#main-content .price-grid > div {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  grid-template-rows: auto auto 1fr !important;
+  align-items: start !important;
+  gap: 14px 18px !important;
+  min-height: 190px !important;
+  padding: 26px 28px !important;
+  border: 1px solid #292929 !important;
+  border-radius: 3px !important;
+  background: #0b0b0b !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+#main-content .price-grid > div:hover {
+  background: #111 !important;
+  border-color: #555 !important;
+  transform: translateY(-2px) !important;
+}
+#main-content .price-grid > div > span {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  margin: 0 !important;
+  color: #858585 !important;
+  font: 600 .68rem/1.2 var(--body, sans-serif) !important;
+  letter-spacing: .16em !important;
+}
+#main-content .price-grid > div > h3 {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  align-self: center !important;
+  margin: 0 !important;
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.035em !important;
+}
+#main-content .price-grid > div > strong {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: center !important;
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: clamp(1.65rem, 2.4vw, 2.15rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -.05em !important;
+  white-space: nowrap !important;
+}
+#main-content .price-grid > div > p {
+  grid-column: 1 / -1 !important;
+  grid-row: 3 !important;
+  align-self: end !important;
+  max-width: 38ch !important;
+  margin: 0 !important;
+  color: #9a9a9a !important;
+  font-size: .84rem !important;
+  line-height: 1.65 !important;
+}
+@media (min-width: 1100px) {
+  #main-content .price-grid > div:nth-child(11) { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 700px) {
+  #main-content .price-grid { grid-template-columns: 1fr !important; }
+  #main-content .price-grid > div { min-height: 160px !important; padding: 22px !important; }
+}
