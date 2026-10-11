@@ -495,3 +495,25 @@ document.querySelectorAll('img').forEach(img=>{
   const footer=document.querySelector('footer') || document.body.appendChild(document.createElement('footer'));
   footer.innerHTML='<div class="wrap"><div class="footer-main"><div><a href="./index.html" class="logo"><img src="./assets/logo-mark.png" alt="">Northline</a><p class="footer-tag">Talent / Partnerships / Management</p></div><div class="footer-links"><div><span>Explore</span><a href="./talent.html">Talent</a><a href="./services.html">Services</a><a href="./work.html">For Brands</a><a href="./contact.html">Contact</a></div><div><span>Legal</span><a href="./privacy.html">Privacy</a><a href="./terms.html">Terms</a><a href="./cookies.html">Cookies</a><a href="https://x.com/N0RTHLINE" target="_blank" rel="noopener noreferrer">X / @N0RTHLINE <svg class="ui-icon ui-icon-external" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8h-2V6.41l-6.29 6.3-1.42-1.42-1.42 1.42L9.59 5H5V3Z" fill="currentColor"/></svg></a></div></div></div><div class="footer-bottom"><span>© 2026 Northline. All rights reserved.</span><span>Independent / Talent first.</span></div></div>';
 })();
+
+
+/* Northline horizontal gallery wheel + cookie consent preferences */
+(function(){
+  document.querySelectorAll('.work-gallery').forEach(gallery=>{gallery.addEventListener('wheel',event=>{if(gallery.scrollWidth<=gallery.clientWidth)return;if(Math.abs(event.deltaY)>Math.abs(event.deltaX)){event.preventDefault();gallery.scrollLeft+=event.deltaY;}},{passive:false});});
+  const consentName='northline_cookie_consent';
+  const readConsent=()=>{const match=document.cookie.match(new RegExp('(?:^|; )'+consentName+'=([^;]*)'));if(!match)return null;try{return JSON.parse(decodeURIComponent(match[1]));}catch{return null;}};
+  const saveConsent=analytics=>{const value=encodeURIComponent(JSON.stringify({essential:true,analytics:!!analytics,updatedAt:new Date().toISOString()}));document.cookie=consentName+'='+value+'; Max-Age=15552000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');banner.remove();manage.hidden=false;};
+  const manage=document.createElement('button');manage.type='button';manage.className='nl-cookie-manage';manage.textContent='Cookie settings';manage.setAttribute('aria-label','Open cookie preferences');document.body.appendChild(manage);
+  const banner=document.createElement('section');banner.className='nl-cookie-banner';banner.setAttribute('aria-label','Cookie preferences');
+  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookies, your choice.</h2><p>Essential storage keeps the site working. Optional analytics cookies stay off unless you choose them. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is currently connected.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept all</button><button type="button" data-cookie-essential>Essential only</button><button type="button" class="nl-cookie-customize" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save preferences</button></div>';
+  document.body.appendChild(banner);
+  const options=banner.querySelector('.nl-cookie-options'),analytics=banner.querySelector('[data-analytics]'),customize=banner.querySelector('[data-cookie-customize]'),save=banner.querySelector('[data-cookie-save]');
+  const showBanner=()=>{banner.classList.add('is-visible');banner.querySelector('[data-cookie-accept]').focus({preventScroll:true});};
+  const current=readConsent();if(current){banner.remove();manage.hidden=false;}else{manage.hidden=true;requestAnimationFrame(()=>banner.classList.add('is-visible'));}
+  banner.querySelector('[data-cookie-accept]').addEventListener('click',()=>saveConsent(true));
+  banner.querySelector('[data-cookie-essential]').addEventListener('click',()=>saveConsent(false));
+  customize.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;});
+  save.addEventListener('click',()=>saveConsent(analytics.checked));
+  manage.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();});
+})();
+
