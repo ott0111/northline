@@ -125,6 +125,17 @@ document.addEventListener('keydown', event => {
   });
 });
 
+// Mobile Roster submenu: keep Talent and Team grouped under one Roster control.
+document.querySelectorAll('.mobile-roster-toggle').forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    const menuId = toggle.getAttribute('aria-controls');
+    const submenu = menuId ? document.getElementById(menuId) : toggle.nextElementSibling;
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    if (submenu) submenu.classList.toggle('open', !expanded);
+  });
+});
+
 const header = document.getElementById('siteHeader');
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
