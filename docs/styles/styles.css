@@ -1747,3 +1747,15 @@ h1 em,h2 em{font-size:1.12em}
  .northline-hero-rail a,.nav-dropdown-menu{transition:none}
  .nl-loader-orbit,.nl-loader-orbit:before,.nl-loader-center strong{animation:none!important;opacity:1;transform:none}
 }
+
+/* Final polish: keep the wordmark true to the handwritten Northline accent and align roster tiles. */
+.nl-loader-orbit:before{background-image:url("../assets/logo-mark.png")}
+.nl-loader-center strong{text-transform:none!important}
+.nav-dropdown-menu a:after{display:none!important}
+.talent-grid .talent-photo{height:auto!important;aspect-ratio:1/1!important;min-height:0}
+#homeRosterGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#homeRosterGrid .talent-card{min-height:0!important}
+#homeRosterGrid .talent-photo{height:auto!important;aspect-ratio:1/1!important}
+@media(max-width:900px){#homeRosterGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:600px){#homeRosterGrid{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){.marquee{animation:northlineTicker 50s linear infinite!important}}
