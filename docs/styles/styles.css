@@ -1545,3 +1545,8 @@ img.avatar-fallback {
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:760px){.services-detail .wrap{grid-template-columns:1fr}.services-detail .service-detail{min-height:0}.services-detail .service-name{font-size:2.25rem}.team-card{height:360px}.marquee-group{gap:1.1rem;padding-right:1.1rem}.marquee{font-size:1.05rem}}
 @media(prefers-reduced-motion:reduce){.marquee{animation:none!important;transform:none!important}.services-detail .service-detail,.team-card{transition:none!important}}
+
+/* Preserve Northline's cursive accent while keeping the original site layout and card styling. */
+:root{--script:'Caveat',cursive}
+h1 em,h2 em,.hero-script,.intro-copy .lead{font-family:var(--script);font-style:normal;font-weight:600;text-transform:none;letter-spacing:-.035em}
+h1 em,h2 em{font-size:1.12em}
