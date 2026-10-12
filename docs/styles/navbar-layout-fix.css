@@ -48,3 +48,39 @@
 @media(min-width:901px){#mobileNav.nl-mobile-nav{display:none!important;visibility:hidden!important;pointer-events:none!important;transform:translateX(101%)!important}}
 @media(max-width:420px){#siteHeader.nl-site-header{left:8px!important;right:8px!important}#mobileNav.nl-mobile-nav .mobile-nav-inner{padding-left:22px!important;padding-right:22px!important}}
 @media(prefers-reduced-motion:reduce){#mobileNav.nl-mobile-nav{transition:none!important}#siteHeader.nl-site-header .nav-dropdown-menu{transition:none!important}}
+
+
+/* Definitive layout correction: keep every desktop nav item in normal flex flow. */
+@media (min-width:901px) {
+  #siteHeader.nl-site-header { display:flex!important; justify-content:space-between!important; gap:clamp(12px,2vw,28px)!important; }
+  #siteHeader.nl-site-header > .nl-brand { flex:0 0 auto!important; }
+  #siteHeader.nl-site-header > .nl-desktop-nav { position:static!important; display:flex!important; flex:1 1 auto!important; width:auto!important; min-width:0!important; justify-content:flex-end!important; gap:clamp(10px,1.4vw,22px)!important; }
+  #siteHeader.nl-site-header .nl-nav-pill { position:static!important; left:auto!important; top:auto!important; transform:none!important; flex:0 1 auto!important; width:auto!important; max-width:none!important; min-width:0!important; overflow:visible!important; }
+  #siteHeader.nl-site-header .nl-nav-pill > a,
+  #siteHeader.nl-site-header .nl-nav-pill .nav-dropdown-toggle { font-size:clamp(.72rem,.8vw,.84rem)!important; padding:8px clamp(8px,.9vw,14px)!important; }
+  #siteHeader.nl-site-header .nl-apply { margin-left:0!important; }
+}
+@media (min-width:901px) and (max-width:1120px) {
+  #siteHeader.nl-site-header { left:14px!important; right:14px!important; gap:10px!important; padding-inline:10px!important; }
+  #siteHeader.nl-site-header > .nl-brand { font-size:1.1rem!important; gap:6px!important; }
+  #siteHeader.nl-site-header > .nl-brand img { width:24px!important; height:24px!important; flex-basis:24px!important; }
+  #siteHeader.nl-site-header > .nl-desktop-nav { gap:8px!important; }
+  #siteHeader.nl-site-header .nl-nav-pill > a,
+  #siteHeader.nl-site-header .nl-nav-pill .nav-dropdown-toggle { padding-inline:7px!important; font-size:.7rem!important; }
+  #siteHeader.nl-site-header .nl-apply { padding-inline:10px!important; }
+}
+/* Hero rail links are intended to be three separate glassmorphic buttons. */
+.northline-hero-rail { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:12px!important; }
+.northline-hero-rail > a {
+  display:flex!important; align-items:center!important; gap:14px!important; min-height:74px!important;
+  padding:17px 19px!important; border:1px solid rgba(255,255,255,.16)!important; border-radius:18px!important;
+  background:rgba(255,255,255,.055)!important; color:#f7f6f2!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 8px 30px rgba(0,0,0,.12)!important;
+  backdrop-filter:blur(18px) saturate(130%)!important; -webkit-backdrop-filter:blur(18px) saturate(130%)!important;
+  text-decoration:none!important; transition:background .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+.northline-hero-rail > a:hover { background:rgba(255,255,255,.105)!important; border-color:rgba(255,255,255,.28)!important; transform:translateY(-2px)!important; }
+.northline-hero-rail > a > span { color:rgba(255,255,255,.52)!important; font-size:.72rem!important; letter-spacing:.08em!important; }
+.northline-hero-rail > a > strong { flex:1!important; font-size:clamp(.9rem,1.2vw,1.05rem)!important; font-weight:500!important; }
+.northline-hero-rail > a > i { font-style:normal!important; color:rgba(255,255,255,.72)!important; }
+@media(max-width:760px) { .northline-hero-rail { grid-template-columns:1fr!important; gap:9px!important; } .northline-hero-rail > a { min-height:60px!important; padding:14px 16px!important; } }
