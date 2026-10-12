@@ -1448,3 +1448,85 @@ body.menu-open{overflow:hidden}
   #siteHeader.nl-site-header{left:8px!important;right:8px!important}
   #mobileNav .mobile-nav-inner{padding-left:22px!important;padding-right:22px!important}
 }
+
+
+/* Northline card system refresh — compact, consistent, and responsive across pages */
+.home-talent-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  border:0!important;
+  background:transparent!important;
+}
+.home-talent-card{
+  min-height:clamp(270px,25vw,330px)!important;
+  padding:1.15rem!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:14px!important;
+  background:#0c0c0c!important;
+}
+.home-talent-card img{opacity:.62;filter:grayscale(1);transition:transform .45s ease,opacity .3s ease,filter .3s ease}
+.home-talent-card:after{inset:20% 0 0!important;background:linear-gradient(180deg,transparent 5%,rgba(0,0,0,.9) 100%)!important}
+.home-talent-card h3{font-size:clamp(1.55rem,2.1vw,2rem)!important;margin:.4rem 0 .2rem!important}
+.home-talent-card small{font-size:.72rem!important;color:#c1c1c1!important}
+.home-talent-card span{font-size:.6rem!important;letter-spacing:.11em!important}
+.home-talent-card:hover{border-color:rgba(255,255,255,.24)!important;transform:translateY(-3px)!important}
+.home-talent-card:hover img{opacity:.85;filter:grayscale(.2)}
+.ops-home-grid{gap:12px!important;border:0!important;background:transparent!important}
+.ops-home-card{min-height:270px!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:14px!important;background:#0c0c0c!important}
+.ops-home-card h3{font-size:clamp(1.55rem,2.1vw,2rem)!important}
+.talent-grid{gap:14px!important}
+.talent-card{
+  min-height:0!important;
+  padding:.8rem!important;
+  border-radius:13px!important;
+  border-color:rgba(255,255,255,.1)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008))!important;
+}
+.talent-card:hover{transform:translateY(-3px)!important;border-color:rgba(255,255,255,.22)!important}
+.talent-card-top{gap:.5rem;font-size:.58rem!important;line-height:1.4}
+.talent-photo{height:clamp(155px,17vw,215px)!important;border-radius:9px!important}
+.talent-card h3{font-size:clamp(1.45rem,2vw,1.9rem)!important;line-height:1!important;margin:.9rem 0 .35rem}
+.talent-card p{font-size:.8rem;line-height:1.55}
+.team-grid{gap:12px!important}
+.team-card{min-height:310px!important;padding:.9rem!important;border-radius:13px!important;background:#0c0c0c!important}
+.team-card h3{font-size:clamp(1.55rem,2.3vw,2.2rem)!important}
+.team-photo{border-radius:9px;overflow:hidden}
+.feature-card,.approach-grid>div,.points-grid>div,.values-grid>div,.price-grid>div,.service-detail,.contact-option,.brand-services>div,.brand-process>div,.brand-roster-mini>a,.profile-standard>div{
+  border-radius:13px!important;
+}
+.feature-card{min-height:260px;padding:1.45rem!important}
+.approach-grid>div,.points-grid>div,.values-grid>div,.brand-services>div,.brand-process>div,.profile-standard>div{min-height:0;padding:1.35rem!important}
+.price-grid>div{min-height:195px!important;padding:1.35rem!important}
+.service-detail{padding:1.4rem!important}
+.contact-option{padding:1rem 1.15rem!important}
+.work-piece{border-radius:14px!important}
+.work-piece-meta{padding:1rem!important}
+@media(max-width:900px){
+  .home-talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .home-talent-card{min-height:290px!important}
+  .talent-photo{height:190px!important}
+}
+@media(max-width:600px){
+  .home-talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .home-talent-card{min-height:245px!important;padding:.8rem!important;border-radius:11px!important}
+  .home-talent-card h3{font-size:1.45rem!important}
+  .home-talent-card span{font-size:.53rem!important}
+  .home-talent-card small{font-size:.66rem!important}
+  .ops-home-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ops-home-card{min-height:230px!important}
+  .talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .talent-card{padding:.55rem!important}
+  .talent-photo{height:145px!important}
+  .talent-card-top{font-size:.5rem!important}
+  .talent-card h3{font-size:1.35rem!important}
+  .talent-card p{font-size:.72rem}
+  .team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .team-card{min-height:265px!important;padding:.7rem!important}
+  .feature-card{min-height:230px;padding:1.1rem!important}
+  .price-grid>div{min-height:170px!important;padding:1.1rem!important}
+}
+@media(max-width:360px){
+  .home-talent-card{min-height:220px!important}
+  .home-talent-card h3{font-size:1.25rem!important}
+  .talent-photo{height:125px!important}
+}
