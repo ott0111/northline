@@ -24,7 +24,7 @@
 #siteHeader.nl-site-header .nl-apply:hover{background:#fff!important}
 #siteHeader.nl-site-header>.nl-menu-toggle{display:none!important}
 #siteHeader .arrow-text,#mobileNav .arrow-text{font-family:Arial,Helvetica,sans-serif!important;font-variant-emoji:text;text-rendering:geometricPrecision}
-#mobileNav.nl-mobile-nav{z-index:250!important;padding-top:90px!important;background:rgba(6,6,6,.97)!important;backdrop-filter:blur(24px)!important;overflow-y:auto!important}
+#mobileNav.nl-mobile-nav{display:none!important;z-index:250!important;padding-top:90px!important;background:rgba(6,6,6,.97)!important;backdrop-filter:blur(24px)!important;overflow-y:auto!important}
 #mobileNav.nl-mobile-nav .mobile-nav-inner{padding-top:20px!important;padding-bottom:35px!important}
 #mobileNav.nl-mobile-nav .mobile-roster-links{display:flex!important;flex-direction:column!important;align-items:stretch!important}
 #mobileNav.nl-mobile-nav .mobile-roster-toggle{display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important;padding:.7rem 0!important;border:0!important;border-bottom:1px solid var(--line-soft)!important;background:transparent!important;color:inherit!important;text-align:left!important;font:inherit!important;cursor:pointer!important}
@@ -33,18 +33,18 @@
 #mobileNav.nl-mobile-nav .mobile-roster-menu{display:none!important;flex-direction:column!important;padding:5px 0 8px 14px!important;border-bottom:1px solid var(--line-soft)!important}
 #mobileNav.nl-mobile-nav .mobile-roster-menu.open{display:flex!important}
 #mobileNav.nl-mobile-nav .mobile-roster-menu a{font-family:var(--body)!important;font-size:1.05rem!important;text-transform:none!important;border:0!important;padding:.5rem 0!important}
-@media(max-width:1240px){
+@media(max-width:900px){
  #siteHeader.nl-site-header{top:10px!important;left:12px!important;right:12px!important;min-height:60px!important;padding:8px 12px 8px 15px!important;border-radius:18px!important}
  #siteHeader.nl-site-header>.nl-desktop-nav{display:none!important}
  #siteHeader.nl-site-header>.nl-menu-toggle{display:flex!important;flex:0 0 38px!important;width:38px!important;height:38px!important;align-items:center!important;justify-content:center!important;margin-left:auto!important;position:relative!important;z-index:302!important}
  #mobileNav.nl-mobile-nav{display:block!important;position:fixed!important;inset:0!important;transform:translateX(101%)!important;visibility:hidden!important;pointer-events:none!important;transition:transform .28s ease,visibility .28s ease!important}
- #mobileNav.nl-mobile-nav.open{transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important}
+ #mobileNav.nl-mobile-nav.open{display:block!important;transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important}
  #mobileNav.nl-mobile-nav .mobile-nav-inner{min-height:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;padding:6.5rem var(--edge) 3rem!important}
  #mobileNav.nl-mobile-nav .mobile-label{margin-bottom:1.25rem!important}
  #mobileNav.nl-mobile-nav .mobile-nav-inner>a:not(.btn){display:block!important;font-family:var(--display)!important;font-size:clamp(2.25rem,8vw,3.5rem)!important;line-height:1.05!important;padding:.7rem 0!important;border-bottom:1px solid var(--line-soft)!important}
  #mobileNav.nl-mobile-nav .mob-cta{margin-top:1.5rem!important;width:max-content!important;max-width:100%!important}
  body.menu-open{overflow:hidden!important}
 }
-@media(min-width:1241px){#mobileNav.nl-mobile-nav{display:none!important}}
+@media(min-width:901px){#mobileNav.nl-mobile-nav{display:none!important;visibility:hidden!important;pointer-events:none!important;transform:translateX(101%)!important}}
 @media(max-width:420px){#siteHeader.nl-site-header{left:8px!important;right:8px!important}#mobileNav.nl-mobile-nav .mobile-nav-inner{padding-left:22px!important;padding-right:22px!important}}
 @media(prefers-reduced-motion:reduce){#mobileNav.nl-mobile-nav{transition:none!important}#siteHeader.nl-site-header .nav-dropdown-menu{transition:none!important}}
