@@ -1658,3 +1658,128 @@ body.menu-open{overflow:hidden}
 .team-person-card .talent-social svg{flex:0 0 auto}
 @media(max-width:900px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:600px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.team-person-card{padding:.55rem!important}.team-person-card .talent-card-top{font-size:.49rem!important}.team-person-card .talent-card-top span:last-child{font-size:.44rem}.team-person-card h3{font-size:1.25rem!important;margin-top:.65rem!important}.team-person-card .talent-social{font-size:.64rem}}
+
+
+/* Team cards: consistent editorial roster system across homepage and Team page */
+.home-team-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:16px;
+ align-items:stretch;
+}
+.home-team-person-card{min-width:0;height:100%;padding:12px!important}
+.home-team-person-card .talent-photo{aspect-ratio:1/1;height:auto!important}
+.home-team-person-card .talent-photo img{width:100%;height:100%;object-fit:cover}
+.team-grid-three{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:16px!important;
+ border:0!important;
+ background:transparent!important;
+ align-items:stretch;
+}
+.team-person-card{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:stretch;
+ min-width:0;
+ min-height:0!important;
+ height:100%;
+ padding:12px!important;
+ border:1px solid rgba(255,255,255,.11)!important;
+ border-radius:18px!important;
+ background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012))!important;
+ box-shadow:0 18px 48px rgba(0,0,0,.2)!important;
+ text-decoration:none;
+ transition:transform .28s ease,border-color .28s ease,background .28s ease,box-shadow .28s ease;
+}
+.team-person-card:hover{
+ transform:translateY(-5px)!important;
+ border-color:rgba(255,255,255,.24)!important;
+ background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.018))!important;
+ box-shadow:0 26px 64px rgba(0,0,0,.32)!important;
+}
+.team-person-card .talent-card-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ min-height:25px;
+ margin:0 2px 10px!important;
+ color:#a5a5a5;
+ font-size:.62rem!important;
+ font-weight:600;
+ letter-spacing:.11em;
+ line-height:1.35;
+}
+.team-person-card .talent-card-top span:first-child{
+ color:#f5f4ef;
+ font-variant-numeric:tabular-nums;
+}
+.team-person-card .talent-card-top span:last-child{
+ text-align:right;
+ max-width:75%;
+ font-size:.57rem;
+}
+.team-person-card .talent-photo{
+ display:block;
+ position:relative;
+ width:100%;
+ height:auto!important;
+ aspect-ratio:1/1;
+ flex:0 0 auto;
+ overflow:hidden;
+ border-radius:12px!important;
+ background:#111;
+ box-shadow:none!important;
+}
+.team-person-card .talent-photo img{
+ display:block;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ transition:transform .55s cubic-bezier(.22,1,.36,1),filter .35s ease;
+}
+.team-person-card:hover .talent-photo img{transform:scale(1.045)}
+.team-person-card .team-person-meta{
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ gap:7px;
+ padding:14px 3px 5px!important;
+ margin-top:auto;
+}
+.team-person-card h3{
+ margin:0!important;
+ font-size:clamp(1.7rem,2.2vw,2.35rem)!important;
+ line-height:.98!important;
+ letter-spacing:-.04em;
+ overflow-wrap:anywhere;
+}
+.team-person-card .talent-social{
+ display:inline-flex;
+ align-items:center;
+ gap:6px;
+ color:rgba(245,244,239,.62);
+ font-family:var(--body);
+ font-size:.76rem!important;
+ line-height:1.4;
+ overflow-wrap:anywhere;
+ transition:color .2s ease;
+}
+.team-person-card:hover .talent-social{color:var(--white)}
+.team-person-card .talent-social svg{width:13px;height:13px;flex:0 0 auto}
+@media(max-width:900px){
+ .team-grid-three,.home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ .team-person-card h3{font-size:clamp(1.5rem,3vw,2rem)!important}
+}
+@media(max-width:560px){
+ .team-grid-three,.home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .team-person-card,.home-team-person-card{padding:8px!important;border-radius:14px!important}
+ .team-person-card .talent-card-top{gap:5px;margin:0 1px 7px!important;font-size:.52rem!important}
+ .team-person-card .talent-card-top span:last-child{font-size:.46rem;max-width:78%}
+ .team-person-card .talent-photo{border-radius:9px!important}
+ .team-person-card .team-person-meta{padding:10px 2px 3px!important;gap:5px}
+ .team-person-card h3{font-size:clamp(1.25rem,5.2vw,1.65rem)!important}
+ .team-person-card .talent-social{font-size:.65rem!important;gap:4px}
+}
