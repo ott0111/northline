@@ -227,7 +227,20 @@
   text-align: left !important;
   font: inherit !important;
 }
-#mobileNav.nl-mobile-nav .mobile-roster-toggle > span:last-child { transition: transform .2s ease !important; }
+#mobileNav.nl-mobile-nav .mobile-roster-toggle {
+  font-family: var(--display) !important;
+  font-size: clamp(2.25rem, 8vw, 3.5rem) !important;
+  line-height: 1.05 !important;
+  text-transform: uppercase !important;
+  text-align: left !important;
+}
+#mobileNav.nl-mobile-nav .mobile-roster-toggle > span:last-child {
+  flex: 0 0 auto !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: .4em !important;
+  line-height: 1 !important;
+  transition: transform .2s ease !important;
+}
 #mobileNav.nl-mobile-nav .mobile-roster-toggle[aria-expanded="true"] > span:last-child { transform: rotate(180deg) !important; }
 #mobileNav.nl-mobile-nav .mobile-roster-menu {
   display: none !important;
