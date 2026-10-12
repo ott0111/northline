@@ -1,21 +1,24 @@
-/* Northline navbar: keep the brand, Home link, roster and CTA visible. */
+/* Northline navbar — one consistent desktop/mobile breakpoint. */
 #siteHeader.nl-site-header {
+  box-sizing: border-box !important;
   display: grid !important;
-  grid-template-columns: max-content minmax(0, 1fr) max-content !important;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
   align-items: center !important;
-  gap: clamp(12px, 1.8vw, 26px) !important;
+  column-gap: clamp(10px, 1.4vw, 20px) !important;
+  overflow: visible !important;
 }
 #siteHeader.nl-site-header > .nl-brand {
   grid-column: 1 !important;
   grid-row: 1 !important;
   display: inline-flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
   align-items: center !important;
   justify-self: start !important;
+  gap: 9px !important;
   min-width: max-content !important;
   position: relative !important;
   z-index: 5 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 #siteHeader.nl-site-header > .nl-brand img {
   display: block !important;
@@ -38,30 +41,35 @@
 #siteHeader.nl-site-header .nl-nav-pill {
   grid-column: 2 !important;
   grid-row: 1 !important;
-  justify-self: center !important;
   display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-self: center !important;
+  position: static !important;
+  transform: none !important;
   width: max-content !important;
   max-width: 100% !important;
   min-width: 0 !important;
   flex-wrap: nowrap !important;
-  justify-content: center !important;
   gap: 2px !important;
   overflow: visible !important;
-  position: relative !important;
-  inset: auto !important;
-  transform: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 4 !important;
 }
 #siteHeader.nl-site-header .nl-nav-pill > a,
 #siteHeader.nl-site-header .nl-nav-pill .nav-dropdown-toggle {
   display: inline-flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
   flex: 0 0 auto !important;
   padding: 8px clamp(5px, .65vw, 10px) !important;
+  min-height: 34px !important;
   font-size: clamp(.66rem, .72vw, .76rem) !important;
+  line-height: 1 !important;
   white-space: nowrap !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 #siteHeader.nl-site-header .nl-nav-pill > a[href="./index.html"] {
   display: inline-flex !important;
@@ -69,34 +77,101 @@
   opacity: 1 !important;
 }
 #siteHeader.nl-site-header .nl-nav-pill .nav-dropdown {
+  display: flex !important;
   flex: 0 0 auto !important;
 }
 #siteHeader.nl-site-header .nl-apply {
   grid-column: 3 !important;
   grid-row: 1 !important;
+  display: inline-flex !important;
   justify-self: end !important;
-  position: relative !important;
-  inset: auto !important;
+  align-self: center !important;
+  position: static !important;
   transform: none !important;
   margin: 0 !important;
+  padding: 9px 13px !important;
   white-space: nowrap !important;
   z-index: 5 !important;
 }
 #siteHeader.nl-site-header > .nl-menu-toggle {
   display: none !important;
 }
-@media (max-width: 1100px) {
+#siteHeader.nl-site-header .nl-nav-pill .nav-dropdown-menu {
+  z-index: 400 !important;
+}
+
+/* Use the mobile drawer only when the viewport truly needs it. */
+@media (max-width: 960px) {
   #siteHeader.nl-site-header {
     display: flex !important;
     justify-content: space-between !important;
+    gap: 12px !important;
   }
   #siteHeader.nl-site-header > .nl-brand {
     margin-right: auto !important;
+    flex: 0 0 auto !important;
   }
   #siteHeader.nl-site-header > .nl-desktop-nav {
     display: none !important;
   }
   #siteHeader.nl-site-header > .nl-menu-toggle {
     display: flex !important;
+    flex: 0 0 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    position: relative !important;
+    z-index: 302 !important;
+  }
+  #mobileNav.nl-mobile-nav {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 250 !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    background: rgba(6, 6, 6, .97) !important;
+    transform: translateX(101%) !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: transform .28s ease, visibility .28s ease !important;
+  }
+  #mobileNav.nl-mobile-nav.open {
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+  #mobileNav.nl-mobile-nav .mobile-nav-inner {
+    min-height: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 6.5rem clamp(22px, 7vw, 40px) 3rem !important;
+  }
+  #mobileNav.nl-mobile-nav .mobile-roster-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  #mobileNav.nl-mobile-nav .mobile-roster-links > span {
+    font-size: .65rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: .16em !important;
+    color: rgba(255,255,255,.4) !important;
+    padding: .7rem 0 .25rem !important;
+  }
+  #mobileNav.nl-mobile-nav a:not(.btn) {
+    display: block !important;
+    font-size: clamp(1.7rem, 6vw, 2.4rem) !important;
+    line-height: 1.05 !important;
+    padding: .55rem 0 !important;
+  }
+}
+@media (min-width: 961px) {
+  #mobileNav.nl-mobile-nav {
+    display: none !important;
   }
 }
