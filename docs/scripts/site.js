@@ -187,7 +187,7 @@ if (menuToggle && mobileNav) {
     if (event.key === 'Escape' && mobileNav.classList.contains('open')) closeMenu(true);
   });
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 960) closeMenu();
+    if (window.innerWidth > 1100) closeMenu();
   }, { passive: true });
 }
 
