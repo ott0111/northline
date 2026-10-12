@@ -171,8 +171,8 @@
 /* Text-presentation selector and non-emoji symbol font keep arrows professional on mobile. */
 #siteHeader .arrow-text,
 #mobileNav .arrow-text,
-#siteHeader .nav-dropdown-toggle span,
-#mobileNav .mobile-roster-toggle span {
+#siteHeader .nav-dropdown-toggle > span,
+#mobileNav .mobile-roster-toggle > span:last-child {
   font-family: "Arial", "Helvetica", sans-serif !important;
   font-variant-emoji: text;
   text-rendering: geometricPrecision;
