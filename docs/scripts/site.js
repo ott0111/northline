@@ -9,7 +9,7 @@
   const loader = document.createElement('div');
   loader.id = 'nl-loader';
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="/assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
+  loader.innerHTML = '<div class="nl-loader-grain" aria-hidden="true"></div><div class="nl-loader-inner"><div class="nl-loader-top"><span class="nl-loader-brandmark"><img src="./assets/logo-mark.png" alt=""></span><span>NORTHLINE</span><span class="nl-loader-top-note">TALENT / REPRESENTATION</span></div><div class="nl-loader-center"><span class="nl-loader-kicker"><i></i> INDEPENDENT TALENT AGENCY</span><div class="nl-loader-orbit" aria-hidden="true"><span></span><span></span><span></span><b>N</b></div><strong>Talent first.<br><em>By design.</em></strong><p>Representation, opportunity, and the people behind what comes next.</p></div><div class="nl-loader-bottom"><div class="nl-loader-progress-line"><span>PREPARING YOUR EXPERIENCE</span><b class="nl-loader-status-number">0%</b></div><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing Northline</span><span class="nl-loader-status-right">OTTAWA · EST. 2026</span></div></div></div>';
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
