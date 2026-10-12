@@ -318,87 +318,116 @@
 @media (max-width:1240px){#siteHeader.nl-site-header{display:flex!important;grid-template-columns:none!important;justify-content:space-between!important}#siteHeader.nl-site-header>.nl-desktop-nav{display:none!important}#siteHeader.nl-site-header>.nl-menu-toggle{display:flex!important}#mobileNav.nl-mobile-nav{display:block!important}}
 
 
-/* NORTHLINE FULL-WIDTH NAV — Apply left, navigation right. This block is intentionally last. */
-#siteHeader.nl-site-header {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  min-height: 78px !important;
-  box-sizing: border-box !important;
-  padding: 12px clamp(20px, 4vw, 64px) !important;
-  display: grid !important;
-  grid-template-columns: auto minmax(0, 1fr) auto !important;
-  align-items: center !important;
-  column-gap: clamp(18px, 3vw, 48px) !important;
-  border-radius: 0 !important;
-  border: 0 !important;
-  border-bottom: 1px solid rgba(255,255,255,.12) !important;
-  background: rgba(7,7,7,.72) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(18px) saturate(120%) !important;
-  overflow: visible !important;
-}
-#siteHeader.nl-site-header > .nl-brand {
-  grid-column: 2 !important;
-  grid-row: 1 !important;
-  justify-self: start !important;
-  min-width: 0 !important;
-}
-#siteHeader.nl-site-header > .nl-desktop-nav {
-  display: contents !important;
-}
-#siteHeader.nl-site-header .nl-nav-pill {
-  grid-column: 3 !important;
-  grid-row: 1 !important;
-  justify-self: end !important;
-  display: flex !important;
-  position: static !important;
-  transform: none !important;
-  width: max-content !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  flex-wrap: nowrap !important;
-  overflow: visible !important;
-}
-#siteHeader.nl-site-header .nl-apply {
-  grid-column: 1 !important;
-  grid-row: 1 !important;
-  justify-self: start !important;
-  align-self: center !important;
-  display: inline-flex !important;
-  position: static !important;
-  transform: none !important;
-  margin: 0 !important;
-  white-space: nowrap !important;
-}
-#siteHeader.nl-site-header > .nl-menu-toggle {
-  display: none !important;
+/* NORTHLINE NAVBAR FINAL — stable three-column layout, no conflicting contents/grid placement. */
+@media (min-width: 1241px) {
+  #siteHeader.nl-site-header {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-height: 76px !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    padding: 12px clamp(20px, 3.2vw, 48px) !important;
+    display: grid !important;
+    grid-template-columns: max-content minmax(120px, 1fr) max-content !important;
+    align-items: center !important;
+    column-gap: clamp(18px, 2.2vw, 34px) !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,.12) !important;
+    background: rgba(7,7,7,.72) !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    z-index: 300 !important;
+  }
+  #siteHeader.nl-site-header > .nl-brand {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: center !important;
+    display: inline-flex !important;
+    min-width: max-content !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    margin: 0 !important;
+    z-index: 5 !important;
+  }
+  #siteHeader.nl-site-header > .nl-brand img,
+  #siteHeader.nl-site-header > .nl-brand span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  #siteHeader.nl-site-header > .nl-desktop-nav {
+    display: contents !important;
+  }
+  #siteHeader.nl-site-header .nl-nav-pill {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    justify-self: end !important;
+    display: flex !important;
+    flex: 0 0 auto !important;
+    position: static !important;
+    transform: none !important;
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-wrap: nowrap !important;
+    overflow: visible !important;
+  }
+  #siteHeader.nl-site-header .nl-apply {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    justify-self: start !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    z-index: 5 !important;
+  }
+  #siteHeader.nl-site-header > .nl-menu-toggle { display: none !important; }
 }
 @media (max-width: 1240px) {
   #siteHeader.nl-site-header {
+    position: absolute !important;
+    top: 10px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    min-height: 60px !important;
+    height: auto !important;
+    padding: 8px 12px 8px 15px !important;
     display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
     justify-content: space-between !important;
-    min-height: 68px !important;
-    padding: 10px 20px !important;
+    gap: 12px !important;
+    border-radius: 18px !important;
+    z-index: 300 !important;
   }
   #siteHeader.nl-site-header > .nl-brand {
+    display: inline-flex !important;
     order: 1 !important;
-    margin-right: auto !important;
+    margin: 0 auto 0 0 !important;
+    min-width: max-content !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
-  #siteHeader.nl-site-header > .nl-desktop-nav {
-    display: none !important;
-  }
-  #siteHeader.nl-site-header .nl-apply {
-    display: none !important;
-  }
+  #siteHeader.nl-site-header > .nl-desktop-nav { display: none !important; }
+  #siteHeader.nl-site-header .nl-apply { display: none !important; }
   #siteHeader.nl-site-header > .nl-menu-toggle {
     display: flex !important;
     order: 2 !important;
+    flex: 0 0 34px !important;
+    width: 34px !important;
+    height: 34px !important;
     margin-left: auto !important;
+    visibility: visible !important;
   }
-}
-@media (min-width: 1241px) {
-  #siteHeader.nl-site-header > .nl-menu-toggle { display: none !important; }
 }
