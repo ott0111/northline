@@ -334,3 +334,53 @@
 @media (prefers-reduced-motion: reduce) {
   #siteHeader.nl-site-header .nav-dropdown-menu, #mobileNav.nl-mobile-nav { transition: none !important; }
 }
+
+/* Brand visibility safeguard: keep the Northline mark visible even if the PNG fails to render. */
+#siteHeader.nl-site-header > a.logo.nl-brand {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #f5f4ef !important;
+  overflow: visible !important;
+  z-index: 310 !important;
+}
+#siteHeader.nl-site-header > a.logo.nl-brand > img {
+  display: none !important;
+}
+#siteHeader.nl-site-header > a.logo.nl-brand::before {
+  content: "N" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 31px !important;
+  width: 31px !important;
+  height: 31px !important;
+  box-sizing: border-box !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+  border-radius: 9px !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.025)) !important;
+  color: #fff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: -.07em !important;
+  text-transform: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.035) !important;
+}
+#siteHeader.nl-site-header > a.logo.nl-brand > span {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #f5f4ef !important;
+  font-size: 1.35rem !important;
+  line-height: 1 !important;
+}
+@media (max-width: 900px) {
+  #siteHeader.nl-site-header > a.logo.nl-brand::before {
+    flex-basis: 29px !important;
+    width: 29px !important;
+    height: 29px !important;
+  }
+  #siteHeader.nl-site-header > a.logo.nl-brand > span { font-size: 1.25rem !important; }
+}
