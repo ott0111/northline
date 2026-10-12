@@ -1783,3 +1783,41 @@ body.menu-open{overflow:hidden}
  .team-person-card h3{font-size:clamp(1.25rem,5.2vw,1.65rem)!important}
  .team-person-card .talent-social{font-size:.65rem!important;gap:4px}
 }
+
+
+/* Homepage founders use the same card layout as the featured talent section. */
+.home-team-grid .home-featured-talent-card{
+ min-width:0;
+ min-height:0;
+ height:100%;
+ padding:12px!important;
+}
+.home-team-grid .home-featured-talent-card .talent-photo{
+ width:100%;
+ height:auto!important;
+ aspect-ratio:1/1;
+ border-radius:10px;
+}
+.home-team-grid .home-featured-talent-card .talent-photo img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+}
+.home-team-grid .home-featured-talent-card h3{
+ margin:.85rem 0 .35rem!important;
+}
+.home-team-grid .home-featured-talent-card p{
+ margin:0;
+}
+@media(max-width:900px){
+ .home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:560px){
+ .home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .home-team-grid .home-featured-talent-card{padding:8px!important}
+ .home-team-grid .home-featured-talent-card .talent-card-top{gap:5px;font-size:.52rem!important}
+ .home-team-grid .home-featured-talent-card .talent-card-top span:last-child{font-size:.46rem;max-width:78%;text-align:right}
+ .home-team-grid .home-featured-talent-card h3{font-size:clamp(1.25rem,5.2vw,1.65rem)!important}
+ .home-team-grid .home-featured-talent-card p{font-size:.68rem}
+ .home-team-grid .home-featured-talent-card .talent-social{font-size:.64rem}
+}
