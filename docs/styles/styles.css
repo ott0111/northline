@@ -1623,3 +1623,38 @@ body.menu-open{overflow:hidden}
   .home-talent-grid .home-featured-talent-card p{font-size:.68rem}
   .home-talent-grid .home-featured-talent-card .talent-social{font-size:.64rem}
 }
+
+
+/* Services cards: clear hierarchy, consistent spacing, and responsive rhythm */
+.service-overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.service-overview-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.25rem,2.4vw,2rem);border:1px solid rgba(255,255,255,.1);border-radius:15px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008));transition:border-color .22s ease,background .22s ease,transform .22s ease}
+.service-overview-card:hover{border-color:rgba(255,255,255,.22);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));transform:translateY(-3px)}
+.service-overview-top{width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--line-modern-soft);color:#aaa9a3;font-size:.62rem;font-weight:600;letter-spacing:.12em}
+.service-overview-top span:first-child{color:var(--white);font-variant-numeric:tabular-nums}
+.service-overview-card h2{margin:1.35rem 0 .8rem;font-family:var(--display);font-size:clamp(2.25rem,4vw,3.8rem);line-height:.95;letter-spacing:-.045em;text-transform:uppercase}
+.service-overview-card>p{max-width:54ch;color:rgba(255,255,255,.62);font-size:.88rem;line-height:1.7}
+.service-overview-card .service-overview-lead{color:var(--white);font-size:1.05rem;line-height:1.45;margin-bottom:.65rem}
+.service-overview-card .tag-list{gap:.45rem;margin-top:auto;padding-top:1.5rem}
+.service-overview-card .tag-list span{border-radius:999px;padding:.48rem .65rem;font-size:.61rem;line-height:1.2;letter-spacing:.045em}
+.price-grid{gap:14px!important}
+.price-grid>div{min-height:215px!important;padding:1.4rem!important;gap:.9rem!important;border-radius:15px!important;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008))!important}
+.price-grid>div>span{font-size:.62rem;letter-spacing:.13em}
+.price-grid h3{font-size:clamp(1.45rem,2vw,1.9rem)!important;line-height:1.05!important}
+.price-grid strong{font-size:clamp(2.15rem,3vw,2.8rem)!important;line-height:1!important;margin-top:auto}
+.price-grid p{font-size:.8rem!important;line-height:1.6!important;max-width:29ch}
+@media(max-width:700px){.service-overview-grid{grid-template-columns:1fr;gap:10px}.service-overview-card{padding:1.15rem;border-radius:13px}.service-overview-card h2{font-size:2.6rem;margin-top:1.1rem}.service-overview-card .tag-list{padding-top:1.1rem}.price-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.price-grid>div{min-height:185px!important;padding:1rem!important;gap:.7rem!important}.price-grid h3{font-size:1.35rem!important}.price-grid strong{font-size:2.1rem!important}.price-grid p{font-size:.74rem!important}}
+@media(max-width:420px){.price-grid{grid-template-columns:1fr!important}.price-grid>div{min-height:165px!important}}
+
+/* Team profiles reuse the Talent card structure and X handle footer. */
+.team-grid-three{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;border:0!important;background:transparent!important}
+.team-person-card{min-width:0;height:100%;padding:.8rem!important;border-radius:13px!important}
+.team-person-card .talent-card-top{min-height:24px;margin-bottom:.55rem;gap:.5rem;font-size:.58rem!important;line-height:1.35}
+.team-person-card .talent-card-top span:last-child{text-align:right;font-size:.52rem}
+.team-person-card .talent-photo{display:block;width:100%;height:auto!important;aspect-ratio:1/1;overflow:hidden;border-radius:9px!important;background:#101010}
+.team-person-card .talent-photo img{width:100%;height:100%;object-fit:cover}
+.team-person-meta{padding:.15rem .1rem .25rem!important}
+.team-person-card h3{margin:.85rem 0 .35rem!important;font-size:clamp(1.45rem,2vw,1.9rem)!important;line-height:1.05!important}
+.team-person-card .talent-social{display:flex;align-items:center;gap:.3rem;color:#b9b9b9;font-size:.72rem;overflow-wrap:anywhere}
+.team-person-card .talent-social svg{flex:0 0 auto}
+@media(max-width:900px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:600px){.team-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.team-person-card{padding:.55rem!important}.team-person-card .talent-card-top{font-size:.49rem!important}.team-person-card .talent-card-top span:last-child{font-size:.44rem}.team-person-card h3{font-size:1.25rem!important;margin-top:.65rem!important}.team-person-card .talent-social{font-size:.64rem}}
