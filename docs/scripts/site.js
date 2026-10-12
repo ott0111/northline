@@ -4,18 +4,16 @@
   let seen = false;
   try { seen = sessionStorage.getItem('northlineLoaded') === 'true'; } catch {}
 
-  const navigation = performance.getEntriesByType('navigation')[0];
-  const isHistoryRestore = navigation && navigation.type === 'back_forward';
-  if (seen && !isHistoryRestore) return;
+  if (seen) return;
 
   const loader = document.createElement('div');
   loader.id = 'nl-loader';
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-grain" aria-hidden="true"></div><div class="nl-loader-inner"><div class="nl-loader-top"><span class="nl-loader-brandmark"><img src="./assets/logo-mark.png" alt=""></span><span>NORTHLINE</span><span class="nl-loader-top-note">TALENT / REPRESENTATION</span></div><div class="nl-loader-center"><div class="nl-loader-orbit" aria-hidden="true"><span></span><span></span><span></span><b>N</b></div><strong>Northline</strong><p>Independent talent agency</p></div><div class="nl-loader-bottom"><div class="nl-loader-progress-line"><span>PREPARING YOUR EXPERIENCE</span><b class="nl-loader-status-number">0%</b></div><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><span class="nl-loader-status-right">NORTH AMERICA</span></div></div></div>'
+  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="./assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
-  const status = loader.querySelector('.nl-loader-status-number');
+  const status = loader.querySelector('.nl-loader-status b');
   const label = loader.querySelector('.nl-loader-status span');
   let progress = 0;
   let finished = false;
@@ -48,11 +46,11 @@
     try { sessionStorage.setItem('northlineLoaded','true'); } catch {}
     setTimeout(() => {
       loader.classList.add('is-done');
-      /* Keep the hidden loader in the DOM so a browser Back restore can replay it. */
+      setTimeout(() => loader.remove(), reduce ? 50 : 250);
     }, reduce ? 80 : 900);
   };
 
-  const minimumVisible = reduce ? 700 : 1850;
+  const minimumVisible = reduce ? 150 : 450;
   const started = performance.now();
   const finishWhenReady = () => {
     const remaining = Math.max(0, minimumVisible - (performance.now() - started));
@@ -75,66 +73,27 @@
   else startFinish();
 
   // Hard safety cap so the loader can never trap the user on a black screen.
-  setTimeout(finish, 2250);
+  setTimeout(finish, 1600);
 })();
-/* Image errors are handled by the single Northline avatar fallback below. */
-window.addEventListener('pageshow', event => {
-  document.body.classList.remove('page-leaving');
-  if(!event.persisted) return;
-  const loader = document.getElementById('nl-loader');
-  if(!loader) return;
-  loader.classList.remove('is-done');
-  const track = loader.querySelector('.nl-loader-track i');
-  const status = loader.querySelector('.nl-loader-status-number');
-  const label = loader.querySelector('.nl-loader-status span');
-  if(track) track.style.width = '0%';
-  if(status) status.textContent = '0%';
-  if(label) label.textContent = 'Welcome back';
-  setTimeout(() => {
-    if(track) track.style.width = '100%';
-    if(status) status.textContent = '100%';
-    if(label) label.textContent = 'Ready';
-    setTimeout(() => loader.classList.add('is-done'), 650);
-  }, 1850);
-});
-// Clicking the brand mark always replays the intro when returning to the homepage.
-document.querySelectorAll('#siteHeader .logo').forEach(link => link.addEventListener('click', () => {
-  try { sessionStorage.removeItem('northlineLoaded'); } catch {}
-}));
-// Accessible click/tap behavior for the roster dropdown.
-document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
-  toggle.addEventListener('click', event => {
-    event.preventDefault();
-    const dropdown = toggle.closest('.nav-dropdown');
-    const open = dropdown.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-  });
-});
-document.addEventListener('click', event => {
-  document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
-    if(!dropdown.contains(event.target)) {
-      dropdown.classList.remove('open');
-      dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded','false');
+/* Reliable image fallback for mobile/network failures */
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.classList.add('is-broken');
+    img.removeAttribute('srcset');
+    if (img.alt && !img.dataset.fallback) {
+      img.dataset.fallback = 'true';
+      const fallback = document.createElement('span');
+      fallback.textContent = img.alt;
+      fallback.setAttribute('aria-hidden','true');
+      fallback.style.cssText = 'position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;text-transform:uppercase;color:var(--grey);background:#101010;';
+      const parent = img.parentElement;
+      if (parent && getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
+      if (parent) parent.appendChild(fallback);
     }
-  });
-});
-document.addEventListener('keydown', event => {
-  if(event.key === 'Escape') document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
-    dropdown.classList.remove('open');
-    dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded','false');
-  });
+  }, {once:true});
 });
 
-// Mobile Roster submenu: keep Talent and Team grouped under one Roster control.
-document.querySelectorAll('.mobile-roster-toggle').forEach(toggle => {
-  toggle.addEventListener('click', () => {
-    const menuId = toggle.getAttribute('aria-controls');
-    const submenu = menuId ? document.getElementById(menuId) : toggle.nextElementSibling;
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    if (submenu) submenu.classList.toggle('open', !expanded);
-  });
-});
+window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
 
 const header = document.getElementById('siteHeader');
 const menuToggle = document.getElementById('menuToggle');
@@ -187,7 +146,7 @@ if (menuToggle && mobileNav) {
     if (event.key === 'Escape' && mobileNav.classList.contains('open')) closeMenu(true);
   });
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 1100) closeMenu();
+    if (window.innerWidth > 1240) closeMenu();
   }, { passive: true });
 }
 
@@ -560,74 +519,18 @@ document.querySelectorAll('img').forEach(img=>{
   document.querySelectorAll('.work-gallery').forEach(gallery=>{gallery.addEventListener('wheel',event=>{if(gallery.scrollWidth<=gallery.clientWidth)return;if(Math.abs(event.deltaY)>Math.abs(event.deltaX)){event.preventDefault();gallery.scrollLeft+=event.deltaY;}},{passive:false});});
   const consentName='northline_cookie_consent';
   const readConsent=()=>{const match=document.cookie.match(new RegExp('(?:^|; )'+consentName+'=([^;]*)'));if(!match)return null;try{return JSON.parse(decodeURIComponent(match[1]));}catch{return null;}};
+  const saveConsent=analytics=>{const value=encodeURIComponent(JSON.stringify({essential:true,analytics:!!analytics,updatedAt:new Date().toISOString()}));document.cookie=consentName+'='+value+'; Max-Age=15552000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');banner.remove();manage.hidden=false;};
+  const manage=document.createElement('button');manage.type='button';manage.className='nl-cookie-manage';manage.textContent='Cookie settings';manage.setAttribute('aria-label','Open cookie preferences');document.body.appendChild(manage);
   const banner=document.createElement('section');banner.className='nl-cookie-banner';banner.setAttribute('aria-label','Cookie preferences');
-  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookies, your choice.</h2><p>Essential storage remembers your preference. Optional analytics stays off unless you choose it. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is connected yet.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept all</button><button type="button" data-cookie-essential>Essential only</button><button type="button" class="nl-cookie-customize" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save preferences</button></div>';
+  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookies, your choice.</h2><p>Essential storage keeps the site working. Optional analytics cookies stay off unless you choose them. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is currently connected.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept all</button><button type="button" data-cookie-essential>Essential only</button><button type="button" class="nl-cookie-customize" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save preferences</button></div>';
+  document.body.appendChild(banner);
   const options=banner.querySelector('.nl-cookie-options'),analytics=banner.querySelector('[data-analytics]'),customize=banner.querySelector('[data-cookie-customize]'),save=banner.querySelector('[data-cookie-save]');
-  const saveConsent=allowAnalytics=>{const value=encodeURIComponent(JSON.stringify({essential:true,analytics:!!allowAnalytics,updatedAt:new Date().toISOString()}));document.cookie=consentName+'='+value+'; Max-Age=15552000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');banner.classList.remove('is-visible');banner.remove();};
-  const openPreferences=()=>{if(!banner.isConnected)document.body.appendChild(banner);const current=readConsent();options.hidden=false;analytics.checked=!!current?.analytics;customize.hidden=true;save.hidden=false;banner.classList.add('is-visible');};
-  window.NorthlineCookiePreferences={open:openPreferences,read:readConsent};
+  const showBanner=()=>{banner.classList.add('is-visible');banner.querySelector('[data-cookie-accept]').focus({preventScroll:true});};
+  const current=readConsent();if(current){banner.remove();manage.hidden=false;}else{manage.hidden=true;requestAnimationFrame(()=>banner.classList.add('is-visible'));}
   banner.querySelector('[data-cookie-accept]').addEventListener('click',()=>saveConsent(true));
   banner.querySelector('[data-cookie-essential]').addEventListener('click',()=>saveConsent(false));
   customize.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;});
   save.addEventListener('click',()=>saveConsent(analytics.checked));
-  if(!readConsent()) {document.body.appendChild(banner);requestAnimationFrame(()=>banner.classList.add('is-visible'));}
+  manage.addEventListener('click',()=>{if(!banner.isConnected)document.body.appendChild(banner);options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();});
 })();
 
-/* Reliable image fallback: remote avatar providers can fail, so never show a broken-image icon. */
-(function(){
-  function fallbackAvatar(img){
-    if(img.dataset.nlFallbackApplied === 'true') return;
-    img.dataset.nlFallbackApplied = 'true';
-    img.removeAttribute('srcset');
-    img.removeAttribute('sizes');
-    const name = (img.getAttribute('alt') || 'Northline').trim();
-    const words = name.split(/\s+/).filter(Boolean);
-    const initials = (words.length > 1
-      ? words[0].charAt(0) + words[words.length - 1].charAt(0)
-      : (words[0] || 'N').slice(0, 2)).toUpperCase();
-    const safeInitials = initials.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><rect width="320" height="320" fill="#111111"/><rect x="18" y="18" width="284" height="284" rx="24" fill="none" stroke="#414141" stroke-width="2"/><path d="M42 250H278" stroke="#5a5a5a" stroke-width="2"/><text x="160" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="86" font-weight="700" letter-spacing="-4" fill="#f2f2f2">' + safeInitials + '</text></svg>';
-    img.onerror = null;
-    img.classList.add('avatar-fallback');
-    img.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-  }
-  function bindAvatar(img){
-    if(img.dataset.nlFallbackBound === 'true') return;
-    img.dataset.nlFallbackBound = 'true';
-    img.addEventListener('error', function(){ fallbackAvatar(img); });
-    if(img.complete && img.naturalWidth === 0) fallbackAvatar(img);
-  }
-  document.querySelectorAll('img').forEach(bindAvatar);
-  // Catch images inserted later by galleries or shared page components.
-  const observer = new MutationObserver(function(records){
-    records.forEach(function(record){
-      record.addedNodes.forEach(function(node){
-        if(node.nodeType !== 1) return;
-        if(node.matches && node.matches('img')) bindAvatar(node);
-        if(node.querySelectorAll) node.querySelectorAll('img').forEach(bindAvatar);
-      });
-    });
-  });
-  observer.observe(document.documentElement, {childList:true, subtree:true});
-})();
-
-/* Subtle scroll-linked movement inspired by cinematic product reveals. */
-(function(){
-  const hero = document.querySelector('.hero');
-  if(!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let queued = false;
-  const update = function(){
-    if(queued) return;
-    queued = true;
-    requestAnimationFrame(function(){
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height)));
-      hero.style.setProperty('--nl-scroll-progress', progress.toFixed(3));
-      const bg = hero.querySelector('.hero-bg');
-      if(bg) bg.style.transform = 'translate3d(0,' + (progress * 7).toFixed(2) + '%,0) scale(' + (1.04 + progress * .025).toFixed(3) + ')';
-      queued = false;
-    });
-  };
-  window.addEventListener('scroll', update, {passive:true});
-  update();
-})();
