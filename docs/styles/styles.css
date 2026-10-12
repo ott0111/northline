@@ -1530,3 +1530,96 @@ body.menu-open{overflow:hidden}
   .home-talent-card h3{font-size:1.25rem!important}
   .talent-photo{height:125px!important}
 }
+
+
+/* Homepage featured roster uses the same card structure as the full Talent page */
+.home-talent-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch;
+  gap:12px!important;
+  border:0!important;
+  background:transparent!important;
+}
+.home-talent-grid .home-featured-talent-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0!important;
+  height:100%;
+  padding:.75rem!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:13px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008))!important;
+  box-shadow:var(--shadow-soft);
+  text-decoration:none;
+}
+.home-talent-grid .home-featured-talent-card:hover{
+  transform:translateY(-3px)!important;
+  border-color:rgba(255,255,255,.22)!important;
+  background:var(--surface-hover)!important;
+}
+.home-talent-grid .talent-card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:.4rem;
+  min-height:22px;
+  margin-bottom:.55rem;
+  font-size:.53rem!important;
+  letter-spacing:.07em;
+}
+.home-talent-grid .talent-card-top span:last-child{
+  text-align:right;
+  font-size:.5rem;
+}
+.home-talent-grid .talent-photo{
+  display:block;
+  width:100%;
+  height:auto!important;
+  aspect-ratio:1.18/1;
+  flex:0 0 auto;
+  overflow:hidden;
+  border-radius:9px!important;
+  background:#101010;
+}
+.home-talent-grid .talent-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.home-talent-grid .home-featured-talent-card>div:last-child{
+  padding:.15rem .1rem .2rem;
+}
+.home-talent-grid .home-featured-talent-card h3{
+  margin:.8rem 0 .3rem!important;
+  font-size:clamp(1.15rem,1.5vw,1.55rem)!important;
+  line-height:1.1!important;
+}
+.home-talent-grid .home-featured-talent-card p{
+  margin:.25rem 0 .55rem;
+  font-size:.74rem;
+  line-height:1.45;
+  color:var(--grey);
+}
+.home-talent-grid .home-featured-talent-card .talent-social{
+  display:flex;
+  align-items:center;
+  gap:.25rem;
+  font-size:.7rem;
+  overflow-wrap:anywhere;
+}
+@media(max-width:1000px){
+  .home-talent-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  .home-talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .home-talent-grid .home-featured-talent-card{padding:.55rem!important}
+  .home-talent-grid .talent-photo{aspect-ratio:1/1}
+  .home-talent-grid .talent-card-top{font-size:.48rem!important}
+  .home-talent-grid .talent-card-top span:last-child{font-size:.44rem}
+  .home-talent-grid .home-featured-talent-card h3{font-size:1.2rem!important;margin-top:.65rem!important}
+  .home-talent-grid .home-featured-talent-card p{font-size:.68rem}
+  .home-talent-grid .home-featured-talent-card .talent-social{font-size:.64rem}
+}
