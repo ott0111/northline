@@ -1759,3 +1759,7 @@ h1 em,h2 em{font-size:1.12em}
 @media(max-width:900px){#homeRosterGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:600px){#homeRosterGrid{grid-template-columns:1fr!important}}
 @media(prefers-reduced-motion:reduce){.marquee{animation:northlineTicker 50s linear infinite!important}}
+
+#homeRosterGrid .talent-card{min-height:390px!important;justify-content:space-between!important}
+#siteHeader .nav-dropdown-toggle:hover,#siteHeader .nav-dropdown.open .nav-dropdown-toggle{color:var(--white)!important}
+@media(max-width:600px){#homeRosterGrid .talent-card{min-height:340px!important}}
