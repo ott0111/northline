@@ -4,12 +4,14 @@
   let seen = false;
   try { seen = sessionStorage.getItem('northlineLoaded') === 'true'; } catch {}
 
-  if (seen) return;
+  const navigation = performance.getEntriesByType('navigation')[0];
+  const isHistoryRestore = navigation && navigation.type === 'back_forward';
+  if (seen && !isHistoryRestore) return;
 
   const loader = document.createElement('div');
   loader.id = 'nl-loader';
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-grain" aria-hidden="true"></div><div class="nl-loader-inner"><div class="nl-loader-top"><span class="nl-loader-brandmark"><img src="./assets/logo-mark.png" alt=""></span><span>NORTHLINE</span><span class="nl-loader-top-note">TALENT / REPRESENTATION</span></div><div class="nl-loader-center"><span class="nl-loader-kicker"><i></i> INDEPENDENT TALENT AGENCY</span><div class="nl-loader-orbit" aria-hidden="true"><span></span><span></span><span></span><b>N</b></div><strong>Talent first.<br><em>By design.</em></strong><p>Representation, opportunity, and the people behind what comes next.</p></div><div class="nl-loader-bottom"><div class="nl-loader-progress-line"><span>PREPARING YOUR EXPERIENCE</span><b class="nl-loader-status-number">0%</b></div><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing Northline</span><span class="nl-loader-status-right">OTTAWA · EST. 2026</span></div></div></div>';
+  loader.innerHTML = '<div class="nl-loader-grain" aria-hidden="true"></div><div class="nl-loader-inner"><div class="nl-loader-top"><span class="nl-loader-brandmark"><img src="./assets/logo-mark.png" alt=""></span><span>NORTHLINE</span><span class="nl-loader-top-note">TALENT / REPRESENTATION</span></div><div class="nl-loader-center"><div class="nl-loader-orbit" aria-hidden="true"><span></span><span></span><span></span><b>N</b></div><strong>Northline</strong><p>Independent talent agency</p></div><div class="nl-loader-bottom"><div class="nl-loader-progress-line"><span>PREPARING YOUR EXPERIENCE</span><b class="nl-loader-status-number">0%</b></div><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><span class="nl-loader-status-right">NORTH AMERICA</span></div></div></div>'
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
@@ -46,11 +48,11 @@
     try { sessionStorage.setItem('northlineLoaded','true'); } catch {}
     setTimeout(() => {
       loader.classList.add('is-done');
-      setTimeout(() => loader.remove(), reduce ? 50 : 250);
+      /* Keep the hidden loader in the DOM so a browser Back restore can replay it. */
     }, reduce ? 80 : 900);
   };
 
-  const minimumVisible = reduce ? 150 : 450;
+  const minimumVisible = reduce ? 700 : 1850;
   const started = performance.now();
   const finishWhenReady = () => {
     const remaining = Math.max(0, minimumVisible - (performance.now() - started));
@@ -73,10 +75,55 @@
   else startFinish();
 
   // Hard safety cap so the loader can never trap the user on a black screen.
-  setTimeout(finish, 1600);
+  setTimeout(finish, 2250);
 })();
 /* Image errors are handled by the single Northline avatar fallback below. */
-window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
+window.addEventListener('pageshow', event => {
+  document.body.classList.remove('page-leaving');
+  if(!event.persisted) return;
+  const loader = document.getElementById('nl-loader');
+  if(!loader) return;
+  loader.classList.remove('is-done');
+  const track = loader.querySelector('.nl-loader-track i');
+  const status = loader.querySelector('.nl-loader-status-number');
+  const label = loader.querySelector('.nl-loader-status span');
+  if(track) track.style.width = '0%';
+  if(status) status.textContent = '0%';
+  if(label) label.textContent = 'Welcome back';
+  setTimeout(() => {
+    if(track) track.style.width = '100%';
+    if(status) status.textContent = '100%';
+    if(label) label.textContent = 'Ready';
+    setTimeout(() => loader.classList.add('is-done'), 650);
+  }, 1850);
+});
+// Clicking the brand mark always replays the intro when returning to the homepage.
+document.querySelectorAll('#siteHeader .logo').forEach(link => link.addEventListener('click', () => {
+  try { sessionStorage.removeItem('northlineLoaded'); } catch {}
+}));
+// Accessible click/tap behavior for the roster dropdown.
+document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+  toggle.addEventListener('click', event => {
+    event.preventDefault();
+    const dropdown = toggle.closest('.nav-dropdown');
+    const open = dropdown.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+});
+document.addEventListener('click', event => {
+  document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
+    if(!dropdown.contains(event.target)) {
+      dropdown.classList.remove('open');
+      dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded','false');
+    }
+  });
+});
+document.addEventListener('keydown', event => {
+  if(event.key === 'Escape') document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
+    dropdown.classList.remove('open');
+    dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded','false');
+  });
+});
 const header = document.getElementById('siteHeader');
 
 // Keep navigation state consistent across every page, including mobile navigation.
