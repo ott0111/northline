@@ -1924,3 +1924,29 @@ h1 em,h2 em{font-size:1.12em}
 }
 @media(min-width:1001px){.nl-mobile-nav{display:none!important}}
 @media(max-width:420px){#siteHeader.nl-site-header{left:8px!important;right:8px!important}.nl-mobile-nav .mobile-nav-inner{padding-left:22px!important;padding-right:22px!important}}
+
+/* NORTHLINE NAVIGATION REBUILD — single authoritative responsive layout */
+#siteHeader{display:flex;align-items:center;justify-content:flex-start;gap:clamp(1rem,2.2vw,2.5rem);min-height:76px;padding:1rem var(--edge)}
+#siteHeader .logo{flex:0 0 auto;margin:0}
+#siteHeader .primary-nav{display:flex;align-items:center;justify-content:flex-start;flex:1 1 auto;min-width:0;gap:1rem}
+#siteHeader .nav-links{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:clamp(.25rem,1.1vw,1rem);min-width:0}
+#siteHeader .nav-links a{white-space:nowrap;padding:.65rem .75rem}
+#siteHeader .primary-nav>.btn{margin-left:auto;flex:0 0 auto}
+#siteHeader .menu-toggle{display:none;flex:0 0 30px;margin-left:auto;padding:5px 0;position:relative;z-index:102}
+#mobileNav{display:none}
+@media(max-width:960px){
+#siteHeader{min-height:68px;gap:1rem}
+#siteHeader .primary-nav{display:none}
+#siteHeader .menu-toggle{display:flex}
+#mobileNav{display:block;position:fixed;inset:0;z-index:99;overflow-y:auto;overscroll-behavior:contain;background:rgba(7,7,7,.985);transform:translateX(101%);visibility:hidden;pointer-events:none;transition:transform .28s ease,visibility .28s ease}
+#mobileNav.open{transform:translateX(0);visibility:visible;pointer-events:auto}
+#mobileNav .mobile-nav-inner{min-height:100%;height:auto;display:flex;flex-direction:column;justify-content:center;padding:6.5rem var(--edge) 3rem}
+#mobileNav .mobile-label{margin-bottom:1.25rem}
+#mobileNav a:not(.btn){display:block;font-family:var(--display);font-size:clamp(2.25rem,8vw,3.5rem);line-height:1.05;padding:.7rem 0;border-bottom:1px solid var(--line-soft)}
+#mobileNav a.active:not(.btn){color:var(--accent)}
+#mobileNav .mob-cta{margin-top:1.5rem;width:max-content;max-width:100%}
+body.menu-open{overflow:hidden}
+}
+@media(min-width:961px){#mobileNav{display:none!important}}
+@media(max-width:420px){#siteHeader{padding:.85rem 5vw}#siteHeader .logo{font-size:1.35rem}}
+@media(prefers-reduced-motion:reduce){#mobileNav{transition:none}}
