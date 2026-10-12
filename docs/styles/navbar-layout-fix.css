@@ -231,7 +231,7 @@
   border: 0 !important;
   padding: .5rem 0 !important;
 }
-@media (max-width: 960px) {
+@media (max-width: 1100px) {
   #siteHeader.nl-site-header {
     top: 10px !important;
     left: 12px !important;
@@ -304,7 +304,7 @@
   #mobileNav.nl-mobile-nav .mob-cta { margin-top: 1.5rem !important; width: max-content !important; max-width: 100% !important; }
   body.menu-open { overflow: hidden !important; }
 }
-@media (min-width: 961px) { #mobileNav.nl-mobile-nav { display: none !important; } }
+@media (min-width: 1101px) { #mobileNav.nl-mobile-nav { display: none !important; } }
 @media (max-width: 420px) {
   #siteHeader.nl-site-header { left: 8px !important; right: 8px !important; }
   #mobileNav.nl-mobile-nav .mobile-nav-inner { padding-left: 22px !important; padding-right: 22px !important; }
