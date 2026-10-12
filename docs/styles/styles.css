@@ -1776,3 +1776,105 @@ h1 em,h2 em{font-size:1.12em}
 #siteHeader .primary-nav>.btn{margin-left:auto!important;flex:0 0 auto!important}
 #siteHeader .menu-toggle{margin-left:auto!important}
 @media(max-width:900px){#siteHeader{gap:1rem!important}#siteHeader .primary-nav{display:none!important}}
+
+
+/* Navigation repair — stable left-aligned glass pill across desktop and mobile. */
+#siteHeader,
+#siteHeader.scrolled{
+  display:flex!important;
+  flex-direction:row!important;
+  justify-content:flex-start!important;
+  align-items:center!important;
+  gap:clamp(12px,2vw,28px)!important;
+  box-sizing:border-box!important;
+}
+#siteHeader .logo{
+  flex:0 0 auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+#siteHeader .primary-nav{
+  display:flex!important;
+  flex:0 1 auto!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:clamp(10px,1.5vw,22px)!important;
+  min-width:0!important;
+  margin:0!important;
+}
+#siteHeader .nav-links{
+  display:flex!important;
+  flex:0 1 auto!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:2px!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:5px!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.035)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+  white-space:nowrap!important;
+}
+#siteHeader .nav-links>a,
+#siteHeader .nav-dropdown-toggle{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  flex:0 0 auto!important;
+  min-height:38px!important;
+  padding:9px 13px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  color:rgba(245,244,239,.74)!important;
+  font-family:var(--body)!important;
+  font-size:.78rem!important;
+  line-height:1!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+}
+#siteHeader .nav-links>a:hover,
+#siteHeader .nav-links>a.active,
+#siteHeader .nav-dropdown-toggle:hover,
+#siteHeader .nav-dropdown.open .nav-dropdown-toggle{
+  background:rgba(255,255,255,.09)!important;
+  color:#fff!important;
+}
+#siteHeader .nav-links>a:after{display:none!important}
+#siteHeader .nav-dropdown{display:flex!important;align-items:center!important;position:relative!important}
+#siteHeader .nav-dropdown-menu{z-index:150!important;top:calc(100% + 12px)!important}
+#siteHeader .primary-nav>.btn{
+  flex:0 0 auto!important;
+  margin:0!important;
+  min-height:40px!important;
+  padding:10px 16px!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+}
+#siteHeader .menu-toggle{flex:0 0 auto!important;margin-left:auto!important}
+@media(max-width:1100px) and (min-width:901px){
+  #siteHeader{gap:12px!important;padding-left:15px!important;padding-right:10px!important}
+  #siteHeader .primary-nav{gap:10px!important}
+  #siteHeader .nav-links>a,
+  #siteHeader .nav-dropdown-toggle{padding-inline:9px!important;font-size:.73rem!important}
+  #siteHeader .primary-nav>.btn{padding-inline:12px!important}
+}
+@media(max-width:900px){
+  #siteHeader,#siteHeader.scrolled{
+    display:flex!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    min-height:62px!important;
+    padding:8px 12px 8px 17px!important;
+  }
+  #siteHeader .primary-nav{display:none!important}
+  #siteHeader .menu-toggle{display:flex!important;margin-left:auto!important}
+  #siteHeader .logo{font-size:1.35rem!important}
+}
