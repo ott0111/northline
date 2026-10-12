@@ -1187,3 +1187,12 @@ header, header.scrolled {
 .price-grid p { max-width:30ch; font-size:.82rem; line-height:1.6; }
 @media(max-width:900px){.price-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:560px){.price-grid{grid-template-columns:1fr;gap:10px}.price-grid>div{min-height:190px}header,header.scrolled{background-position:center}}
+
+/* Header alignment: keep the pill and its navigation anchored from the left, after the wordmark. */
+#siteHeader{display:flex!important;justify-content:flex-start!important;align-items:center!important;gap:clamp(1rem,2.4vw,2.5rem)!important}
+#siteHeader .logo{flex:0 0 auto!important;margin:0!important}
+#siteHeader .primary-nav{flex:1 1 auto!important;min-width:0!important;margin-left:0!important;justify-content:flex-start!important}
+#siteHeader .nav-links{justify-content:flex-start!important;margin-left:0!important}
+#siteHeader .primary-nav>.btn{margin-left:auto!important;flex:0 0 auto!important}
+#siteHeader .menu-toggle{margin-left:auto!important}
+@media(max-width:900px){#siteHeader{gap:1rem!important}#siteHeader .primary-nav{display:none!important}}
