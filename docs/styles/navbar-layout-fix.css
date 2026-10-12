@@ -111,3 +111,23 @@
  .northline-hero-rail > a strong { font-size:.67rem!important; }
  .northline-hero-rail > a .rail-arrow { display:none!important; }
 }
+
+
+/* Logo fallback: render a visible Northline monogram even if the logo image fails. */
+#siteHeader.nl-site-header > a.logo.nl-brand {
+  display:inline-flex!important;align-items:center!important;gap:9px!important;
+  visibility:visible!important;opacity:1!important;overflow:visible!important;
+  color:#f7f6f2!important;white-space:nowrap!important;z-index:310!important;
+}
+#siteHeader.nl-site-header > a.logo.nl-brand > img { display:none!important; }
+#siteHeader.nl-site-header > a.logo.nl-brand::before {
+  content:"N"!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 30px!important;width:30px!important;height:30px!important;box-sizing:border-box!important;
+  border:1px solid rgba(255,255,255,.38)!important;border-radius:9px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025))!important;
+  color:#fff!important;font:800 19px/1 Arial,Helvetica,sans-serif!important;letter-spacing:-.07em!important;
+}
+#siteHeader.nl-site-header > a.logo.nl-brand > span {
+  display:inline-block!important;visibility:visible!important;opacity:1!important;
+  color:#f7f6f2!important;font-size:1.25rem!important;font-weight:800!important;line-height:1!important;
+}
