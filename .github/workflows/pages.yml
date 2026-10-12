@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -28,6 +28,17 @@ jobs:
         run: npm install
       - name: Build Pages
         run: npm run build:pages
+      - name: Sync generated docs back to the repository
+        run: |
+          git add docs
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Sync GitHub Pages output from pages source"
+            git push
+          else
+            echo "docs/ is already in sync with pages/."
+          fi
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
