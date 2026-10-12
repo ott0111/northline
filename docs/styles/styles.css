@@ -1763,3 +1763,7 @@ h1 em,h2 em{font-size:1.12em}
 #homeRosterGrid .talent-card{min-height:390px!important;justify-content:space-between!important}
 #siteHeader .nav-dropdown-toggle:hover,#siteHeader .nav-dropdown.open .nav-dropdown-toggle{color:var(--white)!important}
 @media(max-width:600px){#homeRosterGrid .talent-card{min-height:340px!important}}
+
+.nl-loader-orbit{position:relative!important;right:auto!important;top:auto!important;transform:none!important;display:grid;place-items:center;opacity:1!important}
+.nl-loader-orbit:before{inset:0!important;border:0!important;border-radius:0!important;background:url("../assets/logo-mark.png") center/contain no-repeat!important}
+.nl-loader-orbit:after{display:none!important}
