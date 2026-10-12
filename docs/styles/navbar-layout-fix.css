@@ -312,3 +312,7 @@
 @media (prefers-reduced-motion: reduce) {
   #mobileNav.nl-mobile-nav, #mobileNav.nl-mobile-nav .mobile-roster-toggle span { transition: none !important; }
 }
+
+/* Final navbar visibility override: desktop links stay visible together; mobile switches at 1240px. */
+@media (min-width:1241px){#siteHeader.nl-site-header{display:flex!important;justify-content:flex-start!important}#siteHeader.nl-site-header>.nl-desktop-nav{display:flex!important;position:static!important;flex:1 1 auto!important;min-width:0!important}#siteHeader.nl-site-header .nl-nav-pill{display:flex!important;position:static!important;left:auto!important;top:auto!important;transform:none!important;flex:1 1 auto!important;width:auto!important;max-width:none!important;min-width:0!important}#siteHeader.nl-site-header .nl-nav-pill>a,#siteHeader.nl-site-header .nl-nav-pill .nav-dropdown-toggle{display:inline-flex!important;visibility:visible!important;opacity:1!important}#siteHeader.nl-site-header .nl-apply{display:inline-flex!important;position:static!important;margin-left:auto!important}#siteHeader.nl-site-header>.nl-menu-toggle{display:none!important}}
+@media (max-width:1240px){#siteHeader.nl-site-header{display:flex!important;grid-template-columns:none!important;justify-content:space-between!important}#siteHeader.nl-site-header>.nl-desktop-nav{display:none!important}#siteHeader.nl-site-header>.nl-menu-toggle{display:flex!important}#mobileNav.nl-mobile-nav{display:block!important}}
