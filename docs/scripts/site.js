@@ -13,7 +13,7 @@
   document.body.prepend(loader);
 
   const track = loader.querySelector('.nl-loader-track i');
-  const status = loader.querySelector('.nl-loader-status b');
+  const status = loader.querySelector('.nl-loader-status-number');
   const label = loader.querySelector('.nl-loader-status span');
   let progress = 0;
   let finished = false;
