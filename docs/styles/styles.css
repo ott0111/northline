@@ -1821,3 +1821,17 @@ body.menu-open{overflow:hidden}
  .home-team-grid .home-featured-talent-card p{font-size:.68rem}
  .home-team-grid .home-featured-talent-card .talent-social{font-size:.64rem}
 }
+
+
+/* Talent profile support cards: balanced, editorial, responsive */
+.talent-support-section{padding-block:clamp(4.5rem,8vw,8rem)}
+.talent-support-section .section-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,420px);align-items:end;gap:2rem;margin-bottom:clamp(2rem,4vw,3.5rem)}
+.talent-support-section .talent-support-intro{max-width:38ch;margin:0 0 .35rem;color:var(--grey);font-size:clamp(.95rem,1.2vw,1.08rem);line-height:1.8}
+.talent-support-section .profile-standard{grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--line);background:var(--line)}
+.talent-support-section .profile-standard>div{min-width:0;min-height:260px;padding:clamp(1.35rem,2.6vw,2.35rem);gap:1.6rem;background:var(--charcoal);justify-content:flex-start;transition:background .25s ease}
+.talent-support-section .profile-standard>div:hover{background:var(--charcoal-2)}
+.talent-support-section .profile-standard span{font-size:.64rem;letter-spacing:.1em;line-height:1.5;color:var(--grey)}
+.talent-support-section .profile-standard h3{font-size:clamp(1.25rem,2vw,1.75rem);line-height:1.12;letter-spacing:-.025em;margin:0;overflow-wrap:anywhere}
+.talent-support-section .profile-standard p{max-width:32ch;margin:auto 0 0;font-size:.9rem;line-height:1.8;color:var(--grey)}
+@media(max-width:800px){.talent-support-section .section-heading{grid-template-columns:1fr;gap:1rem}.talent-support-section .profile-standard{grid-template-columns:1fr}.talent-support-section .profile-standard>div{min-height:0;padding:1.5rem;gap:1.1rem}.talent-support-section .profile-standard p{max-width:48ch}}
+@media(min-width:801px) and (max-width:1050px){.talent-support-section .profile-standard h3{font-size:1.35rem}.talent-support-section .profile-standard>div{padding:1.4rem;min-height:275px}}
