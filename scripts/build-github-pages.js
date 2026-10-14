@@ -53,6 +53,8 @@ for (const relativePath of workReferences) {
 
 console.log('Validated Work assets:', workReferences.size);
 
+const rewriteDomain = html => html.replaceAll('https://northline.vip', 'https://northline.vip');
+
 const rewriteForPages = html => html
   .replace(/(href|src)=(['"])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((['"]?)\/(?!\/)/g, 'url($1./');
@@ -74,12 +76,12 @@ fs.mkdirSync(path.join(dist, 'scripts'), { recursive: true });
 fs.writeFileSync(path.join(dist, 'scripts', 'site.js'), githubSiteJs);
 
 const rootIndex = fs.readFileSync(path.join(root, 'pages', 'index.html'), 'utf8');
-fs.writeFileSync(path.join(dist, 'index.html'), injectPagesConfig(rewriteForPages(rootIndex)));
+fs.writeFileSync(path.join(dist, 'index.html'), injectPagesConfig(rewriteForPages(rewriteDomain(rootIndex))));
 
 for (const file of publicPages) {
   if (file === 'index.html') continue;
   const source = fs.readFileSync(path.join(root, 'pages', file), 'utf8');
-  fs.writeFileSync(path.join(dist, file), injectPagesConfig(rewriteForPages(source)));
+  fs.writeFileSync(path.join(dist, file), injectPagesConfig(rewriteForPages(rewriteDomain(source))));
 }
 
 if (fs.existsSync(path.join(root, '404.html'))) {
@@ -88,6 +90,7 @@ if (fs.existsSync(path.join(root, '404.html'))) {
 }
 
 fs.writeFileSync(path.join(dist, '.nojekyll'), '');
+fs.writeFileSync(path.join(dist, 'CNAME'), 'northline.vip\n');
 
 fs.writeFileSync(path.join(dist, 'robots.txt'), [
   'User-agent: *',
@@ -97,12 +100,12 @@ fs.writeFileSync(path.join(dist, 'robots.txt'), [
   'Disallow: /pages/',
   'Disallow: /api/',
   '',
-  'Sitemap: https://northline.co/sitemap.xml',
+  'Sitemap: https://northline.vip/sitemap.xml',
   ''
 ].join('\n'));
 
 const sitemapPages = publicPages
-  .map(file => file === 'index.html' ? 'https://northline.co/' : 'https://northline.co/' + file)
+  .map(file => file === 'index.html' ? 'https://northline.vip/' : 'https://northline.vip/' + file)
   .map(url => '<url><loc>' + url + '</loc></url>')
   .join('');
 
