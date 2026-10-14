@@ -53,7 +53,7 @@ for (const relativePath of workReferences) {
 
 console.log('Validated Work assets:', workReferences.size);
 
-const rewriteDomain = html => html.replaceAll('https://northline.vip', 'https://northline.vip');
+const rewriteDomain = html => html.replaceAll('https://northline.co', 'https://northline.vip');
 
 const rewriteForPages = html => html
   .replace(/(href|src)=(['"])\/(?!\/)/g, '$1=$2./')
