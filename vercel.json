@@ -171,6 +171,78 @@
     {
       "source": "/talent-devade",
       "destination": "/pages/talent-devade.html"
+    },
+    {
+      "source": "/talent-khor.html",
+      "destination": "/pages/talent-khor.html"
+    },
+    {
+      "source": "/talent-khor",
+      "destination": "/pages/talent-khor.html"
+    },
+    {
+      "source": "/talent-skyy.html",
+      "destination": "/pages/talent-skyy.html"
+    },
+    {
+      "source": "/talent-skyy",
+      "destination": "/pages/talent-skyy.html"
+    },
+    {
+      "source": "/talent-lucky.html",
+      "destination": "/pages/talent-lucky.html"
+    },
+    {
+      "source": "/talent-lucky",
+      "destination": "/pages/talent-lucky.html"
+    },
+    {
+      "source": "/talent-kyn.html",
+      "destination": "/pages/talent-kyn.html"
+    },
+    {
+      "source": "/talent-kyn",
+      "destination": "/pages/talent-kyn.html"
+    },
+    {
+      "source": "/talent-exxoph.html",
+      "destination": "/pages/talent-exxoph.html"
+    },
+    {
+      "source": "/talent-exxoph",
+      "destination": "/pages/talent-exxoph.html"
+    },
+    {
+      "source": "/talent-majifv.html",
+      "destination": "/pages/talent-majifv.html"
+    },
+    {
+      "source": "/talent-majifv",
+      "destination": "/pages/talent-majifv.html"
+    },
+    {
+      "source": "/talent-batmannickfn.html",
+      "destination": "/pages/talent-batmannickfn.html"
+    },
+    {
+      "source": "/talent-batmannickfn",
+      "destination": "/pages/talent-batmannickfn.html"
+    },
+    {
+      "source": "/talent-vexy.html",
+      "destination": "/pages/talent-vexy.html"
+    },
+    {
+      "source": "/talent-vexy",
+      "destination": "/pages/talent-vexy.html"
+    },
+    {
+      "source": "/talent-zusto.html",
+      "destination": "/pages/talent-zusto.html"
+    },
+    {
+      "source": "/talent-zusto",
+      "destination": "/pages/talent-zusto.html"
     }
   ],
   "headers": [
