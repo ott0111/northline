@@ -5,4 +5,4 @@ Disallow: /admin
 Disallow: /pages/
 Disallow: /api/
 
-Sitemap: https://northline.co/sitemap.xml
+Sitemap: https://northline.vip/sitemap.xml

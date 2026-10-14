@@ -152,12 +152,18 @@ if (menuToggle && mobileNav) {
 
 const revealEls = document.querySelectorAll('.reveal');
 if(revealEls.length && 'IntersectionObserver' in window){
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
-    });
-  }, {threshold:0.12});
-  revealEls.forEach(el => observer.observe(el));
+  try {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(el => observer.observe(el));
+    // Enable hidden-until-revealed styling only after the observer is ready.
+    document.documentElement.classList.add('js-motion');
+  } catch {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
 } else { revealEls.forEach(el => el.classList.add('in')); }
 
 const fastEls = document.querySelectorAll('.reveal-fast');
