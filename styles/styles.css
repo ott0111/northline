@@ -1839,3 +1839,19 @@ body.menu-open{overflow:hidden}
 .talent-no-results{margin-top:1rem;border:1px solid var(--line);padding:1.5rem;color:var(--grey);font-size:.85rem}
 .talent-no-results[hidden]{display:none}
 @media(max-width:700px){.roster-overview{grid-template-columns:1fr 1fr;gap:1rem}.roster-overview>p{grid-column:1/-1;justify-self:start}.roster-overview strong{font-size:1.7rem}.talent-card-link .talent-photo{aspect-ratio:16/10}}
+
+/* Phase 1 / talent profile opportunity pathway */
+.profile-inquiry{padding:clamp(3.5rem,8vw,7rem) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(115deg,#0d0d0d,#080808)}
+.profile-inquiry-inner{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);align-items:end;gap:clamp(2rem,7vw,7rem)}
+.profile-inquiry .section-number{margin-bottom:1.25rem}
+.profile-inquiry h2{font-size:clamp(3rem,6.5vw,6.25rem);line-height:.94;margin:0 0 1.25rem;text-transform:uppercase;letter-spacing:-.045em}
+.profile-inquiry h2 em{font-style:normal;color:var(--grey)}
+.profile-inquiry p{max-width:52ch;color:var(--grey);font-size:.95rem;line-height:1.8;margin:0}
+.profile-inquiry-action{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.profile-inquiry-action>span{font-size:.62rem;letter-spacing:.14em;color:var(--dim);font-weight:700}
+.profile-inquiry-action .btn{margin-top:.3rem}
+.profile-inquiry-secondary{font-size:.75rem;color:var(--grey);transition:color .2s}
+.profile-inquiry-secondary:hover{color:var(--white)}
+.profile-inquiry-secondary span{margin-left:.3rem}
+@media(max-width:700px){.profile-hero{min-height:auto;padding:8rem 0 3.5rem}.profile-layout{grid-template-columns:minmax(0,1fr);gap:2rem;min-height:0;align-items:start}.profile-image{width:min(100%,430px);aspect-ratio:1/1}.profile-copy h1{font-size:clamp(3.5rem,15vw,6rem);overflow-wrap:anywhere}.profile-label{margin-top:1.4rem}.profile-actions{gap:.6rem;margin-top:1.5rem}.profile-info-grid{grid-template-columns:1fr;gap:2rem}.profile-inquiry-inner{grid-template-columns:1fr;gap:2rem}.profile-inquiry-action{padding-top:1.25rem}.profile-inquiry-action .btn{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.profile-inquiry-secondary{transition:none}}
