@@ -452,6 +452,7 @@ if (contactForm) {
   const filters=[...document.querySelectorAll('.talent-filter')];
   const search=document.getElementById('talentSearch');
   const empty=document.getElementById('talentNoResults');
+  const count=document.getElementById('rosterCount');
   let active='all';
   const apply=()=>{
     const q=(search?.value||'').trim().toLowerCase();
@@ -466,6 +467,7 @@ if (contactForm) {
       if(show)shown++;
     });
     if(empty)empty.hidden=shown!==0;
+    if(count)count.textContent=String(shown);
   };
   filters.forEach(btn=>btn.addEventListener('click',()=>{
     active=btn.dataset.filter||'all';
