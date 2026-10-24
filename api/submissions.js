@@ -1,9 +1,7 @@
 import { neon } from '@neondatabase/serverless';
-import { createHmac, timingSafeEqual } from 'node:crypto';
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json',...headers}})}
 export function OPTIONS(){return new Response(null,{status:204})}
-function token(){return createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin').digest('hex')}
 const submissionAttempts=new Map();
 const SUBMISSION_WINDOW=10*60*1000;
 const SUBMISSION_LIMIT=12;
@@ -24,16 +22,6 @@ async function ensure(sql){
   return schemaReady;
 }
 
-function authed(request){
-  const value=request.headers.get('cookie')?.match(/(?:^|; )__Host-northline_admin=([^;]+)/)?.[1];
-  if(!value||!process.env.ADMIN_SECRET)return false;
-  const [payload,sig]=String(value).split('.');
-  const exp=Number(payload);
-  if(!Number.isFinite(exp)||exp<Date.now()||!sig)return false;
-  const expected=createHmac('sha256',process.env.ADMIN_SECRET).update('northline-admin:'+payload).digest('hex');
-  const a=Buffer.from(sig),b=Buffer.from(expected);
-  return a.length===b.length&&timingSafeEqual(a,b);
-}
 export async function POST(request){
   const key=getClientKey(request),now=Date.now();
   const recent=(submissionAttempts.get(key)||[]).filter(t=>now-t<SUBMISSION_WINDOW);
@@ -53,11 +41,11 @@ export async function POST(request){
   if(['brand-brief','contact'].includes(type)&&!/^\S+@\S+\.\S+$/.test(data.email))return json({ok:false,error:'Please provide a valid email.'},400);
   const sql=neon(process.env.DATABASE_URL); await ensure(sql);
   const [row]=await sql`INSERT INTO northline_submissions(type,data) VALUES(${type},${JSON.stringify(data)}::jsonb) RETURNING id,created_at AS "createdAt"`;
-  if(process.env.RESEND_API_KEY&&process.env.ADMIN_EMAIL&&process.env.FROM_EMAIL){
+  if(process.env.RESEND_API_KEY&&process.env.NOTIFICATION_EMAIL&&process.env.FROM_EMAIL){
     const label=type==='brand-brief'?'Brand Brief':type==='talent-application'?'Talent Application':'Contact Message';
     const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     const rowsHtml=Object.entries(data).map(([k,v])=>'<tr><td style="padding:8px 12px;color:#777">'+esc(k)+'</td><td style="padding:8px 12px">'+esc(v)+'</td></tr>').join('');
-    try{await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.FROM_EMAIL,to:[process.env.ADMIN_EMAIL],subject:'Northline — '+label+' #'+row.id,html:'<h1>Northline</h1><p>New '+esc(label)+' received.</p><table>'+rowsHtml+'</table>'})})}catch{}
+    try{await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.FROM_EMAIL,to:[process.env.NOTIFICATION_EMAIL],subject:'Northline — '+label+' #'+row.id,html:'<h1>Northline</h1><p>New '+esc(label)+' received.</p><table>'+rowsHtml+'</table>'})})}catch{}
   }
   return json({ok:true,...row});
 }
