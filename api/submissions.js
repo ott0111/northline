@@ -17,6 +17,13 @@ async function ensure(sql){
   return schemaReady;
 }
 
+let schemaReady;
+async function ensure(sql){
+  if(schemaReady)return schemaReady;
+  schemaReady=sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`.catch(error=>{schemaReady=null;throw error});
+  return schemaReady;
+}
+
 function authed(request){
   const value=request.headers.get('cookie')?.match(/(?:^|; )__Host-northline_admin=([^;]+)/)?.[1];
   if(!value||!process.env.ADMIN_SECRET)return false;
@@ -27,38 +34,6 @@ function authed(request){
   const a=Buffer.from(sig),b=Buffer.from(expected);
   return a.length===b.length&&timingSafeEqual(a,b);
 }
-export async function GET(request){
-  if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
-  if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
-  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
-  const counts=await sql`SELECT type,COUNT(*)::int AS count FROM northline_submissions GROUP BY type`;
-  const recent=await sql`SELECT id,type,data,status,created_at AS "createdAt" FROM northline_submissions ORDER BY created_at DESC LIMIT 50`;
-  const map=Object.fromEntries(counts.map(x=>[x.type==='brand-brief'?'brand':x.type==='talent-application'?'talent':x.type,x.count]));
-  return json({ok:true,counts:{brand:map.brand||0,talent:map.talent||0,contact:map.contact||0,total:(map.brand||0)+(map.talent||0)+(map.contact||0)},recent});
-}
-
-export async function DELETE(request){
-  if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
-  if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
-  const id=Number(new URL(request.url).searchParams.get('id'));
-  if(!Number.isInteger(id)||id<1)return json({ok:false,error:'Invalid submission id.'},400);
-  const sql=neon(process.env.DATABASE_URL);
-  const rows=await sql`DELETE FROM northline_submissions WHERE id=${id} RETURNING id`;
-  if(!rows.length)return json({ok:false,error:'Submission not found.'},404);
-  return json({ok:true});
-}
-
-export async function PATCH(request){
-  if(!authed(request))return json({ok:false,error:'Unauthorized.'},401);
-  if(!process.env.DATABASE_URL)return json({ok:false,error:'Storage is not configured yet.'},503);
-  const body=await request.json().catch(()=>null); const id=Number(body?.id); const status=String(body?.status||'');
-  if(!Number.isInteger(id)||id<1||!['new','reviewing','contacted','closed'].includes(status))return json({ok:false,error:'Invalid submission update.'},400);
-  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
-  const rows=await sql`UPDATE northline_submissions SET status=${status} WHERE id=${id} RETURNING id,status`;
-  if(!rows.length)return json({ok:false,error:'Submission not found.'},404);
-  return json({ok:true,...rows[0]});
-}
-
 export async function POST(request){
   const key=getClientKey(request),now=Date.now();
   const recent=(submissionAttempts.get(key)||[]).filter(t=>now-t<SUBMISSION_WINDOW);
@@ -76,7 +51,7 @@ export async function POST(request){
   const missing=required.filter(key=>!data[key]);
   if(missing.length)return json({ok:false,error:'Please complete all required fields.'},400);
   if(['brand-brief','contact'].includes(type)&&!/^\S+@\S+\.\S+$/.test(data.email))return json({ok:false,error:'Please provide a valid email.'},400);
-  const sql=neon(process.env.DATABASE_URL);
+  const sql=neon(process.env.DATABASE_URL); await ensure(sql);
   const [row]=await sql`INSERT INTO northline_submissions(type,data) VALUES(${type},${JSON.stringify(data)}::jsonb) RETURNING id,created_at AS "createdAt"`;
   if(process.env.RESEND_API_KEY&&process.env.ADMIN_EMAIL&&process.env.FROM_EMAIL){
     const label=type==='brand-brief'?'Brand Brief':type==='talent-application'?'Talent Application':'Contact Message';
