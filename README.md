@@ -18,7 +18,7 @@ Serve the repository with any static web server. The API routes require Vercel's
 - `DATABASE_URL`
 - `ADMIN_SECRET`
 - `RESEND_API_KEY` (optional)
-- `ADMIN_EMAIL` (optional)
+- `NOTIFICATION_EMAIL` (optional)
 - `FROM_EMAIL` (optional)
 
 ## Database
