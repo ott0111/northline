@@ -15,12 +15,6 @@ async function ensure(sql){
   return schemaReady;
 }
 
-let schemaReady;
-async function ensure(sql){
-  if(schemaReady)return schemaReady;
-  schemaReady=sql`CREATE TABLE IF NOT EXISTS northline_submissions (id BIGSERIAL PRIMARY KEY,type TEXT NOT NULL,data JSONB NOT NULL,status TEXT NOT NULL DEFAULT 'new',created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())`.catch(error=>{schemaReady=null;throw error});
-  return schemaReady;
-}
 
 export async function POST(request){
   const key=getClientKey(request),now=Date.now();
