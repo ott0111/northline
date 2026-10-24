@@ -101,6 +101,38 @@
       "destination": "/pages/talent-drgxpb.html"
     },
     {
+      "source": "/talent-magma.html",
+      "destination": "/pages/talent-magma.html"
+    },
+    {
+      "source": "/talent-magma",
+      "destination": "/pages/talent-magma.html"
+    },
+    {
+      "source": "/talent-muss.html",
+      "destination": "/pages/talent-muss.html"
+    },
+    {
+      "source": "/talent-muss",
+      "destination": "/pages/talent-muss.html"
+    },
+    {
+      "source": "/talent-zyft.html",
+      "destination": "/pages/talent-zyft.html"
+    },
+    {
+      "source": "/talent-zyft",
+      "destination": "/pages/talent-zyft.html"
+    },
+    {
+      "source": "/talent-kaliper.html",
+      "destination": "/pages/talent-kaliper.html"
+    },
+    {
+      "source": "/talent-kaliper",
+      "destination": "/pages/talent-kaliper.html"
+    },
+    {
       "source": "/privacy.html",
       "destination": "/pages/privacy.html"
     },
