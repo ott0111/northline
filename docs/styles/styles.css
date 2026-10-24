@@ -1855,3 +1855,10 @@ body.menu-open{overflow:hidden}
 .profile-inquiry-secondary span{margin-left:.3rem}
 @media(max-width:700px){.profile-hero{min-height:auto;padding:8rem 0 3.5rem}.profile-layout{grid-template-columns:minmax(0,1fr);gap:2rem;min-height:0;align-items:start}.profile-image{width:min(100%,430px);aspect-ratio:1/1}.profile-copy h1{font-size:clamp(3.5rem,15vw,6rem);overflow-wrap:anywhere}.profile-label{margin-top:1.4rem}.profile-actions{gap:.6rem;margin-top:1.5rem}.profile-info-grid{grid-template-columns:1fr;gap:2rem}.profile-inquiry-inner{grid-template-columns:1fr;gap:2rem}.profile-inquiry-action{padding-top:1.25rem}.profile-inquiry-action .btn{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.profile-inquiry-secondary{transition:none}}
+
+
+/* Initial-based placeholders for talent profiles awaiting approved profile photos. */
+.talent-placeholder{display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#252525 0,#101010 65%);border:1px solid rgba(255,255,255,.1);color:#f5f5f5;}
+.talent-placeholder>span{font-size:clamp(2rem,5vw,4rem);font-weight:800;letter-spacing:-.08em;color:#f5f5f5;}
+.profile-placeholder{display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#252525 0,#101010 65%);border:1px solid rgba(255,255,255,.12);color:#f5f5f5;}
+.profile-placeholder>span{font-size:clamp(4rem,9vw,7rem);font-weight:800;letter-spacing:-.08em;color:#f5f5f5;}
