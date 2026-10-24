@@ -61,14 +61,6 @@
       "destination": "/pages/process.html"
     },
     {
-      "source": "/roster.html",
-      "destination": "/pages/roster.html"
-    },
-    {
-      "source": "/roster",
-      "destination": "/pages/roster.html"
-    },
-    {
       "source": "/services.html",
       "destination": "/pages/services.html"
     },
@@ -280,7 +272,7 @@
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,PATCH,DELETE,OPTIONS"
+          "value": "POST,OPTIONS"
         },
         {
           "key": "Access-Control-Allow-Headers",

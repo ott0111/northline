@@ -6,7 +6,7 @@ const dist = path.join(root, 'docs');
 const apiOrigin = process.env.NORTHLINE_API_ORIGIN || 'https://northline-web-three.vercel.app';
 
 const publicPages = fs.readdirSync(path.join(root, 'pages'))
-  .filter(file => file.endsWith('.html') && file !== 'admin.html');
+  .filter(file => file.endsWith('.html'));
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
@@ -95,8 +95,6 @@ fs.writeFileSync(path.join(dist, 'CNAME'), 'northline.vip\n');
 fs.writeFileSync(path.join(dist, 'robots.txt'), [
   'User-agent: *',
   'Allow: /',
-  'Disallow: /admin.html',
-  'Disallow: /admin',
   'Disallow: /pages/',
   'Disallow: /api/',
   '',

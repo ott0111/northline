@@ -7,7 +7,7 @@ Northline is a talent agency representing creators, competitive players, and dig
 - Static HTML/CSS/JavaScript frontend
 - Vercel serverless API routes
 - Neon Postgres for submissions
-- Resend for optional admin email notifications
+- Resend for optional submission email notifications
 
 ## Local development
 
@@ -16,14 +16,13 @@ Serve the repository with any static web server. The API routes require Vercel's
 ## Environment variables
 
 - `DATABASE_URL`
-- `ADMIN_SECRET`
 - `RESEND_API_KEY` (optional)
-- `ADMIN_EMAIL` (optional)
+- `NOTIFICATION_EMAIL` (optional)
 - `FROM_EMAIL` (optional)
 
 ## Database
 
-The submission API initializes its table when needed.
+The submission API creates the `northline_submissions` table when needed and stores talent applications, brand briefs, and contact messages.
 
 ## Validation
 
