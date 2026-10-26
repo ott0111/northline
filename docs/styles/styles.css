@@ -1868,3 +1868,256 @@ body.menu-open{overflow:hidden}
 .team-person-card .team-initials{display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#292929 0,#101010 68%);border:1px solid rgba(255,255,255,.1);color:#f5f5f5;}
 .team-person-card .team-initials>span{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;letter-spacing:-.08em;}
 .team-person-card .talent-social{overflow-wrap:anywhere;}
+/* NORTHLINE 2026 — AGENCY / ESPORTS SYSTEM
+   Shared visual layer: monochrome, editorial, responsive, and motion-conscious. */
+:root{
+  --black:#080808;
+  --charcoal:#101010;
+  --charcoal-2:#151515;
+  --line:#292929;
+  --line-soft:#1b1b1b;
+  --white:#f4f4f1;
+  --grey:#a1a19d;
+  --dim:#73736f;
+  --accent:#e2e2dc;
+  --edge:clamp(1.25rem,5.2vw,5rem);
+  --max:1440px;
+  --radius-sm:3px;
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+}
+html{scroll-padding-top:6rem}
+body{background:var(--black);color:var(--white);font-size:15px;letter-spacing:-.012em}
+.wrap{max-width:var(--max)}
+section{padding-block:clamp(5rem,8vw,8rem)}
+section+section{border-top-color:var(--line-soft)}
+h1,h2,h3{letter-spacing:-.035em}
+p{max-width:75ch}
+::selection{background:var(--white);color:var(--black)}
+a,button,input,select,textarea{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--white);outline-offset:4px}
+.skip-link{z-index:300}
+
+/* Header: restrained glass, stronger hierarchy, consistent calls to action. */
+header{padding-block:1rem;min-height:76px;background:rgba(8,8,8,.86);border-bottom-color:rgba(255,255,255,.06);backdrop-filter:blur(20px) saturate(120%)}
+header.scrolled{background:rgba(8,8,8,.96);border-bottom-color:var(--line)}
+.logo{font-size:1.65rem;letter-spacing:-.025em;gap:.7rem}
+.logo img{height:1.05em}
+.primary-nav{gap:clamp(1rem,2.3vw,2.5rem)}
+.nav-links{gap:clamp(.8rem,1.8vw,1.8rem)}
+.nav-links a{font-size:.76rem;letter-spacing:.015em;transition:color .2s var(--ease-out)}
+.nav-links a:after{height:2px}
+.primary-nav>.btn{min-height:42px;padding:.72rem 1.1rem}
+.btn{min-height:48px;padding:.95rem 1.35rem;border-radius:var(--radius-sm);letter-spacing:.005em;transition:transform .22s var(--ease-out),background .22s var(--ease-out),border-color .22s var(--ease-out),color .22s var(--ease-out)}
+.btn-primary{background:var(--white);color:#080808}
+.btn-primary:hover{background:#d9d9d3;transform:translateY(-2px)}
+.btn-ghost{border-color:#454545;color:var(--white)}
+.btn-ghost:hover{background:rgba(255,255,255,.05);border-color:#a5a5a0;transform:translateY(-2px)}
+.text-link{align-items:center;gap:.8rem;border-bottom-color:#444;padding-bottom:.55rem}
+.text-link:hover{border-color:var(--white)}
+.mobile-nav{background:rgba(8,8,8,.985)}
+.mobile-nav-inner{padding-top:5rem;padding-bottom:3rem}
+.mobile-nav a:not(.btn){font-size:clamp(2.6rem,9vw,4rem);letter-spacing:-.035em}
+.menu-toggle{padding:8px;width:42px;height:42px;justify-content:center}
+
+/* Page introductions: generous breathing room and consistent hierarchy. */
+.hero{min-height:min(900px,100svh);padding:clamp(9rem,17vh,12rem) 0 clamp(4rem,8vh,7rem);align-items:flex-end}
+.hero-bg,.page-hero-bg{background:linear-gradient(115deg,#080808 0%,#0b0b0b 58%,#101010 100%)}
+.hero-bg:after,.page-hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 49.9%,rgba(255,255,255,.035) 50%,transparent 50.1%),linear-gradient(0deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,100% 92px;mask-image:linear-gradient(to bottom,transparent,black 35%,transparent);pointer-events:none}
+.hero-grid{opacity:.6}
+.hero-content{width:100%}
+.hero-title{font-size:clamp(4.8rem,10.4vw,10.5rem);max-width:12ch;line-height:.82;letter-spacing:-.055em;margin:1.6rem 0 2.5rem}
+.hero-title em{color:#bdbdb7}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;border-top:1px solid rgba(255,255,255,.14);padding-top:1.6rem}
+.hero-lead{max-width:46ch;font-size:clamp(.98rem,1.2vw,1.1rem);line-height:1.8;color:#b0b0ab}
+.hero-actions{margin-top:0;justify-content:flex-end}
+.eyebrow,.section-number,.mobile-label{letter-spacing:.13em;font-size:.68rem}
+.eyebrow .dot{margin-inline:.7rem;color:#e5e5df}
+.page-hero{padding:clamp(10rem,17vh,13rem) 0 clamp(4.5rem,8vw,7rem)}
+.page-hero .wrap{max-width:var(--max)}
+.page-hero h1{font-size:clamp(4.3rem,8.5vw,8.8rem);line-height:.84;letter-spacing:-.05em;max-width:12ch;margin:1.5rem 0 2rem}
+.page-sub{max-width:55ch;font-size:1.02rem;line-height:1.85;color:#b1b1ac}
+.breadcrumbs{max-width:var(--max);margin:0 auto;padding:1.2rem var(--edge) 0;color:var(--dim);font-size:.72rem}
+.breadcrumbs a:hover{color:var(--white)}
+.section-heading{align-items:flex-end;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.section-heading h2,.intro-grid h2{letter-spacing:-.045em;line-height:.86}
+.section-heading>p{font-size:.92rem;line-height:1.85}
+.section-number{margin-bottom:.2rem}
+.intro-grid,.statement-grid{gap:clamp(2rem,4vw,4.5rem)}
+.intro-copy .lead{font-size:1.18rem;line-height:1.55}
+.intro-copy p:not(.lead),.statement-grid p{font-size:.94rem;line-height:1.9}
+
+/* Cards and grids: clean surfaces, quieter borders, consistent interaction. */
+.feature-grid,.talent-grid,.price-grid,.approach-grid,.points-grid,.values-grid,.recruitment-grid,.service-overview-grid{border-color:var(--line);background:var(--line)}
+.feature-card,.talent-card,.service-overview-card,.price-grid>div,.recruitment-grid>div{background:#0e0e0e}
+.feature-card{padding:clamp(1.5rem,3vw,2.5rem)}
+.feature-card:hover,.talent-card:hover{background:#171717}
+.talent-grid{gap:1px}
+.talent-card{min-height:410px;padding:clamp(1rem,1.7vw,1.5rem);position:relative}
+.talent-card-top{gap:.75rem;align-items:center}
+.talent-card-top span:last-child{text-align:right}
+.talent-card h3{font-size:clamp(1.45rem,1.8vw,1.8rem);line-height:1;margin-bottom:.5rem}
+.talent-card p{line-height:1.65}
+.talent-photo{height:clamp(180px,19vw,250px);margin:1.15rem 0;border-color:#303030;background:#141414}
+.talent-photo img{object-position:center}
+.talent-social{letter-spacing:.015em}
+.talent-card-link{border:0}
+.talent-card-link:focus-visible{outline-offset:-5px}
+.talent-card-link .talent-photo img{transition:transform .45s var(--ease-out),filter .35s var(--ease-out)}
+.talent-card-link:hover .talent-photo img{transform:scale(1.045)}
+.home-talent-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.home-featured-talent-card{min-width:0}
+.home-team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.home-team-person-card{min-height:370px}
+.team-person-card{min-width:0}
+.roster-overview{background:#0e0e0e;border:1px solid var(--line);padding:1.4rem 1.6rem;gap:1.5rem}
+.roster-overview strong{font-family:var(--display);font-size:2rem;letter-spacing:-.03em}
+.talent-controls{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin:2rem 0}
+.talent-search{flex:1;max-width:420px}
+.talent-search input{min-height:48px;border-radius:var(--radius-sm)}
+.talent-filters{display:flex;gap:.4rem;flex-wrap:wrap}
+.talent-filter{min-height:42px;padding:.65rem 1rem;border:1px solid var(--line);color:var(--grey);border-radius:var(--radius-sm);transition:background .2s,border-color .2s,color .2s}
+.talent-filter:hover,.talent-filter.active{background:var(--white);border-color:var(--white);color:var(--black)}
+.talent-no-results{border:1px solid var(--line);padding:2rem;color:var(--grey)}
+
+/* Services and portfolio */
+.service-overview-grid{gap:1px;border:1px solid var(--line)}
+.service-overview-card{padding:clamp(1.5rem,3vw,2.5rem);min-height:330px}
+.service-overview-card h2{font-size:clamp(2.2rem,3.2vw,3.5rem);margin:2rem 0 1rem}
+.service-overview-card p{line-height:1.8}
+.service-overview-lead{color:var(--white);font-size:1rem;margin-bottom:.8rem}
+.tag-list span{border-color:#333;background:rgba(255,255,255,.025);border-radius:2px}
+.price-grid>div{transition:background .25s var(--ease-out)}
+.price-grid>div:hover{background:#171717}
+.price-grid strong{font-size:clamp(2.4rem,4vw,3.2rem);letter-spacing:-.04em}
+.work-gallery{gap:1rem}
+.work-gallery img{transition:transform .45s var(--ease-out),filter .35s var(--ease-out)}
+.work-gallery a:hover img,.work-gallery button:hover img{transform:scale(1.025)}
+.work-gallery-featured{border-color:#303030}
+.brand-roster-mini a{transition:background .2s,border-color .2s;padding:1rem}
+.brand-roster-mini a:hover{background:#141414}
+
+/* Profile pages: clear split between identity and useful information. */
+.profile-layout{gap:clamp(2rem,6vw,6rem);align-items:start}
+.profile-image{border:1px solid var(--line);background:#111;overflow:hidden}
+.profile-image img{width:100%;height:100%;object-fit:cover}
+.profile-copy h1{font-size:clamp(3.7rem,7vw,7rem);line-height:.85;letter-spacing:-.05em}
+.profile-label{letter-spacing:.13em}
+.profile-actions{gap:.7rem;flex-wrap:wrap}
+.profile-info-grid{border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.profile-info-grid>div{padding:1.2rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.profile-inquiry{margin-top:clamp(3rem,7vw,6rem)}
+.profile-inquiry-inner{border:1px solid var(--line);background:#0f0f0f;padding:clamp(1.5rem,4vw,3.5rem)}
+.profile-inquiry h2{letter-spacing:-.045em}
+.profile-inquiry-action .btn{min-width:190px}
+
+/* Forms: legible, deliberate, and comfortable on touch screens. */
+.application-layout{gap:clamp(2rem,6vw,6rem)}
+.application-form{border-color:#303030;background:#0d0d0d}
+.form-section{padding:clamp(1.4rem,3vw,2.5rem)}
+.form-section-title{padding-bottom:1rem;border-bottom:1px solid var(--line-soft)}
+.form-section-title h3{font-size:2.15rem}
+.application-form label{line-height:1.5;gap:.65rem}
+.application-form input,.application-form select,.application-form textarea{min-height:48px;border-radius:2px;border-color:#333;background:#111;color:var(--white)}
+.application-form input::placeholder,.application-form textarea::placeholder{color:#777771}
+.application-form input:hover,.application-form select:hover,.application-form textarea:hover{border-color:#555}
+.application-form input:focus,.application-form select:focus,.application-form textarea:focus{border-color:#c8c8c2;box-shadow:0 0 0 3px rgba(255,255,255,.045)}
+.application-form textarea{min-height:140px}
+.form-error{color:#f0b4b4}
+.form-submit{min-width:200px}
+.form-note{line-height:1.7}
+.application-success{border:1px solid var(--line);background:#0d0d0d}
+.success-mark{border-color:#777}
+
+/* Team, FAQ, and supporting page consistency. */
+.faq-list details,.faq-item{border-color:var(--line)}
+.faq-list summary{padding:1.4rem 0;cursor:pointer}
+.faq-list summary:hover{color:#d6d6d0}
+.process-list,.contact-options{border-top-color:var(--line)}
+.process-row,.contact-option{border-bottom-color:var(--line)}
+.contact-option{padding-block:1.65rem}
+.contact-option:hover{background:rgba(255,255,255,.025)}
+.final-cta{background:#0b0b0b}
+.final-cta-bg{background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.025) 100%)}
+.final-cta-inner{max-width:var(--max)}
+.final-cta h2{line-height:.82;letter-spacing:-.055em}
+.final-cta p{line-height:1.85}
+footer{background:#080808;padding-top:clamp(3rem,6vw,5rem)}
+.footer-main{gap:3rem}
+.footer-links{gap:clamp(2rem,5vw,5rem)}
+.footer-links>div{gap:.2rem}
+.footer-links span{letter-spacing:.12em;margin-bottom:.8rem}
+.footer-links a{transition:color .2s}
+.footer-bottom{letter-spacing:.08em}
+
+/* Responsive refinements */
+@media(max-width:1100px){
+  .nav-links{gap:1rem}
+  .primary-nav{gap:1.25rem}
+  .home-talent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .talent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  header{min-height:68px}
+  .hero{min-height:88svh;padding-top:9rem}
+  .hero-title{font-size:clamp(4.2rem,13vw,7.5rem)}
+  .hero-bottom{align-items:flex-start;flex-direction:column;gap:1.5rem}
+  .hero-actions{justify-content:flex-start}
+  .home-talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .talent-controls{align-items:stretch;flex-direction:column}
+  .talent-search{max-width:none}
+  .talent-filters{gap:.45rem}
+  .service-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-layout{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+}
+@media(max-width:600px){
+  body{font-size:14px}
+  section{padding-block:4.5rem}
+  header{padding-block:.8rem}
+  .hero{min-height:82svh;padding:8.5rem 0 3.5rem}
+  .hero-title{font-size:clamp(3.5rem,16.8vw,5.6rem);margin:1.2rem 0 2rem}
+  .hero-lead{font-size:.96rem}
+  .hero-bottom{padding-top:1.2rem}
+  .hero-actions{width:100%}
+  .hero-actions .btn{width:100%}
+  .page-hero{padding:9.5rem 0 4.5rem}
+  .page-hero h1{font-size:clamp(3.4rem,15.5vw,5.3rem);line-height:.86}
+  .breadcrumbs{padding-top:1rem}
+  .section-heading{margin-bottom:2.2rem}
+  .home-talent-grid,.home-team-grid,.talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .talent-card{min-height:330px;padding:.9rem}
+  .talent-card-top{font-size:.58rem}
+  .talent-photo{height:clamp(125px,39vw,190px);margin:.85rem 0}
+  .talent-card h3{font-size:1.3rem}
+  .talent-card p{font-size:.7rem}
+  .talent-social{font-size:.65rem}
+  .home-team-person-card{min-height:320px}
+  .roster-overview{display:grid;grid-template-columns:1fr 1fr;padding:1rem;gap:1rem}
+  .roster-overview>p{grid-column:1/-1}
+  .talent-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .talent-filter{width:100%}
+  .service-overview-grid{grid-template-columns:1fr}
+  .service-overview-card{min-height:unset}
+  .profile-layout{grid-template-columns:1fr;gap:2rem}
+  .profile-image{max-width:420px}
+  .profile-actions .btn{flex:1}
+  .profile-inquiry-action{align-items:stretch}
+  .profile-inquiry-action .btn{width:100%}
+  .application-layout{gap:2rem}
+  .form-section{padding:1.15rem}
+  .form-submit{width:100%}
+  .contact-option{gap:.7rem}
+  .contact-option strong{font-size:1.45rem}
+  .footer-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem}
+  .footer-links>div{min-width:0}
+  .footer-bottom{line-height:1.7}
+}
+@media(max-width:380px){
+  .home-talent-grid,.home-team-grid,.talent-grid{grid-template-columns:1fr}
+  .talent-card{min-height:360px}
+  .talent-photo{height:210px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
