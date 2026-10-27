@@ -324,9 +324,8 @@ if (contactForm) {
       if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
       if(url.pathname===window.location.pathname&&url.hash) return;
       e.preventDefault();
-      document.body.classList.add('page-leaving');
-      window.NorthlineLoader?.show();
-      setTimeout(()=>{window.location.href=url.href},180);
+      if (window.NorthlineLoader) window.NorthlineLoader.navigate(url.href);
+      else { document.body.classList.add('page-leaving'); setTimeout(()=>{window.location.href=url.href},180); }
     });
   });
 
