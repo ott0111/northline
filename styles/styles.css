@@ -472,3 +472,26 @@ footer{padding:54px 0 24px;border-top:1px solid #303234;background:#0e0f10}
 
 .tag-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:18px}
 .tag-list span{display:inline-flex;padding:8px 10px;border:1px solid #353739;background:#1b1c1e;color:#b8babc;font-size:.69rem;line-height:1.2}
+
+/* Legal pages: narrow readable measure, clear document hierarchy */
+.legal-copy{width:min(100%,860px);margin:0 auto;padding:clamp(32px,6vw,72px);border:1px solid #303234;background:#121314}
+.legal-copy .section-number{padding-bottom:20px;border-bottom:1px solid #303234;margin-bottom:30px}
+.legal-copy h2{margin:34px 0 10px;font-size:clamp(1.25rem,2.5vw,1.75rem);letter-spacing:-.045em;color:#d0d1d2}
+.legal-copy h2:first-of-type{margin-top:0}
+.legal-copy p{max-width:72ch;color:#a4a6a8;font-size:.93rem;line-height:1.9;margin:0 0 18px}
+.legal-copy strong{color:#c8c9ca}
+.legal-copy p:last-child{padding-top:22px;margin-top:28px;border-top:1px solid #303234;font-size:.78rem;color:#85878a}
+.contact-grid{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.25fr);gap:clamp(28px,6vw,84px);align-items:start}
+.contact-options{display:grid;gap:10px}
+.contact-option{display:grid;grid-template-columns:34px minmax(0,1fr) 22px;gap:16px;align-items:center;padding:22px;border:1px solid #333537;background:#151617;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.contact-option:hover{background:#1b1c1e;border-color:#606265;transform:translateX(3px)}
+.contact-option>span{align-self:start;font-size:.7rem;color:#85878a;letter-spacing:.1em}
+.contact-option strong{font-size:1.1rem;color:#d0d1d2;letter-spacing:-.025em}
+.contact-option p{margin:7px 0 0;color:#999b9d;font-size:.82rem;line-height:1.7}
+.contact-option>b{color:#aaa;justify-self:end}
+.contact-grid h2,.application-aside h2{font-size:clamp(2.5rem,5vw,4.5rem);line-height:.96;letter-spacing:-.07em;margin:20px 0}
+.application-form-wrap{min-width:0}
+.form-grid input,.form-grid select,.form-grid textarea{border-radius:0;background:#141516;border:1px solid #37393b;color:#d0d1d2}
+.form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus{outline:1px solid #77797b;border-color:#77797b}
+.breadcrumbs{display:none!important}
+@media(max-width:650px){.legal-copy{padding:24px 20px}.contact-grid{grid-template-columns:1fr}.contact-option{padding:18px;grid-template-columns:25px minmax(0,1fr) 18px}}
