@@ -188,7 +188,7 @@ em{font-style:normal;color:#a8a9aa}
 .work-piece-meta span{color:var(--quiet);font-size:.62rem;letter-spacing:.02em;text-transform:none}
 .work-gallery a,.work-gallery-featured a{display:block;min-width:0;overflow:hidden}
 .nl-lightbox{position:fixed;z-index:2500;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(3,4,5,.97);backdrop-filter:blur(18px);padding:72px 70px 56px}
-.nl-lightbox[hidden]{display:none}
+.nl-lightbox:not(.is-open),.nl-lightbox[hidden]{display:none}.nl-lightbox-figure{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;max-width:100%;max-height:100%;margin:0}.nl-lightbox-figure img{display:block;max-width:100%;max-height:calc(100svh - 150px);width:auto;height:auto;object-fit:contain}.nl-lightbox-title{max-width:80vw;color:#b9babc;font-size:.75rem;text-align:center}.nl-lightbox button:disabled{opacity:.35;cursor:not-allowed}
 .nl-lightbox-stage{display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-width:0}
 .nl-lightbox img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .nl-lightbox-close,.nl-lightbox-prev,.nl-lightbox-next{position:absolute;z-index:2;display:grid;place-items:center;width:48px;height:48px;border:1px solid #555;background:#111213;color:#fff;border-radius:0;cursor:pointer;font-size:1.4rem;line-height:1}
