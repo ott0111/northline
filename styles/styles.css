@@ -1245,3 +1245,41 @@ html.nl-loading,html.nl-loading body{overflow:hidden}
 .nl-cookie-banner button:focus-visible,.nl-cookie-manage:focus-visible{outline:2px solid #eee;outline-offset:3px}
 @media(max-width:720px){.nl-cookie-banner{left:12px;right:12px;bottom:12px;grid-template-columns:1fr;gap:16px;padding:18px;border-radius:10px;max-height:min(80dvh,640px);overflow:auto}.nl-cookie-actions{display:grid;grid-template-columns:1fr 1fr;justify-content:stretch}.nl-cookie-actions button{width:100%;min-height:42px}.nl-cookie-actions .nl-cookie-customize,.nl-cookie-actions [data-cookie-save]{grid-column:1/-1}.nl-cookie-manage{right:12px;bottom:12px}.nl-loading-panel{padding:24px}.nl-loading-status{margin-top:28px}}
 @media(prefers-reduced-motion:reduce){.nl-loading-screen,.nl-cookie-banner{transition:none}.nl-loading-track span{transition:none}}
+
+
+/* Northline refinement: smaller editorial scale, logo loader, compact consent. */
+.nl-loader-panel{width:min(340px,calc(100% - 32px));padding:25px 22px 20px;border-radius:6px}
+.nl-loader-mark{display:none}
+.nl-loader-mark-img{display:block;width:42px;height:42px;object-fit:contain;margin:0 auto 14px}
+.nl-loader-brand{font-size:.88rem;letter-spacing:.2em}
+.nl-loader-caption{font-size:.48rem;letter-spacing:.09em}
+.nl-loader-track{margin:22px 0 11px}
+.nl-loader-status{font-size:.58rem}
+.nl-cookie-banner{width:min(460px,calc(100vw - 24px));gap:14px;padding:20px;max-height:min(72dvh,520px);border-radius:6px}
+.nl-cookie-copy h2{font-size:clamp(1.15rem,2.8vw,1.55rem);line-height:1.12;letter-spacing:-.035em;margin:8px 0}
+.nl-cookie-copy p{font-size:.75rem;line-height:1.55}
+.nl-cookie-actions button{font-size:.66rem;min-height:38px;padding:8px 10px}
+.nl-cookie-manage{font-size:.62rem}
+h1{font-size:clamp(2.8rem,7.2vw,7rem)}
+h2{font-size:clamp(2rem,4.6vw,4.5rem)}
+.hero-title{font-size:clamp(3rem,8vw,8rem);line-height:.91;max-width:1000px}
+.page-hero h1{font-size:clamp(2.9rem,7vw,7rem);line-height:.94}
+.intro-grid h2{font-size:clamp(2.4rem,4.8vw,4.8rem)}
+.statement-grid h2{font-size:clamp(2.6rem,5.5vw,5.6rem)}
+.feature-card h3{font-size:clamp(1.25rem,2vw,2rem)}
+.mobile-nav-inner>a:not(.btn){font-size:clamp(1.65rem,5.8vw,3rem)}
+.roster-art-arrow,.ui-icon-arrow,.ui-icon-external{font-variant-emoji:text}
+@media(max-width:600px){
+ h1{font-size:clamp(2.4rem,11vw,4.2rem)}
+ h2{font-size:clamp(1.8rem,8vw,3rem)}
+ .hero-title{font-size:clamp(2.65rem,11vw,4.7rem);line-height:.95;letter-spacing:-.065em}
+ .page-hero h1{font-size:clamp(2.55rem,10vw,4.5rem);line-height:.96}
+ .intro-grid h2,.statement-grid h2{font-size:clamp(2rem,8.4vw,3.5rem)}
+ .feature-card h3{font-size:1.35rem}
+ .nl-cookie-banner{left:10px;bottom:10px;width:calc(100vw - 20px);padding:16px;gap:12px;max-height:70dvh}
+ .nl-cookie-copy h2{font-size:1.25rem}
+ .nl-cookie-copy p{font-size:.72rem}
+ .nl-cookie-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nl-cookie-actions button{font-size:.63rem;min-height:40px;padding:8px 5px}
+ .nl-loader-panel{width:min(300px,calc(100% - 28px));padding:22px 18px 18px}
+}
