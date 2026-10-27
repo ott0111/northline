@@ -473,43 +473,38 @@ document.querySelectorAll('img').forEach(img=>{
 })();
 
 
-/* Northline cookie consent — one prompt until a choice is saved. */
+/* Northline cookie prompt — show on first entry or hard refresh only. */
 (function(){
   document.querySelectorAll('.work-gallery').forEach(gallery=>{gallery.addEventListener('wheel',event=>{if(gallery.scrollWidth<=gallery.clientWidth)return;if(Math.abs(event.deltaY)>Math.abs(event.deltaX)){event.preventDefault();gallery.scrollLeft+=event.deltaY;}},{passive:false});});
   const consentName='northline_cookie_consent';
   const readConsent=()=>{const match=document.cookie.match(new RegExp('(?:^|; )'+consentName+'=([^;]*)'));if(!match)return null;try{return JSON.parse(decodeURIComponent(match[1]));}catch{return null;}};
-  const manage=document.createElement('button');
-  manage.type='button';manage.className='nl-cookie-manage';manage.textContent='Cookie settings';manage.setAttribute('aria-label','Open cookie preferences');
-  document.body.appendChild(manage);
   const banner=document.createElement('section');
   banner.className='nl-cookie-banner';banner.setAttribute('aria-label','Cookie preferences');banner.setAttribute('aria-live','polite');
-  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookie preferences</h2><p>Essential storage remembers your choice. Optional analytics are off by default. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is currently connected.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept optional</button><button type="button" data-cookie-deny>Deny optional</button><button type="button" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save choices</button></div>';
+  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookie preferences</h2><p>Essential storage remembers your choice. Optional analytics are off by default. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is currently connected.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept</button><button type="button" data-cookie-deny>Deny</button><button type="button" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save choices</button></div>';
   document.body.appendChild(banner);
   const options=banner.querySelector('.nl-cookie-options'),analytics=banner.querySelector('[data-analytics]'),customize=banner.querySelector('[data-cookie-customize]'),save=banner.querySelector('[data-cookie-save]');
-  const close=()=>{banner.classList.remove('is-visible');banner.setAttribute('aria-hidden','true');manage.hidden=false;};
+  const close=()=>{banner.classList.remove('is-visible');banner.setAttribute('aria-hidden','true');banner.remove();};
   const saveConsent=allowAnalytics=>{
     const value=encodeURIComponent(JSON.stringify({essential:true,analytics:!!allowAnalytics,updatedAt:new Date().toISOString()}));
     document.cookie=consentName+'='+value+'; Max-Age=15552000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
     close();
   };
   const showBanner=()=>{
+    if(!banner.isConnected)document.body.appendChild(banner);
     banner.hidden=false;banner.removeAttribute('aria-hidden');
     requestAnimationFrame(()=>banner.classList.add('is-visible'));
   };
-  const current=readConsent();
   let skipPrompt=false;
   try{skipPrompt=sessionStorage.getItem('nl_skip_next_cookie_prompt')==='1';sessionStorage.removeItem('nl_skip_next_cookie_prompt');}catch{}
   const navType=performance.getEntriesByType('navigation')[0]?.type;
-  if(current){banner.remove();manage.hidden=false;}
-  else if(skipPrompt&&navType!=='reload'){banner.remove();manage.hidden=true;}
-  else{manage.hidden=true;banner.hidden=false;requestAnimationFrame(()=>banner.classList.add('is-visible'));}
+  if(skipPrompt&&navType!=='reload'){banner.remove();}
+  else{showBanner();}
   banner.querySelector('[data-cookie-accept]').addEventListener('click',()=>saveConsent(true));
   banner.querySelector('[data-cookie-deny]').addEventListener('click',()=>saveConsent(false));
   customize.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;});
   save.addEventListener('click',()=>saveConsent(analytics.checked));
-  manage.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();banner.querySelector('[data-cookie-save]').focus({preventScroll:true});});
 })();
-
+ 
 /* NORTHLINE 2026 / shared interaction polish */
 (function(){
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
