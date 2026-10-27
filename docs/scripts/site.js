@@ -1,4 +1,4 @@
-/* The branded loading screen is initialized early by scripts/loader.js. */
+/* Northline site interactions. */
 
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
@@ -267,23 +267,7 @@ if (contactForm) {
   updateProgress();
   window.addEventListener('scroll',()=>{setHeader();updateProgress()},{passive:true});
 
-  // Internal page transitions. Lightbox links are handled by the image viewer
-  // below and must never be intercepted as normal page navigation.
-  document.querySelectorAll('a[href]').forEach(link=>{
-    const href=link.getAttribute('href')||'';
-    if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank'||link.hasAttribute('data-lightbox')) return;
-    const url=new URL(href,window.location.href);
-    if(url.origin!==window.location.origin) return;
-    link.addEventListener('click',e=>{
-      if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
-      if(url.pathname===window.location.pathname&&url.hash) return;
-      e.preventDefault();
-      try{sessionStorage.setItem('nl_skip_next_loader','1');sessionStorage.setItem('nl_skip_next_cookie_prompt','1');}catch{}
-      window.location.href=url.href;
-    });
-  });
-
-  // Keep navigation/consent behavior consistent even when decorative motion is disabled.
+  // Keep decorative interactions optional when reduced motion is enabled.
   if(reduce) return;
 
   document.querySelectorAll('.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div').forEach(card=>{
@@ -495,38 +479,9 @@ document.querySelectorAll('img').forEach(img=>{
 })();
 
 
-/* Northline cookie prompt — show on first entry or hard refresh only. */
-(function(){
-  document.querySelectorAll('.work-gallery').forEach(gallery=>{gallery.addEventListener('wheel',event=>{if(gallery.scrollWidth<=gallery.clientWidth)return;if(Math.abs(event.deltaY)>Math.abs(event.deltaX)){event.preventDefault();gallery.scrollLeft+=event.deltaY;}},{passive:false});});
-  const consentName='northline_cookie_consent';
-  const readConsent=()=>{const match=document.cookie.match(new RegExp('(?:^|; )'+consentName+'=([^;]*)'));if(!match)return null;try{return JSON.parse(decodeURIComponent(match[1]));}catch{return null;}};
-  const banner=document.createElement('section');
-  banner.className='nl-cookie-banner';banner.setAttribute('aria-label','Cookie preferences');banner.setAttribute('aria-live','polite');
-  banner.innerHTML='<div class="nl-cookie-copy"><span class="nl-cookie-eyebrow">YOUR PRIVACY / NORTHLINE</span><h2>Cookie preferences</h2><p>Essential storage remembers your choice. Optional analytics are off by default. <a href="./cookies.html">Read our cookie policy</a>.</p><div class="nl-cookie-options" hidden><label><input type="checkbox" checked disabled> Essential storage <small>Always on</small></label><label><input type="checkbox" data-analytics> Optional analytics <small>No analytics service is currently connected.</small></label></div></div><div class="nl-cookie-actions"><button type="button" data-cookie-accept>Accept</button><button type="button" data-cookie-deny>Deny</button><button type="button" data-cookie-customize>Customize</button><button type="button" data-cookie-save hidden>Save choices</button></div>';
-  document.body.appendChild(banner);
-  const options=banner.querySelector('.nl-cookie-options'),analytics=banner.querySelector('[data-analytics]'),customize=banner.querySelector('[data-cookie-customize]'),save=banner.querySelector('[data-cookie-save]');
-  const close=()=>{banner.classList.remove('is-visible');banner.setAttribute('aria-hidden','true');banner.remove();};
-  const saveConsent=allowAnalytics=>{
-    const value=encodeURIComponent(JSON.stringify({essential:true,analytics:!!allowAnalytics,updatedAt:new Date().toISOString()}));
-    document.cookie=consentName+'='+value+'; Max-Age=15552000; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
-    close();
-  };
-  const showBanner=()=>{
-    if(!banner.isConnected)document.body.appendChild(banner);
-    banner.hidden=false;banner.removeAttribute('aria-hidden');
-    requestAnimationFrame(()=>banner.classList.add('is-visible'));
-  };
-  let skipPrompt=false;
-  try{skipPrompt=sessionStorage.getItem('nl_skip_next_cookie_prompt')==='1';sessionStorage.removeItem('nl_skip_next_cookie_prompt');}catch{}
-  const navType=performance.getEntriesByType('navigation')[0]?.type;
-  if(skipPrompt&&navType!=='reload'){banner.remove();}
-  else{showBanner();}
-  banner.querySelector('[data-cookie-accept]').addEventListener('click',()=>saveConsent(true));
-  banner.querySelector('[data-cookie-deny]').addEventListener('click',()=>saveConsent(false));
-  customize.addEventListener('click',()=>{options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;});
-  save.addEventListener('click',()=>saveConsent(analytics.checked));
-})();
- 
+/* Keep the portfolio gallery usable with a mouse wheel. */
+(function(){document.querySelectorAll('.work-gallery').forEach(gallery=>{gallery.addEventListener('wheel',event=>{if(gallery.scrollWidth<=gallery.clientWidth)return;if(Math.abs(event.deltaY)>Math.abs(event.deltaX)){event.preventDefault();gallery.scrollLeft+=event.deltaY;}},{passive:false});});})();
+
 /* NORTHLINE 2026 / shared interaction polish */
 (function(){
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -539,15 +494,6 @@ document.querySelectorAll('img').forEach(img=>{
       if(target===currentFile&&!url.hash){link.setAttribute('aria-current','page');link.classList.add('active');}
     }catch{}
   });
-  const backTop=document.createElement('button');
-  backTop.type='button';backTop.className='nl-back-top';backTop.setAttribute('aria-label','Back to top');
-  backTop.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2 2.5 7.5l1.4 1.4L7 5.8V14h2V5.8l3.1 3.1 1.4-1.4L8 2Z" fill="currentColor"/></svg><span>Back to top</span>';
-  document.body.appendChild(backTop);
-  let queued=false;
-  const update=()=>{backTop.classList.toggle('is-visible',window.scrollY>640);queued=false;};
-  window.addEventListener('scroll',()=>{if(queued)return;queued=true;window.requestAnimationFrame(update);},{passive:true});
-  update();
-  backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
   if(!reduceMotion&&'IntersectionObserver'in window){
     const targets=document.querySelectorAll('main section:not(.hero):not(.page-hero):not(.profile-hero) .section-heading,main section:not(.hero):not(.page-hero):not(.profile-hero) .section-number');
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{

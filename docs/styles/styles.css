@@ -350,3 +350,28 @@ footer,.site-footer{padding:40px var(--edge) 28px;border-top:1px solid var(--lin
  .footer-bottom{display:grid;gap:8px}
  .cookie-notice,.cookie-banner,.cookie-consent{right:12px;bottom:12px;width:calc(100vw - 24px);padding:18px}
 }
+
+/* NORTHLINE / FINAL MONOCHROME PALETTE — charcoal, graphite and ash only */
+:root{
+ --bg:#101112;--panel:#151617;--panel-2:#1a1b1d;--panel-3:#202123;
+ --ink:#c6c7c8;--muted:#96989a;--quiet:#737578;--line:#292a2c;--line-hi:#414346;
+ --white:#c6c7c8;--black:#101112;--nl-soft-white:#c6c7c8
+}
+html,body{background:#101112;color:#c6c7c8}
+::selection{background:#56585a;color:#c6c7c8}
+#siteHeader,.mobile-nav,footer,.site-footer{background:rgba(16,17,18,.97);border-color:#292a2c}
+.btn-primary,.final-cta .btn-primary{background:#303234;color:#d0d1d2;border-color:#45474a}
+.btn-primary:hover,.final-cta .btn-primary:hover{background:#3a3c3e;color:#e0e1e2;border-color:#56585a}
+.btn-ghost,.final-cta .btn-ghost{background:#18191a;color:#b9bbbc;border-color:#414346}
+.btn-ghost:hover,.final-cta .btn-ghost:hover{background:#262729;color:#d0d1d2;border-color:#5a5c5f}
+.final-cta{background:#171819;color:#c6c7c8;border-top:1px solid #292a2c}
+.final-cta-bg,.final-cta:before{background:linear-gradient(135deg,#191a1b,#111213 70%,#18191a)}
+.final-cta h2,.final-cta h2 em,.final-cta .section-number,.final-cta p{color:#c6c7c8}
+.final-cta .btn-ghost{color:#c6c7c8}
+.hero-bg{background:radial-gradient(ellipse at 78% 25%,rgba(145,148,151,.09),transparent 36%),linear-gradient(90deg,#101112 0%,rgba(16,17,18,.96) 34%,rgba(16,17,18,.72) 69%,#101112 100%)}
+.page-hero-bg{background:radial-gradient(ellipse at 80% 15%,rgba(145,148,151,.07),transparent 38%),linear-gradient(135deg,#191a1b,#101112 62%)}
+.talent-card,.feature-card,.work-piece,.content-panel,.info-card,.service-card,.contact-card,.policy-card,.card{background:#151617;border-color:#292a2c}
+.feature-card{background:linear-gradient(145deg,#191a1b,#131415)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline-color:#77797b}
+.cookie-notice,.cookie-banner,.cookie-consent,.nl-cookie-banner,.nl-loader,.nl-loading-screen,#nl-loader,.nl-back-top{display:none!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
