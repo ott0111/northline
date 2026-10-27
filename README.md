@@ -1,17 +1,30 @@
 # Northline
 
-Northline is a talent agency representing creators, competitive players, and digital talent.
+Northline is an independent talent agency representing creators, competitive players, and digital talent.
 
-## Stack
+## Frontend
 
-- Static HTML/CSS/JavaScript frontend
+The public website is built with semantic HTML5, CSS, and vanilla JavaScript. It intentionally avoids a frontend framework so the pages remain lightweight and straightforward to deploy.
+
+- `pages/` — source HTML5 pages
+- `styles/styles.css` — shared responsive design system and component styling
+- `scripts/site.js` — shared navigation, interaction, accessibility, and progressive-enhancement behavior
+- `docs/` — generated GitHub Pages output
+- `assets/` and `Work/` — brand assets and portfolio media
+- `data/talent/` — talent data
+- `api/` — Vercel serverless API routes
+
+The shared design system uses Northline's dark, white, and grey identity, consistent card treatments, accessible focus states, reduced-motion support, and responsive layouts.
+
+## Backend
+
 - Vercel serverless API routes
 - Neon Postgres for submissions
 - Resend for optional submission email notifications
 
 ## Local development
 
-Serve the repository with any static web server. The API routes require Vercel's runtime and the configured environment variables.
+Serve the static pages with any local static web server. The API routes require Vercel's runtime and the configured environment variables.
 
 ## Environment variables
 
@@ -26,4 +39,6 @@ The submission API creates the `northline_submissions` table when needed and sto
 
 ## Validation
 
-Run `npm run check` to syntax-check the JavaScript files used by the site. The Vercel project is linked to `ott0111/northline` on `main`; production deployments are managed through that Git integration. Public routes are verified after production deployments.
+Run `npm run check` to syntax-check the shared JavaScript, build script, and submission API. Run `npm run build:pages` to regenerate `docs/` from `pages/` and the shared assets.
+
+The production repository is `ott0111/northline`. GitHub Pages output is synchronized by the repository workflow; Vercel deployments use the linked Git integration.
