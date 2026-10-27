@@ -56,7 +56,7 @@ console.log('Validated Work assets:', workReferences.size);
 const rewriteDomain = html => html.replaceAll('https://northline.co', 'https://northline.vip');
 
 const rewriteForPages = html => html
-  .replace(/<script[^>]+loader\\.js[^>]*><\\/script>/g, '')
+  .replace(/<script[^>]+loader[.]js[^>]*><[/]script>/g, '')
   .replace(/(href|src)=(['"])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((['"]?)\/(?!\/)/g, 'url($1./')
   .replace(/href="\.\/styles\/styles\.css(?:\?v=[^"]*)?"/g, 'href="./styles/styles.css?v=20261027-charcoal-reset-v3"')
