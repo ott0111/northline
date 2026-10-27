@@ -443,3 +443,81 @@ svg{max-width:100%}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* Talent profile pages + process page */
+.profile-hero{padding:clamp(48px,6vw,82px) 0 clamp(70px,9vw,120px);overflow:hidden;background:#0b0c0d;border-top:0}
+.profile-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% 15%,rgba(255,255,255,.065),transparent 42%),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,72px 72px}
+.profile-hero>.wrap{position:relative}
+.back-link{display:inline-flex;align-items:center;gap:9px;color:#b8b9bb;font-size:.78rem;font-weight:700;margin-bottom:clamp(34px,5vw,64px);transition:color .18s}
+.back-link:hover{color:#fff}
+.ui-icon-back{width:16px;height:16px}
+.profile-layout{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(0,1.2fr);gap:clamp(28px,6vw,90px);align-items:center}
+.profile-image{width:100%;max-width:520px;aspect-ratio:4/4.5;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.profile-image img{width:100%;height:100%;object-fit:cover}
+.profile-copy{min-width:0}
+.profile-copy .eyebrow{margin-bottom:18px}
+.profile-label{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.profile-label span{display:inline-flex;padding:7px 10px;border:1px solid var(--line-strong);border-radius:5px;color:#c9cacc;font-size:.65rem;letter-spacing:.1em;font-weight:750}
+.profile-copy h1{font-size:clamp(3.8rem,8vw,8rem);overflow-wrap:anywhere}
+.profile-copy>p{font-size:clamp(1rem,1.5vw,1.2rem);max-width:550px;margin:22px 0 28px}
+.profile-actions{display:flex;gap:10px;flex-wrap:wrap}
+.profile-info-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,7vw,100px);align-items:start}
+.profile-info-grid h2{font-size:clamp(2.8rem,5.5vw,5.5rem);margin-top:16px}
+.profile-info-grid .lead{margin-bottom:14px}
+.profile-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:24px}
+.profile-links>a{display:grid;grid-template-columns:38px minmax(0,1fr) 16px;align-items:center;gap:10px;min-width:0;padding:13px;border:1px solid var(--line);border-radius:8px;background:var(--surface);transition:border-color .18s,background .18s}
+.profile-links>a:hover{border-color:#68696c;background:#171819}
+.profile-links strong{font-size:.78rem;overflow-wrap:anywhere}
+.profile-links b{display:flex;justify-content:flex-end;color:#a7a8aa}
+.platform-icon{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);border-radius:7px;background:#171819}
+.platform-icon svg{width:19px;height:19px;fill:#f3f3f1}
+.platform-icon .icon-cut{fill:#171819}
+.profile-standard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.profile-standard>div{display:flex;flex-direction:column;align-items:flex-start;gap:15px;min-width:0;padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.profile-standard>div>span{color:#a7a8aa;font-size:.68rem;letter-spacing:.1em}
+.profile-standard h3{font-size:clamp(1.4rem,2.5vw,2.3rem)}
+.profile-standard p{font-size:.86rem;margin:0}
+.profile-inquiry{background:#f0f0ed;color:#08090a;padding:clamp(64px,8vw,108px) 0;border-top:0}
+.profile-inquiry-inner{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:clamp(30px,7vw,100px);align-items:end}
+.profile-inquiry .section-number,.profile-inquiry-action>span{color:#66676a}
+.profile-inquiry h2{font-size:clamp(3rem,6vw,6rem);color:#08090a;margin:14px 0 20px}
+.profile-inquiry p{max-width:600px;color:#55565a;margin:0}
+.profile-inquiry-action{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.profile-inquiry-action>span{font-size:.66rem;letter-spacing:.13em;font-weight:750;margin-bottom:5px}
+.profile-inquiry .btn-primary{background:#08090a;color:#fff;border-color:#08090a}
+.profile-inquiry .btn-primary:hover{background:#28292b}
+.profile-inquiry-secondary{font-size:.78rem;font-weight:700;color:#393a3c;margin-top:5px}
+.profile-inquiry-secondary:hover{color:#000;text-decoration:underline;text-underline-offset:4px}
+.process-list{border-top:1px solid var(--line)}
+.process-list .process-row{grid-template-columns:64px minmax(0,1fr) minmax(180px,.55fr);align-items:start}
+.process-number{padding-top:9px;font-size:.72rem;color:#b6b7b9;letter-spacing:.12em}
+.process-row>div:nth-child(2){min-width:0}
+.process-row h2{font-size:clamp(2.2rem,4vw,4rem);margin-bottom:14px}
+.process-row p{max-width:660px;margin:0}
+.process-side{padding-top:11px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.standard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.standard-grid>*{min-width:0;padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+@media(max-width:900px){
+ .profile-layout{grid-template-columns:minmax(220px,.75fr) minmax(0,1.25fr);gap:28px}
+ .profile-info-grid{grid-template-columns:1fr;gap:24px}
+ .profile-info-grid h2{font-size:clamp(3rem,7vw,5rem)}
+ .profile-inquiry-inner{grid-template-columns:1fr;gap:28px}
+ .process-list .process-row{grid-template-columns:44px minmax(0,1fr)}
+ .process-list .process-side{grid-column:2;padding-top:0}
+}
+@media(max-width:640px){
+ .profile-hero{padding:38px 0 64px}
+ .profile-layout{grid-template-columns:1fr;gap:25px}
+ .profile-image{max-width:none;aspect-ratio:1/1;max-height:430px}
+ .profile-copy h1{font-size:clamp(3.5rem,15vw,5.5rem)}
+ .profile-actions{flex-direction:column;align-items:stretch}
+ .profile-actions .btn{width:100%}
+ .profile-links{grid-template-columns:1fr}
+ .profile-standard,.standard-grid{grid-template-columns:1fr}
+ .profile-standard>div,.standard-grid>*{padding:20px}
+ .profile-inquiry-action{width:100%}
+ .profile-inquiry-action .btn{width:100%}
+ .process-list .process-row{grid-template-columns:32px minmax(0,1fr);gap:12px}
+ .process-list .process-row h2{font-size:2.3rem}
+}
