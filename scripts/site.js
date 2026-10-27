@@ -1,47 +1,4 @@
-/* Northline full-screen loading experience — waits for the page, not an arbitrary delay. */
-(function(){
-  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const loader=document.createElement('div');
-  loader.className='nl-loading-screen';loader.id='nlLoadingScreen';
-  loader.setAttribute('role','status');loader.setAttribute('aria-live','polite');loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML='<div class="nl-loading-panel"><div class="nl-loading-brand"><span class="nl-loading-mark">N</span><span>NORTHLINE</span></div><div class="nl-loading-rule"></div><p class="nl-loading-kicker">TALENT / PARTNERSHIPS / MANAGEMENT</p><div class="nl-loading-status"><span data-loading-label>Preparing your experience</span><strong data-loading-percent>08%</strong></div><div class="nl-loading-track"><span data-loading-bar></span></div><div class="nl-loading-foot"><span>INDEPENDENT. TALENT FIRST.</span><span data-loading-state>INITIALIZING</span></div></div>';
-  document.body.appendChild(loader);
-  const label=loader.querySelector('[data-loading-label]'),percent=loader.querySelector('[data-loading-percent]'),bar=loader.querySelector('[data-loading-bar]'),state=loader.querySelector('[data-loading-state]');
-  let progress=8,finished=false,navTimer;
-  const paint=()=>{percent.textContent=String(Math.round(progress)).padStart(2,'0')+'%';bar.style.width=progress+'%';};paint();
-  const visibleImages=[...document.images].filter(img=>img.loading==='eager'||img.getBoundingClientRect().top<window.innerHeight+150);
-  const imagesReady=Promise.all(visibleImages.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});})));
-  const loadSignal=new Promise(resolve=>{if(document.readyState==='complete')resolve();else window.addEventListener('load',resolve,{once:true});});
-  let resourcesReady=false;
-  Promise.all([loadSignal,imagesReady,document.fonts?.ready||Promise.resolve()]).then(()=>{resourcesReady=true;});
-  const began=performance.now();
-  const tick=window.setInterval(()=>{
-    if(finished)return;
-    const elapsed=performance.now()-began;
-    if(!resourcesReady&&elapsed>6500){resourcesReady=true;label.textContent='Ready to explore';state.textContent='READY';}
-    if(!resourcesReady){
-      progress=Math.min(88,progress+(progress<35?2.4:progress<65?1.1:.28));
-      label.textContent=elapsed<500?'Preparing your experience':elapsed<1800?'Loading the roster and pages':'Finishing the details';
-      state.textContent=elapsed<500?'INITIALIZING':elapsed<1800?'LOADING ASSETS':'FINAL CHECKS';
-    }else{progress=Math.min(100,progress+12);label.textContent='Everything is ready';state.textContent='READY';}
-    paint();
-    if(resourcesReady&&elapsed>=(reduceMotion?0:680)&&progress>=100){
-      finished=true;window.clearInterval(tick);loader.classList.add('is-complete');
-      window.setTimeout(()=>{loader.classList.add('is-hidden');loader.setAttribute('aria-hidden','true');},reduceMotion?0:220);
-    }
-  },70);
-  const revealForNavigation=href=>{
-    if(finished){finished=false;loader.classList.remove('is-hidden','is-complete');loader.removeAttribute('aria-hidden');progress=18;paint();}
-    loader.classList.add('is-navigating');label.textContent='Moving to your next page';state.textContent='NAVIGATING';progress=100;paint();
-    navTimer=window.setTimeout(()=>{window.location.href=href;},reduceMotion?0:260);
-  };
-  window.NorthlineLoader={navigate:revealForNavigation};
-  window.addEventListener('pageshow',event=>{
-    if(!event.persisted)return;
-    if(navTimer)window.clearTimeout(navTimer);
-    loader.classList.add('is-hidden');loader.setAttribute('aria-hidden','true');
-  });
-})();
+/* The branded loading screen is initialized early by scripts/loader.js. */
 
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
@@ -196,9 +153,8 @@ if(talentApplication){
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'talent-application', data})
       });
-      if (!response.ok) throw new Error('Submission failed');
-      const result = await response.json();
-      if (!result.ok) throw new Error(result.error || 'Submission failed');
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || 'We could not submit the application. Please try again.');
     } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
       const applicationError = document.getElementById('applicationError');
