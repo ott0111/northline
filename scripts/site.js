@@ -451,20 +451,6 @@ if (contactForm) {
   if(talent)choose('Talent Partnership');
 })();
 
-/* Small mobile-friendly back-to-top control */
-(function(){
-  const btn=document.createElement('button');
-  btn.className='nl-back-top';
-  btn.type='button';
-  btn.setAttribute('aria-label','Back to top');
-  btn.innerHTML='<svg class="ui-icon ui-icon-up" viewBox="0 0 16 16" aria-hidden="true"><path d="M7 14V5.83L4.41 8.41 3 7l5-5 5 5-1.41 1.41L9 5.83V14H7Z" fill="currentColor"/></svg>';
-  document.body.appendChild(btn);
-  const sync=()=>btn.classList.toggle('is-visible',window.scrollY>600);
-  window.addEventListener('scroll',sync,{passive:true});
-  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-  sync();
-})();
-
 /* Keep normal pages lightweight. Past Work controls its own gallery loading. */
 document.querySelectorAll('img').forEach(img=>{
   if(!img.hasAttribute('loading')) img.loading='lazy';
