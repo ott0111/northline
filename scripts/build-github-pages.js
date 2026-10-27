@@ -59,7 +59,8 @@ const rewriteForPages = html => html
   .replace(/(href|src)=(['"])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((['"]?)\/(?!\/)/g, 'url($1./')
   .replace(/href="\.\/styles\/styles\.css(?:\?v=[^"]*)?"/g, 'href="./styles/styles.css?v=20261027-cookie-loader-scale2"')
-  .replace(/src="\.\/scripts\/site\.js(?:\?v=[^"]*)?"/g, 'src="./scripts/site.js?v=20261027-cookie-loader-scale2"');
+  .replace(/src="\.\/scripts\/site\.js(?:\?v=[^"]*)?"/g, 'src="./scripts/site.js?v=20261027-cookie-loader-scale2"')
+  .replace(/src="\.\/scripts\/loader\.js(?:\?v=[^"]*)?"/g, 'src="./scripts/loader.js?v=20261027-cookie-loader-scale2"');
 
 const rewriteSiteJsForPages = js => js
   .replaceAll("fetch('/api/submissions'", "fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions'")
@@ -75,9 +76,10 @@ const injectPagesConfig = html => {
 const sourceSiteJs = fs.readFileSync(path.join(root, 'scripts', 'site.js'), 'utf8');
 const githubSiteJs = rewriteSiteJsForPages(sourceSiteJs);
 const sourceLoaderJs = fs.readFileSync(path.join(root, 'scripts', 'loader.js'), 'utf8');
+const githubLoaderJs = sourceLoaderJs.replaceAll('src="/assets/', 'src="./assets/');
 fs.mkdirSync(path.join(dist, 'scripts'), { recursive: true });
 fs.writeFileSync(path.join(dist, 'scripts', 'site.js'), githubSiteJs);
-fs.writeFileSync(path.join(dist, 'scripts', 'loader.js'), sourceLoaderJs);
+fs.writeFileSync(path.join(dist, 'scripts', 'loader.js'), githubLoaderJs);
 
 const rootIndex = fs.readFileSync(path.join(root, 'pages', 'index.html'), 'utf8');
 fs.writeFileSync(path.join(dist, 'index.html'), injectPagesConfig(rewriteForPages(rewriteDomain(rootIndex))));
