@@ -10,7 +10,7 @@
   loader.setAttribute('role','status');
   loader.setAttribute('aria-live','polite');
   loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML='<div class="nl-loader-panel"><img class="nl-loader-mark-img" src="/assets/logo-mark.png" alt="" width="48" height="48" decoding="async"><div class="nl-loader-brand">NORTHLINE</div><div class="nl-loader-caption">TALENT / PARTNERSHIPS / MANAGEMENT</div><div class="nl-loader-track" aria-hidden="true"><span></span></div><div class="nl-loader-status">Preparing your experience</div></div>';
+  loader.innerHTML='<div class="nl-loader-panel"><img class="nl-loader-mark-img" src="./assets/logo-mark.png" alt="" width="48" height="48" decoding="async"><div class="nl-loader-brand">NORTHLINE</div><div class="nl-loader-caption">TALENT / PARTNERSHIPS / MANAGEMENT</div><div class="nl-loader-track" aria-hidden="true"><span></span></div><div class="nl-loader-status">Preparing your experience</div></div>';
   const root=document.documentElement;
   let startedAt=performance.now(),finished=false,failSafe=null,hideTimer=null;
   root.classList.add('nl-loading');
