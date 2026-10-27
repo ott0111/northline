@@ -2786,3 +2786,69 @@ footer { border-top: 1px solid var(--nl-border); }
   .talent-card, .service-overview-card, .price-grid > div, .feature-card,
   .talent-photo img { transition: none !important; }
 }
+
+/* NORTHLINE 2026 / ESPORTS-AGENCY INTERFACE SYSTEM */
+:root{--nl-surface:#0b0b0b;--nl-panel:#101010;--nl-panel-raised:#151515;--nl-border:rgba(245,244,239,.12);--nl-border-strong:rgba(245,244,239,.23);--nl-ease:cubic-bezier(.2,.75,.25,1)}
+html{scroll-padding-top:100px}
+body{background-image:radial-gradient(ellipse at 50% -18%,rgba(255,255,255,.055),transparent 48%)}
+::selection{color:#080808;background:#f5f4ef}
+:focus-visible{outline:2px solid #f5f4ef;outline-offset:4px}
+#siteHeader{border-bottom:1px solid transparent;transition:background .3s var(--nl-ease),border-color .3s var(--nl-ease),box-shadow .3s var(--nl-ease)}
+#siteHeader.scrolled{background:rgba(7,7,7,.88);border-bottom-color:rgba(255,255,255,.1);box-shadow:0 12px 40px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+.primary-nav .nav-links a,.footer-links a{transition:color .2s ease,opacity .2s ease}
+.primary-nav .nav-links a{position:relative}
+.primary-nav .nav-links a:after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .28s var(--nl-ease)}
+.primary-nav .nav-links a:hover:after,.primary-nav .nav-links a[aria-current=page]:after,.primary-nav .nav-links a.active:after{transform:scaleX(1)}
+.primary-nav .nav-links a[aria-current=page],.primary-nav .nav-links a.active{color:var(--white)}
+.hero,.page-hero,.profile-hero{isolation:isolate}
+.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image{transform:translate3d(var(--px,0),var(--py,0),0);transition:transform .22s ease-out;will-change:transform}
+.hero:after,.page-hero:after,.profile-hero:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(7,7,7,.16),transparent 68%),linear-gradient(0deg,rgba(7,7,7,.38),transparent 48%)}
+.hero-title,.page-hero h1,.profile-hero h1{text-wrap:balance;letter-spacing:-.045em}
+.hero-lead,.page-sub,.lead{text-wrap:pretty}
+section{position:relative}
+section:not(.hero):not(.page-hero):not(.profile-hero){scroll-margin-top:92px}
+.section-heading{gap:clamp(18px,3vw,42px)}
+.section-number,.eyebrow,.talent-card-top,.service-overview-top,.footer-tag{letter-spacing:.14em}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.service-overview-card,.price-grid>div,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.approach-grid>div,.points-grid>div,.values-grid>div,.contact-option,.work-piece{border:1px solid var(--nl-border);background-color:var(--nl-panel);transition:border-color .3s var(--nl-ease),background-color .3s var(--nl-ease),box-shadow .3s var(--nl-ease),transform .35s var(--nl-ease)}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.service-overview-card,.price-grid>div,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.approach-grid>div,.points-grid>div,.values-grid>div{position:relative;overflow:hidden}
+.talent-card:before,.home-talent-card:before,.ops-home-card:before,.feature-card:before,.service-overview-card:before,.price-grid>div:before,.work-piece:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.075),transparent 62%);transition:opacity .35s ease}
+.talent-card:hover,.home-talent-card:hover,.ops-home-card:hover,.feature-card:hover,.service-overview-card:hover,.price-grid>div:hover,.brand-services>div:hover,.brand-mini-grid>div:hover,.brand-process>div:hover,.profile-standard>div:hover,.approach-grid>div:hover,.points-grid>div:hover,.values-grid>div:hover,.contact-option:hover,.work-piece:hover{border-color:var(--nl-border-strong);background-color:var(--nl-panel-raised);box-shadow:0 22px 60px rgba(0,0,0,.24)}
+.talent-card:hover:before,.home-talent-card:hover:before,.ops-home-card:hover:before,.feature-card:hover:before,.service-overview-card:hover:before,.price-grid>div:hover:before,.work-piece:hover:before{opacity:1}
+.talent-card,.home-talent-card,.ops-home-card{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(0)}
+.talent-card:hover,.home-talent-card:hover,.ops-home-card:hover{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-5px)}
+.talent-photo,.work-piece-media,.profile-image{overflow:hidden}
+.talent-photo img,.work-thumb,.profile-image img{transition:transform .7s var(--nl-ease),filter .5s ease}
+.talent-card:hover .talent-photo img,.work-piece:hover .work-thumb{transform:scale(1.045)}
+.btn,.text-link{transition:transform .22s var(--nl-ease),background-color .22s ease,border-color .22s ease}
+.btn:hover,.text-link:hover{transform:translate3d(var(--tx,0),var(--ty,0),0)}
+.btn-primary:hover{box-shadow:0 8px 30px rgba(245,244,239,.08)}
+.final-cta{overflow:hidden}
+.final-cta-inner{position:relative}
+.final-cta-inner h2{text-wrap:balance}
+input,select,textarea{border-color:rgba(245,244,239,.17);transition:border-color .2s ease,background-color .2s ease,box-shadow .2s ease}
+input:hover,select:hover,textarea:hover{border-color:rgba(245,244,239,.3)}
+input:focus,select:focus,textarea:focus{border-color:rgba(245,244,239,.68);box-shadow:0 0 0 3px rgba(245,244,239,.07);outline:none}
+details{border-color:var(--nl-border)}
+details summary{cursor:pointer;transition:color .2s ease}
+details summary:hover{color:var(--white)}
+details[open] summary{margin-bottom:12px}
+.work-gallery{scrollbar-width:thin;scrollbar-color:#555 #151515}
+.work-gallery::-webkit-scrollbar{height:6px}
+.work-gallery::-webkit-scrollbar-track{background:#151515}
+.work-gallery::-webkit-scrollbar-thumb{background:#555;border-radius:10px}
+footer{border-top:1px solid var(--nl-border)}
+.footer-links a:hover{opacity:1;transform:translateX(3px)}
+.nl-back-top{position:fixed;z-index:90;right:clamp(16px,3vw,34px);bottom:24px;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:0 15px;border:1px solid rgba(245,244,239,.2);border-radius:999px;color:var(--white);background:rgba(13,13,13,.9);font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s var(--nl-ease),visibility .25s;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);cursor:pointer}
+.nl-back-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.nl-back-top:hover{background:#f5f4ef;color:#080808;border-color:#f5f4ef}
+.nl-back-top svg{width:13px;height:13px}
+.nl-back-top:focus-visible{outline-offset:5px}
+.nl-in-view{animation:nlSectionIn .55s var(--nl-ease) both}
+.nl-ripple{animation:nlTap .24s ease-out}
+@keyframes nlSectionIn{from{filter:blur(2px);opacity:.72;transform:translateY(5px)}to{filter:blur(0);opacity:1;transform:translateY(0)}}
+@keyframes nlTap{50%{filter:brightness(1.14)}}
+.page-leaving main{opacity:.72;transform:translateY(4px)}
+main{transition:opacity .18s ease,transform .18s ease}
+@media(hover:none){.talent-card,.home-talent-card,.ops-home-card{transform:none!important}.talent-card:before,.home-talent-card:before,.ops-home-card:before{display:none}}
+@media(max-width:760px){body{background-image:radial-gradient(ellipse at 50% -12%,rgba(255,255,255,.045),transparent 44%)}.hero-title,.page-hero h1,.profile-hero h1{letter-spacing:-.035em}.nl-back-top{right:14px;bottom:14px;min-height:42px;padding:0 13px}.section-heading{align-items:flex-start}.final-cta-inner{padding-top:clamp(56px,12vw,100px);padding-bottom:clamp(56px,12vw,100px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.hero-bg,.page-hero-bg,.profile-hero-bg,.hero-grid,.profile-image{transform:none!important}.nl-back-top{transition:none!important}}
