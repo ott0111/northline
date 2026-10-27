@@ -1,4 +1,8 @@
 (function(){
+  const navType=performance.getEntriesByType('navigation')[0]?.type;
+  let skipLoader=false;
+  try{skipLoader=sessionStorage.getItem('nl_skip_next_loader')==='1';sessionStorage.removeItem('nl_skip_next_loader');}catch{}
+  if(skipLoader&&navType!=='reload')return;
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const loader=document.createElement('div');
   loader.id='nl-loader';
