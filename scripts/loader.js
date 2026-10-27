@@ -24,6 +24,7 @@
     },wait);
   }
   function show(){
+    if(!loader.isConnected)root.appendChild(loader);
     if(hideTimer)clearTimeout(hideTimer);
     startedAt=performance.now();
     finished=false;
