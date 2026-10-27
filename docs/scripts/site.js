@@ -280,7 +280,7 @@ if (contactForm) {
       if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
       if(url.pathname===window.location.pathname&&url.hash) return;
       e.preventDefault();
-      try{sessionStorage.setItem('nl_skip_next_loader','1');}catch{}
+      try{sessionStorage.setItem('nl_skip_next_loader','1');sessionStorage.setItem('nl_skip_next_cookie_prompt','1');}catch{}
       window.location.href=url.href;
     });
   });
@@ -496,7 +496,11 @@ document.querySelectorAll('img').forEach(img=>{
     requestAnimationFrame(()=>banner.classList.add('is-visible'));
   };
   const current=readConsent();
+  let skipPrompt=false;
+  try{skipPrompt=sessionStorage.getItem('nl_skip_next_cookie_prompt')==='1';sessionStorage.removeItem('nl_skip_next_cookie_prompt');}catch{}
+  const navType=performance.getEntriesByType('navigation')[0]?.type;
   if(current){banner.remove();manage.hidden=false;}
+  else if(skipPrompt&&navType!=='reload'){banner.remove();manage.hidden=true;}
   else{manage.hidden=true;banner.hidden=false;requestAnimationFrame(()=>banner.classList.add('is-visible'));}
   banner.querySelector('[data-cookie-accept]').addEventListener('click',()=>saveConsent(true));
   banner.querySelector('[data-cookie-deny]').addEventListener('click',()=>saveConsent(false));
