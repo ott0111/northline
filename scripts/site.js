@@ -109,9 +109,8 @@ if(brandBrief){
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'brand-brief', data})
       });
-      if (!response.ok) throw new Error('Submission failed');
-      const result = await response.json();
-      if (!result.ok) throw new Error(result.error || 'Submission failed');
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || 'We could not submit the application. Please try again.');
     } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
       if (briefError) { briefError.textContent = error.message === 'Please complete all required fields.' || error.message === 'Please provide a valid email.' ? error.message : 'We could not send the brief right now. Please try again.'; briefError.hidden = false; }
@@ -158,7 +157,12 @@ if(talentApplication){
     } catch (error) {
       if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = submitButton.dataset.originalText; }
       const applicationError = document.getElementById('applicationError');
-      if (applicationError) { applicationError.textContent = error.message === 'Please complete all required fields.' ? error.message : 'We could not send the application right now. Please try again.'; applicationError.hidden = false; }
+      if (applicationError) {
+        const safeMessages = ['Please complete all required fields.', 'Please provide a valid email.', 'Too many submissions. Please try again later.', 'Storage is not configured yet.', 'Request is too large.', 'Invalid request.'];
+        applicationError.textContent = safeMessages.includes(error.message) ? error.message : 'We could not send the application right now. Your details are still here. Please try again.';
+        applicationError.hidden = false;
+        applicationError.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center'});
+      }
       return;
     }
     const brief = [
@@ -178,10 +182,32 @@ if(talentApplication){
     document.getElementById('preparedBrief').textContent = brief;
     document.getElementById('applicationSuccess').hidden = false;
     talentApplication.hidden = true;
+    const successPanel = document.getElementById('applicationSuccess');
+    successPanel.setAttribute('tabindex', '-1');
+    successPanel.focus({preventScroll:true});
+    successPanel.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
   });
-  document.getElementById('copyApplication')?.addEventListener('click', async () => {
+  document.getElementById('copyApplication')?.addEventListener('click', async event => {
+    const button = event.currentTarget;
     const textValue = document.getElementById('preparedBrief')?.textContent || '';
-    try{await navigator.clipboard.writeText(textValue)}catch{}
+    let copied = false;
+    try {
+      await navigator.clipboard.writeText(textValue);
+      copied = true;
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = textValue;
+      area.setAttribute('readonly', '');
+      area.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+      document.body.appendChild(area);
+      area.select();
+      copied = document.execCommand('copy');
+      area.remove();
+    }
+    const original = button.dataset.originalText || button.innerHTML;
+    button.dataset.originalText = original;
+    button.textContent = copied ? 'Copied to clipboard' : 'Select and copy the brief above';
+    if (copied) setTimeout(() => { if (button.isConnected) button.innerHTML = original; }, 2200);
   });
 }
 
@@ -254,6 +280,7 @@ if (contactForm) {
       if(url.pathname===window.location.pathname&&url.hash) return;
       e.preventDefault();
       document.body.classList.add('page-leaving');
+      window.NorthlineLoader?.show();
       setTimeout(()=>{window.location.href=url.href},180);
     });
   });
