@@ -1138,3 +1138,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
  .leadership-meta p{font-size:.67rem}
 }
 @media(prefers-reduced-motion:reduce){.talent-card,.feature-card,.btn,.roster-art-main>img{transition:none!important}}
+
+/* Narrow-phone refinement: preserve useful two-column talent discovery down to 320px */
+@media(max-width:380px){
+ .home-talent-grid,.talent-grid,.talent-grid-five,.team-grid,.team-grid-three,.team-grid-four,.home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .talent-card{padding:7px}
+ .talent-card-top{font-size:.41rem;letter-spacing:.035em}
+ .talent-card h3{font-size:.95rem}
+ .talent-card p{font-size:.66rem}
+ .talent-social{font-size:.55rem}
+}
