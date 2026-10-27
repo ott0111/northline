@@ -542,3 +542,43 @@ document.querySelectorAll('img').forEach(img=>{
   manage.addEventListener('click',()=>{if(!banner.isConnected)document.body.appendChild(banner);options.hidden=false;analytics.checked=!!readConsent()?.analytics;customize.hidden=true;save.hidden=false;showBanner();});
 })();
 
+
+/* NORTHLINE 2026 / shared interaction polish */
+(function(){
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const path=window.location.pathname.replace(/\/+$/,'')||'/';
+  const currentFile=path.split('/').pop()||'index.html';
+  document.querySelectorAll('.primary-nav a[href],.mobile-nav a[href]').forEach(link=>{
+    try{
+      const url=new URL(link.getAttribute('href'),window.location.href);
+      const target=url.pathname.replace(/\/+$/,'').split('/').pop()||'index.html';
+      if(target===currentFile&&!url.hash){link.setAttribute('aria-current','page');link.classList.add('active');}
+    }catch{}
+  });
+  const backTop=document.createElement('button');
+  backTop.type='button';backTop.className='nl-back-top';backTop.setAttribute('aria-label','Back to top');
+  backTop.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2 2.5 7.5l1.4 1.4L7 5.8V14h2V5.8l3.1 3.1 1.4-1.4L8 2Z" fill="currentColor"/></svg><span>Back to top</span>';
+  document.body.appendChild(backTop);
+  let queued=false;
+  const update=()=>{backTop.classList.toggle('is-visible',window.scrollY>640);queued=false;};
+  window.addEventListener('scroll',()=>{if(queued)return;queued=true;window.requestAnimationFrame(update);},{passive:true});
+  update();
+  backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
+  if(!reduceMotion&&'IntersectionObserver'in window){
+    const targets=document.querySelectorAll('main section:not(.hero):not(.page-hero):not(.profile-hero) .section-heading,main section:not(.hero):not(.page-hero):not(.profile-hero) .section-number');
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('nl-in-view');observer.unobserve(entry.target);
+    }),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    targets.forEach(target=>observer.observe(target));
+  }
+  if(!reduceMotion&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.querySelectorAll('.btn,.nl-back-top').forEach(control=>{
+      control.addEventListener('pointerdown',event=>{
+        if(event.button!==0)return;
+        control.classList.remove('nl-ripple');void control.offsetWidth;control.classList.add('nl-ripple');
+      });
+      control.addEventListener('animationend',()=>control.classList.remove('nl-ripple'));
+    });
+  }
+})();
