@@ -74,8 +74,10 @@ const injectPagesConfig = html => {
 
 const sourceSiteJs = fs.readFileSync(path.join(root, 'scripts', 'site.js'), 'utf8');
 const githubSiteJs = rewriteSiteJsForPages(sourceSiteJs);
+const sourceLoaderJs = fs.readFileSync(path.join(root, 'scripts', 'loader.js'), 'utf8');
 fs.mkdirSync(path.join(dist, 'scripts'), { recursive: true });
 fs.writeFileSync(path.join(dist, 'scripts', 'site.js'), githubSiteJs);
+fs.writeFileSync(path.join(dist, 'scripts', 'loader.js'), sourceLoaderJs);
 
 const rootIndex = fs.readFileSync(path.join(root, 'pages', 'index.html'), 'utf8');
 fs.writeFileSync(path.join(dist, 'index.html'), injectPagesConfig(rewriteForPages(rewriteDomain(rootIndex))));
