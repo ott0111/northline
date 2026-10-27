@@ -1,80 +1,3 @@
-/* Northline first-load screen */
-(function(){
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let seen = false;
-  try { seen = sessionStorage.getItem('northlineLoaded') === 'true'; } catch {}
-
-  if (seen) return;
-
-  const loader = document.createElement('div');
-  loader.id = 'nl-loader';
-  loader.setAttribute('aria-label','Loading Northline');
-  loader.innerHTML = '<div class="nl-loader-inner"><div class="nl-loader-top"><img src="./assets/logo-mark.png" alt="Northline"><span>NORTHLINE</span></div><div class="nl-loader-center"><span>01 / LOADING</span><strong>Talent. Representation.<br><em>Built to grow.</em></strong></div><div class="nl-loader-bottom"><div class="nl-loader-track"><i></i></div><div class="nl-loader-status"><span>Initializing</span><b>0%</b></div></div></div>';
-  document.body.prepend(loader);
-
-  const track = loader.querySelector('.nl-loader-track i');
-  const status = loader.querySelector('.nl-loader-status b');
-  const label = loader.querySelector('.nl-loader-status span');
-  let progress = 0;
-  let finished = false;
-
-  const labels = [
-    [0,'Initializing'],
-    [25,'Loading interface'],
-    [50,'Preparing roster'],
-    [72,'Loading Northline'],
-    [90,'Almost ready'],
-    [100,'Ready']
-  ];
-
-  const render = value => {
-    progress = Math.min(100, Math.max(progress, value));
-    if(track) track.style.width = progress + '%';
-    if(status) status.textContent = Math.round(progress) + '%';
-    for(let i=labels.length-1;i>=0;i--){
-      if(progress >= labels[i][0]){
-        if(label) label.textContent = labels[i][1];
-        break;
-      }
-    }
-  };
-
-  const finish = () => {
-    if(finished) return;
-    finished = true;
-    render(100);
-    try { sessionStorage.setItem('northlineLoaded','true'); } catch {}
-    setTimeout(() => {
-      loader.classList.add('is-done');
-      setTimeout(() => loader.remove(), reduce ? 50 : 250);
-    }, reduce ? 80 : 900);
-  };
-
-  const minimumVisible = reduce ? 150 : 450;
-  const started = performance.now();
-  const finishWhenReady = () => {
-    const remaining = Math.max(0, minimumVisible - (performance.now() - started));
-    setTimeout(finish, remaining);
-  };
-
-  const animate = now => {
-    if(finished) return;
-    const elapsed = now - started;
-    const target = Math.min(94, 8 + elapsed / 115);
-    render(target);
-    requestAnimationFrame(animate);
-  };
-  requestAnimationFrame(animate);
-
-  // Never block the whole page behind every image/network request.
-  // The old window.load dependency made image-heavy pages appear completely black.
-  const startFinish = () => finishWhenReady();
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startFinish, {once:true});
-  else startFinish();
-
-  // Hard safety cap so the loader can never trap the user on a black screen.
-  setTimeout(finish, 1600);
-})();
 /* Reliable image fallback for mobile/network failures */
 document.querySelectorAll('img').forEach(img => {
   img.addEventListener('error', () => {
@@ -181,7 +104,7 @@ if(brandBrief){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(brandBrief).entries());
     try {
-      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
+      const response = await fetch('/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'brand-brief', data})
@@ -224,7 +147,7 @@ if(talentApplication){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(talentApplication).entries());
     try {
-      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
+      const response = await fetch('/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'talent-application', data})
@@ -271,7 +194,7 @@ if(contactForm){
     if(button){button.disabled=true;button.innerHTML='Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'}
     const data=Object.fromEntries(new FormData(contactForm).entries());
     try{
-      const response=await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
+      const response=await fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
       const result=await response.json().catch(()=>({}));
       if(!response.ok||!result.ok) throw new Error(result.error||'Submission failed');
       contactForm.hidden=true;
