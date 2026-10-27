@@ -495,3 +495,92 @@ footer{padding:54px 0 24px;border-top:1px solid #303234;background:#0e0f10}
 .form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus{outline:1px solid #77797b;border-color:#77797b}
 .breadcrumbs{display:none!important}
 @media(max-width:650px){.legal-copy{padding:24px 20px}.contact-grid{grid-template-columns:1fr}.contact-option{padding:18px;grid-template-columns:25px minmax(0,1fr) 18px}}
+
+
+/* SITE-WIDE POLISH PASS — consistent layouts across every public page */
+:root{--surface:#151617;--surface-raised:#1b1c1e;--border-soft:#303234;--text-main:#d0d1d2;--text-secondary:#a0a2a4}
+body{color:var(--text-main);line-height:1.7}
+p,li{overflow-wrap:anywhere}
+main{min-width:0}
+main img{max-width:100%}
+.wrap>*{min-width:0}
+section .wrap>p{max-width:72ch}
+h1,h2,h3{max-width:100%;overflow-wrap:normal}
+h1{font-size:clamp(2.8rem,7vw,6.8rem);line-height:.94}
+h2{font-size:clamp(2.15rem,5vw,4.7rem);line-height:.98}
+h3{line-height:1.12}
+#siteHeader{gap:18px}
+#siteHeader .logo{color:#d0d1d2}
+#siteHeader .logo img{object-fit:contain}
+.nav-links a{font-size:.76rem}
+.page-hero{padding-block:clamp(58px,8vw,112px) clamp(48px,6vw,82px)}
+.page-hero h1{max-width:12ch;font-size:clamp(2.9rem,7.5vw,6.5rem);line-height:.94}
+.page-sub{max-width:62ch}
+.page-hero .cta-row,.page-hero .hero-actions{margin-top:26px}
+.section-heading{align-items:flex-end}
+.section-heading h2{max-width:15ch}
+.content-grid,.card-grid,.feature-grid,.service-grid,.services-grid,.service-overview-grid,.brand-services,.contact-grid,.application-layout,.contact-layout{min-width:0}
+.content-panel,.info-card,.faq-item,.service-card,.contact-card,.policy-card,.card,.feature-card,.service-overview-card,.price-grid>div,.brand-services>div{min-width:0}
+.card,.content-panel,.info-card,.service-card,.contact-card,.policy-card{transition:border-color .2s ease,background .2s ease,transform .2s ease}
+.card:hover,.content-panel:hover,.info-card:hover,.service-card:hover,.contact-card:hover,.policy-card:hover{border-color:#505255}
+.talent-grid,.home-talent-grid,.roster-grid,.team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.home-talent-grid .talent-card,.talent-grid .talent-card,.roster-grid .talent-card,.team-grid .talent-card{min-width:0}
+.talent-card-top{font-size:.58rem;letter-spacing:.09em}
+.talent-photo{aspect-ratio:1.12/1}
+.talent-card h3{font-size:clamp(1.08rem,1.35vw,1.42rem);line-height:1.12}
+.talent-card p{font-size:.78rem}
+.talent-social{font-size:.7rem;overflow-wrap:anywhere}
+.home-talent-grid .talent-card>div:last-child{padding:15px 14px 17px}
+.home-talent-grid .talent-card-top{padding:12px 13px 0}
+.home-talent-grid .talent-photo{margin:11px 11px 0}
+.work-gallery,.work-gallery-featured{align-items:start}
+.work-piece{height:100%}
+.work-piece-view,.work-piece-media{min-width:0}
+.work-thumb{display:block}
+.faq-item h3{line-height:1.25}
+.faq-item p,.policy-content p,.policy-content li{max-width:76ch}
+.application-aside{min-width:0}
+.application-form,.contact-form{box-shadow:0 14px 44px rgba(0,0,0,.12)}
+.application-form input,.application-form select,.application-form textarea,.contact-form input,.contact-form select,.contact-form textarea{border-radius:2px}
+.application-form input:focus-visible,.application-form select:focus-visible,.application-form textarea:focus-visible,.contact-form input:focus-visible,.contact-form select:focus-visible,.contact-form textarea:focus-visible{outline:2px solid #77797b;outline-offset:2px}
+.btn{border-radius:2px}
+.btn:focus-visible,.talent-filter:focus-visible{outline:2px solid #a0a2a4;outline-offset:3px}
+footer{padding-top:44px}
+.footer-links a{padding-block:2px}
+.footer-bottom{line-height:1.6}
+.breadcrumbs{display:none!important}
+.tag-list{gap:6px}
+.tag-list span{border-radius:2px}
+@media(max-width:1100px){
+ .talent-grid,.home-talent-grid,.roster-grid,.team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .primary-nav>.btn{white-space:nowrap}
+}
+@media(max-width:820px){
+ .talent-grid,.home-talent-grid,.roster-grid,.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .page-hero h1{font-size:clamp(2.8rem,9vw,5.2rem)}
+ .section-heading h2{max-width:none}
+ .footer-links{gap:24px 18px}
+}
+@media(max-width:560px){
+ body{font-size:15px}
+ .page-hero{padding-top:54px}
+ .page-hero h1{font-size:clamp(2.75rem,13vw,4.6rem);letter-spacing:-.07em}
+ .page-sub{font-size:.98rem;line-height:1.75}
+ .talent-grid,.home-talent-grid,.roster-grid,.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .talent-card-top{padding:9px 9px 0;font-size:.49rem}
+ .talent-photo{margin:9px 9px 0;aspect-ratio:1/1}
+ .home-talent-grid .talent-card>div:last-child,.talent-card>div:last-child{padding:12px 10px 13px}
+ .talent-card h3{font-size:1.05rem}
+ .talent-card p{font-size:.72rem;line-height:1.55}
+ .talent-social{font-size:.67rem}
+ .content-panel,.info-card,.service-card,.contact-card,.policy-card{padding:20px}
+ .legal-copy{padding:24px 18px}
+ .contact-option{min-width:0}
+ .footer-main{padding-bottom:28px}
+ .footer-links{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:350px){
+ .talent-card-top{letter-spacing:.03em}
+ .talent-card h3{font-size:.98rem}
+ .talent-card p{font-size:.68rem}
+}
