@@ -249,19 +249,6 @@ footer,.site-footer{padding:40px var(--edge) 28px;border-top:1px solid var(--lin
 .footer-links a:hover{color:#fff}
 .footer-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;width:min(100%,var(--max));margin:30px auto 0;padding-top:18px;border-top:1px solid var(--line);font-size:.67rem;color:var(--quiet)}
 
-/* Loader and consent UI retain behavior, use the new visual system */
-.nl-loader,.nl-loading-screen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:#08090a;color:#f4f4f1;transition:opacity .35s var(--ease),visibility .35s}
-.nl-loader[hidden],.nl-loading-screen[hidden]{display:none}
-.nl-loader-inner,.nl-loading-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:24px}
-.nl-loader img,.nl-loading-screen img{width:54px;height:54px;object-fit:contain}
-.nl-loader span,.nl-loading-screen p{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.cookie-notice,.cookie-banner,.cookie-consent{position:fixed;z-index:4000;right:20px;bottom:20px;width:min(420px,calc(100vw - 32px));padding:22px;border:1px solid #454649;background:rgba(15,16,17,.97);box-shadow:0 18px 60px rgba(0,0,0,.45);backdrop-filter:blur(18px)}
-.cookie-notice h2,.cookie-banner h2,.cookie-consent h2{font-size:1.25rem;margin-bottom:8px}
-.cookie-notice p,.cookie-banner p,.cookie-consent p{font-size:.78rem;line-height:1.65}
-.cookie-actions{display:flex;gap:8px;flex-wrap:wrap}
-.cookie-actions button{min-height:42px;padding:0 14px;border:1px solid var(--line-hi);background:transparent;font-size:.75rem;cursor:pointer}
-.cookie-actions button:first-child{background:#f4f4f1;color:#08090a;border-color:#f4f4f1}
-
 /* Motion stays subtle and respects user settings */
 .reveal,.reveal-fast{transition:opacity .6s var(--ease),transform .6s var(--ease)}
 @media(hover:hover){.reveal:not(.is-visible){transform:translateY(14px)}}
@@ -348,7 +335,7 @@ footer,.site-footer{padding:40px var(--edge) 28px;border-top:1px solid var(--lin
  .footer-inner{display:grid;grid-template-columns:1fr}
  .footer-links{gap:12px 18px}
  .footer-bottom{display:grid;gap:8px}
- .cookie-notice,.cookie-banner,.cookie-consent{right:12px;bottom:12px;width:calc(100vw - 24px);padding:18px}
+ 
 }
 
 /* NORTHLINE / FINAL MONOCHROME PALETTE — charcoal, graphite and ash only */
@@ -373,5 +360,8 @@ html,body{background:#101112;color:#c6c7c8}
 .talent-card,.feature-card,.work-piece,.content-panel,.info-card,.service-card,.contact-card,.policy-card,.card{background:#151617;border-color:#292a2c}
 .feature-card{background:linear-gradient(145deg,#191a1b,#131415)}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline-color:#77797b}
-.cookie-notice,.cookie-banner,.cookie-consent,.nl-cookie-banner,.nl-loader,.nl-loading-screen,#nl-loader,.nl-back-top{display:none!important}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Charcoal-only interaction states */
+.nl-lightbox-close:hover,.nl-lightbox-prev:hover,.nl-lightbox-next:hover{background:#303234;color:#c6c7c8;border-color:#56585a}
