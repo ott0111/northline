@@ -26,6 +26,8 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: Check JavaScript syntax
+        run: npm run check
       - name: Build Pages
         run: npm run build:pages
       - name: Sync generated docs back to the repository
