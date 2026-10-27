@@ -1314,3 +1314,92 @@ h2{font-size:clamp(2rem,4.4vw,4.4rem)}
     font-family:"Segoe UI Symbol","Noto Sans Symbols 2","Arial Unicode MS",sans-serif;
   }
 }
+
+
+/* NORTHLINE / EDITORIAL RESET — new portfolio-led design language */
+:root{
+ --bg:#090909;--surface:#111;--surface-2:#171717;--surface-3:#202020;
+ --text:#f7f7f5;--muted:#a4a4a1;--quiet:#777;--line:#292929;--line-strong:#484848;
+ --edge:clamp(20px,4.2vw,72px);--max:1480px;--radius:5px;--radius-sm:3px;
+}
+body{font-size:15px;line-height:1.7;background:#090909}
+#siteHeader{min-height:72px;background:rgba(9,9,9,.96);border-bottom:1px solid #252525}
+.logo{font-size:1rem;letter-spacing:.02em;text-transform:uppercase}
+.logo img{width:27px;height:27px}
+.nav-links a{font-size:.72rem;letter-spacing:.025em}
+section{padding:clamp(64px,7.2vw,104px) 0;border-color:#242424}
+h1,h2,h3,h4{letter-spacing:-.045em}
+h1{font-size:clamp(3.25rem,7.8vw,7.8rem);line-height:.92}
+h2{font-size:clamp(2.35rem,4.8vw,4.9rem);line-height:.98}
+h3{font-size:clamp(1.25rem,1.8vw,1.8rem)}
+.page-hero{min-height:440px;display:flex;align-items:flex-end;padding:clamp(80px,11vw,150px) 0 66px;border-bottom:1px solid #252525}
+.page-hero .wrap{position:relative;z-index:1}
+.page-hero .eyebrow{margin-bottom:22px}
+.page-hero h1{max-width:1000px}
+.page-hero .page-sub{max-width:520px;margin-top:24px;font-size:1rem}
+.page-hero-bg{background:linear-gradient(110deg,rgba(255,255,255,.045),transparent 45%),radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.035),transparent 55%)}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;margin-bottom:36px}
+.section-heading>p{max-width:330px;font-size:.88rem}
+.btn{border-radius:3px;min-height:46px}
+.btn-primary{background:#f7f7f5;color:#080808}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card,.work-piece,.service-card,.price-grid>div{
+ border-radius:4px;box-shadow:none;transition:transform .25s ease,border-color .25s ease,background .25s ease
+}
+.talent-card,.home-talent-card,.ops-home-card,.feature-card{border-color:#2b2b2b}
+.talent-card:hover,.home-talent-card:hover,.ops-home-card:hover,.feature-card:hover{transform:translateY(-4px);border-color:#777}
+.work-archive-section .wrap{width:min(calc(100% - var(--edge)*2),var(--max))}
+.work-archive-section .section-heading{padding-bottom:24px;border-bottom:1px solid #2a2a2a}
+.past-work-group{margin-top:38px}
+.past-work-person{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 0 16px;margin-bottom:16px;border-bottom:1px solid #252525}
+.past-work-person h3{margin-top:8px}
+.past-work-person>strong{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#a4a4a1}
+.work-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;overflow:visible}
+.work-gallery-featured{grid-template-columns:repeat(3,minmax(0,1fr))}
+.work-piece{min-width:0;border:1px solid #292929;background:#101010;overflow:hidden}
+.work-piece-view{display:block;cursor:zoom-in;background:#171717;overflow:hidden}
+.work-piece-media{position:relative;display:grid;place-items:center;aspect-ratio:16/10;overflow:hidden;background:#181818}
+.work-thumb{width:100%;height:100%;object-fit:contain;display:block;opacity:1;visibility:visible;transition:transform .35s ease}
+.work-piece:hover .work-thumb{transform:scale(1.025)}
+.work-piece-meta{display:flex;flex-direction:column;gap:5px;padding:14px 15px 16px;font-size:.65rem;letter-spacing:.06em}
+.work-piece-meta strong{font-size:.75rem;color:#f1f1ef;letter-spacing:0;text-transform:none}
+.work-piece-meta span{color:#8f8f8f;font-weight:500;letter-spacing:0;text-transform:none}
+.nl-lightbox{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(0,0,0,.96);opacity:0;transition:opacity .18s ease}
+.nl-lightbox.is-open{display:flex;opacity:1}
+.nl-lightbox-figure{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:min(100%,1200px);height:100%;margin:0}
+.nl-lightbox img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 130px);object-fit:contain;border:1px solid #292929;background:#101010}
+.nl-lightbox-title{color:#f2f2f2;text-align:center;font-size:.85rem;letter-spacing:.02em}
+.nl-lightbox-close,.nl-lightbox-prev,.nl-lightbox-next{position:absolute;display:grid;place-items:center;width:48px;height:48px;border:1px solid #454545;border-radius:3px;background:#111;color:#fff;cursor:pointer;font:400 30px/1 "Segoe UI Symbol","Arial Unicode MS",sans-serif;transition:background .2s,border-color .2s}
+.nl-lightbox-close:hover,.nl-lightbox-prev:hover,.nl-lightbox-next:hover{background:#f5f5f3;color:#080808;border-color:#f5f5f3}
+.nl-lightbox-close{top:18px;right:18px;font-size:28px}
+.nl-lightbox-prev{left:18px;top:50%;transform:translateY(-50%)}
+.nl-lightbox-next{right:18px;top:50%;transform:translateY(-50%)}
+.nl-lightbox-count{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.12em;color:#aaa}
+.nl-lightbox button:disabled{opacity:.35;cursor:default}
+@media(max-width:1000px){
+ .work-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .work-gallery-featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+ body{font-size:14px}
+ section{padding:60px 0}
+ h1{font-size:clamp(2.45rem,9.4vw,3.8rem)}
+ h2{font-size:clamp(1.9rem,7vw,2.9rem)}
+ .page-hero{min-height:360px;padding:88px 0 44px}
+ .page-hero h1{font-size:clamp(2.5rem,9vw,3.7rem)}
+ .section-heading{display:block;margin-bottom:26px}
+ .section-heading>p{margin-top:18px}
+ .past-work-person{align-items:flex-start;flex-direction:column;gap:10px}
+ .work-gallery,.work-gallery-featured{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .work-piece-meta{padding:11px;font-size:.62rem}
+ .work-piece-meta strong{font-size:.7rem}
+ .nl-lightbox{padding:62px 12px 52px}
+ .nl-lightbox img{max-height:calc(100dvh - 160px)}
+ .nl-lightbox-close{top:10px;right:10px;width:42px;height:42px}
+ .nl-lightbox-prev,.nl-lightbox-next{top:auto;bottom:8px;transform:none;width:42px;height:42px}
+ .nl-lightbox-prev{left:12px}
+ .nl-lightbox-next{right:12px}
+ .nl-lightbox-count{bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ .work-thumb,.work-piece,.nl-lightbox{transition:none}
+}
