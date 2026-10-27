@@ -9,7 +9,7 @@
   const label=loader.querySelector('[data-loading-label]'),percent=loader.querySelector('[data-loading-percent]'),bar=loader.querySelector('[data-loading-bar]'),state=loader.querySelector('[data-loading-state]');
   let progress=8,finished=false,navTimer;
   const paint=()=>{percent.textContent=String(Math.round(progress)).padStart(2,'0')+'%';bar.style.width=progress+'%';};paint();
-  const visibleImages=[...document.images].filter(img=>img.loading!=='lazy'||img.getBoundingClientRect().top<window.innerHeight);
+  const visibleImages=[...document.images].filter(img=>img.loading==='eager'||img.getBoundingClientRect().top<window.innerHeight+150);
   const imagesReady=Promise.all(visibleImages.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});})));
   const loadSignal=new Promise(resolve=>{if(document.readyState==='complete')resolve();else window.addEventListener('load',resolve,{once:true});});
   let resourcesReady=false;
