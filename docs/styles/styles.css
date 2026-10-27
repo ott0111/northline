@@ -1138,3 +1138,151 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px soli
  .leadership-meta p{font-size:.67rem}
 }
 @media(prefers-reduced-motion:reduce){.talent-card,.feature-card,.btn,.roster-art-main>img{transition:none!important}}
+
+/* Narrow-phone refinement: preserve useful two-column talent discovery down to 320px */
+@media(max-width:380px){
+ .home-talent-grid,.talent-grid,.talent-grid-five,.team-grid,.team-grid-three,.team-grid-four,.home-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .talent-card{padding:7px}
+ .talent-card-top{font-size:.41rem;letter-spacing:.035em}
+ .talent-card h3{font-size:.95rem}
+ .talent-card p{font-size:.66rem}
+ .talent-social{font-size:.55rem}
+}
+
+
+/* NORTHLINE / application flow, cookie preferences and real page loading */
+.nl-loader{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;overflow:hidden;background:#070707;color:#f5f5f3;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .32s ease,visibility .32s ease}
+.nl-loader.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.nl-loader::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(255,255,255,.055),transparent 48%);pointer-events:none}
+.nl-loader-panel{position:relative;width:min(420px,calc(100% - 40px));padding:34px 28px 28px;text-align:center;border:1px solid #2c2d2f;border-radius:8px;background:linear-gradient(145deg,#121314 0%,#090a0b 78%);box-shadow:0 30px 110px rgba(0,0,0,.45)}
+.nl-loader-mark{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 18px;border:1px solid #777;border-radius:5px;font-size:1.35rem;font-weight:900;letter-spacing:-.08em}
+.nl-loader-brand{font-size:1.05rem;font-weight:850;letter-spacing:.24em;padding-left:.24em}
+.nl-loader-caption{margin-top:8px;color:#85868a;font-size:.55rem;letter-spacing:.13em}
+.nl-loader-track{height:2px;margin:29px 0 14px;background:#292a2c;overflow:hidden}
+.nl-loader-track span{display:block;width:35%;height:100%;background:#f0f0ee;transform:translateX(-110%);animation:nl-loader-travel 1.1s cubic-bezier(.65,0,.35,1) infinite}
+.nl-loader-status{color:#a7a8ab;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase}
+@keyframes nl-loader-travel{to{transform:translateX(310%)}}
+html.nl-loading,html.nl-loading body{overflow:hidden}
+.nl-cookie-banner{position:fixed;z-index:999800;left:clamp(12px,2vw,26px);bottom:clamp(12px,2vw,26px);width:min(620px,calc(100vw - 24px));max-height:min(78dvh,650px);overflow:auto;padding:clamp(20px,3vw,30px);display:grid;grid-template-columns:minmax(0,1fr);gap:20px;border:1px solid #393a3d;border-radius:9px;background:rgba(12,13,14,.97);color:#f5f5f3;box-shadow:0 20px 80px rgba(0,0,0,.5);backdrop-filter:blur(20px);opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .24s ease,transform .24s ease,visibility .24s ease}
+.nl-cookie-banner.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.nl-cookie-copy{min-width:0}
+.nl-cookie-eyebrow{font-size:.58rem;letter-spacing:.15em;font-weight:750;color:#a7a8aa}
+.nl-cookie-copy h2{margin:10px 0 8px;font-size:clamp(1.55rem,4vw,2.15rem);line-height:1.05;letter-spacing:-.055em}
+.nl-cookie-copy p{max-width:58ch;margin:0;color:#b3b4b7;font-size:.84rem;line-height:1.65}
+.nl-cookie-copy a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.nl-cookie-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.nl-cookie-actions button{min-height:42px;padding:10px 14px;border:1px solid #414245;border-radius:5px;background:#171819;color:#f6f6f4;font:650 .72rem/1.2 var(--body);cursor:pointer;transition:background .18s,border-color .18s}
+.nl-cookie-actions button:hover{background:#262729;border-color:#777}
+.nl-cookie-actions [data-cookie-accept]{background:#f3f3f0;color:#090909;border-color:#f3f3f0}
+.nl-cookie-actions [data-cookie-accept]:hover{background:#d7d7d4}
+.nl-cookie-options{display:grid;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid #2b2c2e}
+.nl-cookie-options label{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;align-items:start;color:#e8e8e6;font-size:.78rem;line-height:1.4}
+.nl-cookie-options input{accent-color:#f3f3f0;margin:2px 0 0;width:16px;height:16px}
+.nl-cookie-options small{grid-column:2;color:#8f9093;font-size:.68rem}
+.nl-cookie-manage{position:fixed;z-index:999700;left:14px;bottom:14px;min-height:35px;padding:8px 11px;border:1px solid #38393b;border-radius:5px;background:#101112;color:#c7c8ca;font:650 .65rem/1.1 var(--body);cursor:pointer;box-shadow:0 5px 22px rgba(0,0,0,.28);transition:background .18s,color .18s}
+.nl-cookie-manage:hover{background:#202123;color:#fff}
+.nl-cookie-manage[hidden]{display:none}
+.nl-cookie-banner button:focus-visible,.nl-cookie-manage:focus-visible{outline:2px solid #f5f5f3;outline-offset:3px}
+.application-form button:disabled{opacity:.65;cursor:wait}
+.application-form .form-submit{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px}
+.application-form .form-error{margin:0 0 16px}
+.application-success{scroll-margin-top:28px}
+.application-success:focus{outline:none}
+.application-success .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.prepared-brief{max-height:420px;overflow:auto;line-height:1.65}
+@media(max-width:600px){
+ .nl-loader-panel{padding:28px 20px 22px}
+ .nl-loader-caption{font-size:.48rem;letter-spacing:.09em}
+ .nl-cookie-banner{left:10px;bottom:10px;width:calc(100vw - 20px);padding:18px;gap:16px;max-height:82dvh}
+ .nl-cookie-copy h2{font-size:1.55rem}
+ .nl-cookie-copy p{font-size:.78rem}
+ .nl-cookie-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nl-cookie-actions button{width:100%;min-height:44px;padding:10px 8px;font-size:.68rem}
+ .nl-cookie-manage{left:10px;bottom:10px}
+ .application-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+ .application-aside h2{font-size:clamp(2.7rem,11vw,4rem)}
+ .application-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;margin-top:22px}
+ .application-steps>div{grid-template-columns:25px minmax(0,1fr);padding:13px 0}
+ .form-grid{grid-template-columns:minmax(0,1fr);gap:15px}
+ .application-form .full{grid-column:auto}
+ .form-section{padding:18px}
+ .form-section-title{margin-bottom:18px}
+ .application-form .form-submit{width:100%}
+ .application-success{padding:20px}
+ .application-success .cta-row{display:grid;grid-template-columns:minmax(0,1fr)}
+ .application-success .cta-row .btn{width:100%}
+ .prepared-brief{padding:13px;font-size:.72rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .nl-loader,.nl-cookie-banner,.nl-cookie-actions button,.nl-cookie-manage{transition:none}
+ .nl-loader-track span{animation-duration:2.5s}
+}
+
+
+/* NORTHLINE LOADING SCREEN — restrained monochrome, responsive, and accessible */
+.nl-loading-screen{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;background:#070707;color:#f5f5f3;opacity:1;visibility:visible;transition:opacity .22s ease,visibility .22s ease}
+.nl-loading-screen::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.035) 50%,transparent 50.1%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:100% 100%,100% 52px;mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent)}
+.nl-loading-screen.is-complete{opacity:.98}.nl-loading-screen.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.nl-loading-panel{position:relative;width:min(100%,460px);padding:clamp(22px,5vw,38px);border:1px solid #303030;background:rgba(12,12,12,.96);box-shadow:0 30px 100px rgba(0,0,0,.45)}
+.nl-loading-brand{display:flex;align-items:center;gap:12px;font-size:.78rem;font-weight:800;letter-spacing:.2em}
+.nl-loading-mark{display:grid;place-items:center;width:36px;height:36px;border:1px solid #777;font-size:1rem;letter-spacing:-.08em}
+.nl-loading-rule{height:1px;background:#292929;margin:26px 0 18px}.nl-loading-kicker,.nl-loading-foot{font-size:.56rem;letter-spacing:.13em;color:#858585}
+.nl-loading-status{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:34px;font-size:.8rem}
+.nl-loading-status strong{font-size:.72rem;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.nl-loading-track{height:3px;background:#292929;margin-top:13px;overflow:hidden}.nl-loading-track span{display:block;width:8%;height:100%;background:#f4f4f1;transition:width .14s linear}
+.nl-loading-foot{display:flex;justify-content:space-between;gap:12px;margin-top:28px;font-size:.49rem}.nl-loading-foot span:last-child{color:#eee}
+.nl-cookie-banner{position:fixed;z-index:9000;left:24px;right:24px;bottom:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;max-width:1080px;margin-inline:auto;padding:24px;border:1px solid #343434;border-radius:12px;background:rgba(10,10,10,.97);color:#f4f4f2;box-shadow:0 24px 80px rgba(0,0,0,.45);backdrop-filter:blur(18px);opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+.nl-cookie-banner.is-visible{opacity:1;visibility:visible;transform:translateY(0)}.nl-cookie-copy{min-width:0}
+.nl-cookie-eyebrow{font-size:.58rem;letter-spacing:.15em;color:#aaa}.nl-cookie-copy h2{margin:8px 0;font-size:clamp(1.4rem,3vw,2rem);line-height:1.05;letter-spacing:-.055em}
+.nl-cookie-copy p{max-width:64ch;margin:0;color:#b7b7b7;font-size:.82rem;line-height:1.6}.nl-cookie-copy a{color:#fff;text-underline-offset:3px}
+.nl-cookie-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.nl-cookie-actions button,.nl-cookie-manage{min-height:40px;padding:10px 13px;border:1px solid #424242;border-radius:6px;background:#111;color:#eee;font:inherit;font-size:.7rem;font-weight:700;cursor:pointer}
+.nl-cookie-actions [data-cookie-accept]{background:#f2f2ef;color:#090909;border-color:#f2f2ef}.nl-cookie-actions button:hover,.nl-cookie-manage:hover{border-color:#aaa}
+.nl-cookie-options{display:grid;gap:10px;margin-top:16px}.nl-cookie-options label{display:flex;align-items:center;gap:9px;font-size:.78rem}
+.nl-cookie-options input{accent-color:#eee}.nl-cookie-options small{margin-left:auto;color:#888;font-size:.67rem}
+.nl-cookie-manage{position:fixed;z-index:8999;right:20px;bottom:18px;min-height:34px;padding:7px 10px;background:#0b0b0b;border-color:#383838;font-size:.65rem}
+.nl-cookie-manage[hidden],.nl-cookie-banner [hidden]{display:none!important}
+.nl-cookie-banner button:focus-visible,.nl-cookie-manage:focus-visible{outline:2px solid #eee;outline-offset:3px}
+@media(max-width:720px){.nl-cookie-banner{left:12px;right:12px;bottom:12px;grid-template-columns:1fr;gap:16px;padding:18px;border-radius:10px;max-height:min(80dvh,640px);overflow:auto}.nl-cookie-actions{display:grid;grid-template-columns:1fr 1fr;justify-content:stretch}.nl-cookie-actions button{width:100%;min-height:42px}.nl-cookie-actions .nl-cookie-customize,.nl-cookie-actions [data-cookie-save]{grid-column:1/-1}.nl-cookie-manage{right:12px;bottom:12px}.nl-loading-panel{padding:24px}.nl-loading-status{margin-top:28px}}
+@media(prefers-reduced-motion:reduce){.nl-loading-screen,.nl-cookie-banner{transition:none}.nl-loading-track span{transition:none}}
+
+
+/* Northline refinement: smaller editorial scale, logo loader, compact consent. */
+.nl-loader-panel{width:min(340px,calc(100% - 32px));padding:25px 22px 20px;border-radius:6px}
+.nl-loader-mark{display:none}
+.nl-loader-mark-img{display:block;width:42px;height:42px;object-fit:contain;margin:0 auto 14px}
+.nl-loader-brand{font-size:.88rem;letter-spacing:.2em}
+.nl-loader-caption{font-size:.48rem;letter-spacing:.09em}
+.nl-loader-track{margin:22px 0 11px}
+.nl-loader-status{font-size:.58rem}
+.nl-cookie-banner{width:min(460px,calc(100vw - 24px));gap:14px;padding:20px;max-height:min(72dvh,520px);border-radius:6px}
+.nl-cookie-copy h2{font-size:clamp(1.15rem,2.8vw,1.55rem);line-height:1.12;letter-spacing:-.035em;margin:8px 0}
+.nl-cookie-copy p{font-size:.75rem;line-height:1.55}
+.nl-cookie-actions button{font-size:.66rem;min-height:38px;padding:8px 10px}
+.nl-cookie-manage{font-size:.62rem}
+h1{font-size:clamp(2.8rem,7.2vw,7rem)}
+h2{font-size:clamp(2rem,4.6vw,4.5rem)}
+.hero-title{font-size:clamp(3rem,8vw,8rem);line-height:.91;max-width:1000px}
+.page-hero h1{font-size:clamp(2.9rem,7vw,7rem);line-height:.94}
+.intro-grid h2{font-size:clamp(2.4rem,4.8vw,4.8rem)}
+.statement-grid h2{font-size:clamp(2.6rem,5.5vw,5.6rem)}
+.feature-card h3{font-size:clamp(1.25rem,2vw,2rem)}
+.mobile-nav-inner>a:not(.btn){font-size:clamp(1.65rem,5.8vw,3rem)}
+.roster-art-arrow,.ui-icon-arrow,.ui-icon-external{font-variant-emoji:text}
+@media(max-width:600px){
+ h1{font-size:clamp(2.4rem,11vw,4.2rem)}
+ h2{font-size:clamp(1.8rem,8vw,3rem)}
+ .hero-title{font-size:clamp(2.65rem,11vw,4.7rem);line-height:.95;letter-spacing:-.065em}
+ .page-hero h1{font-size:clamp(2.55rem,10vw,4.5rem);line-height:.96}
+ .intro-grid h2,.statement-grid h2{font-size:clamp(2rem,8.4vw,3.5rem)}
+ .feature-card h3{font-size:1.35rem}
+ .nl-cookie-banner{left:10px;bottom:10px;width:calc(100vw - 20px);padding:16px;gap:12px;max-height:70dvh}
+ .nl-cookie-copy h2{font-size:1.25rem}
+ .nl-cookie-copy p{font-size:.72rem}
+ .nl-cookie-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nl-cookie-actions button{font-size:.63rem;min-height:40px;padding:8px 5px}
+ .nl-loader-panel{width:min(300px,calc(100% - 28px));padding:22px 18px 18px}
+}
+
+/* Use the actual Northline mark inside the full-screen loader */
+.nl-loader-mark-img{display:block;width:48px;height:48px;object-fit:contain;margin:0 auto 18px;filter:grayscale(1)}
