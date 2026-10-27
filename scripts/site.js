@@ -280,8 +280,8 @@ if (contactForm) {
       if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0) return;
       if(url.pathname===window.location.pathname&&url.hash) return;
       e.preventDefault();
-      if(window.NorthlineLoader&&typeof window.NorthlineLoader.navigate==='function') window.NorthlineLoader.navigate(url.href);
-      else window.location.href=url.href;
+      try{sessionStorage.setItem('nl_skip_next_loader','1');}catch{}
+      window.location.href=url.href;
     });
   });
 
