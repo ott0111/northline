@@ -58,8 +58,8 @@ const rewriteDomain = html => html.replaceAll('https://northline.co', 'https://n
 const rewriteForPages = html => html
   .replace(/(href|src)=(['"])\/(?!\/)/g, '$1=$2./')
   .replace(/url\((['"]?)\/(?!\/)/g, 'url($1./')
-  .replace(/href="\.\/styles\/styles\.css(?:\?v=[^"]*)?"/g, 'href="./styles/styles.css?v=20261027-apply-loader-cookie"')
-  .replace(/src="\.\/scripts\/site\.js(?:\?v=[^"]*)?"/g, 'src="./scripts/site.js?v=20261027-apply-loader-cookie"');
+  .replace(/href="\.\/styles\/styles\.css(?:\?v=[^"]*)?"/g, 'href="./styles/styles.css?v=20261027-cookie-loader-scale2"')
+  .replace(/src="\.\/scripts\/site\.js(?:\?v=[^"]*)?"/g, 'src="./scripts/site.js?v=20261027-cookie-loader-scale2"');
 
 const rewriteSiteJsForPages = js => js
   .replaceAll("fetch('/api/submissions'", "fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions'")
