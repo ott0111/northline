@@ -104,7 +104,7 @@ if(brandBrief){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(brandBrief).entries());
     try {
-      const response = await fetch('/api/submissions', {
+      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'brand-brief', data})
@@ -147,7 +147,7 @@ if(talentApplication){
     if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'; }
     const data = Object.fromEntries(new FormData(talentApplication).entries());
     try {
-      const response = await fetch('/api/submissions', {
+      const response = await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions', {
         method: 'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({type:'talent-application', data})
@@ -194,7 +194,7 @@ if(contactForm){
     if(button){button.disabled=true;button.innerHTML='Sending <span><svg class="ui-icon ui-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7h8.17L7.59 4.41 9 3l5 5-5 5-1.41-1.41L10.17 9H2V7Z" fill="currentColor"/></svg></span>'}
     const data=Object.fromEntries(new FormData(contactForm).entries());
     try{
-      const response=await fetch('/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
+      const response=await fetch((window.NORTHLINE_API_ORIGIN || '') + '/api/submissions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'contact',data})});
       const result=await response.json().catch(()=>({}));
       if(!response.ok||!result.ok) throw new Error(result.error||'Submission failed');
       contactForm.hidden=true;
