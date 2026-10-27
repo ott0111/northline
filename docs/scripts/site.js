@@ -267,8 +267,6 @@ if (contactForm) {
   updateProgress();
   window.addEventListener('scroll',()=>{setHeader();updateProgress()},{passive:true});
 
-  if(reduce) return;
-
   // Internal page transitions. Lightbox links are handled by the image viewer
   // below and must never be intercepted as normal page navigation.
   document.querySelectorAll('a[href]').forEach(link=>{
@@ -284,6 +282,9 @@ if (contactForm) {
       window.location.href=url.href;
     });
   });
+
+  // Keep navigation/consent behavior consistent even when decorative motion is disabled.
+  if(reduce) return;
 
   document.querySelectorAll('.talent-card,.home-talent-card,.ops-home-card,.feature-card,.latest-grid>a,.brand-services>div,.brand-mini-grid>div,.brand-process>div,.profile-standard>div,.price-grid>div,.approach-grid>div,.points-grid>div,.values-grid>div').forEach(card=>{
     card.addEventListener('pointermove',e=>{
