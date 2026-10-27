@@ -1283,3 +1283,6 @@ h2{font-size:clamp(2rem,4.6vw,4.5rem)}
  .nl-cookie-actions button{font-size:.63rem;min-height:40px;padding:8px 5px}
  .nl-loader-panel{width:min(300px,calc(100% - 28px));padding:22px 18px 18px}
 }
+
+/* Use the actual Northline mark inside the full-screen loader */
+.nl-loader-mark-img{display:block;width:48px;height:48px;object-fit:contain;margin:0 auto 18px;filter:grayscale(1)}
