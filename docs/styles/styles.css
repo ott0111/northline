@@ -749,3 +749,90 @@ footer,.site-footer{line-height:1.6}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* NORTHLINE AGENCY PASS 03 — editorial hero + talent-first roster */
+.hero{min-height:unset;padding:clamp(72px,8vw,118px) 0 clamp(58px,6vw,88px);background:#08090a}
+.hero-bg{background:radial-gradient(ellipse at 76% 42%,rgba(255,255,255,.075),transparent 35%),linear-gradient(125deg,#08090a 0%,#0a0b0c 62%,#111214 100%)}
+.hero-grid{opacity:.15;background-size:76px 76px;mask-image:linear-gradient(90deg,transparent 0%,black 50%,black 100%)}
+.hero-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.82fr);align-items:center;gap:clamp(38px,6vw,96px)}
+.hero-content{min-width:0}
+.hero-content .eyebrow{margin-bottom:clamp(26px,4vw,44px)}
+.hero-title{font-size:clamp(4rem,7.3vw,8.4rem);line-height:.88;letter-spacing:-.082em;max-width:900px}
+.hero-title em{color:#888b8e}
+.hero-bottom{display:block;margin-top:clamp(30px,4vw,48px)}
+.hero-lead{max-width:490px;font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.75;color:#b8b9bb}
+.hero-actions{margin-top:25px}
+.hero-proofline{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:clamp(35px,5vw,62px);padding-top:18px;border-top:1px solid #292a2c}
+.hero-proofline span,.roster-art-head,.roster-art-foot{font-size:.59rem;font-weight:750;letter-spacing:.12em;color:#8e9093}
+.hero-roster-art{position:relative;min-width:0;padding:14px;border:1px solid #303134;border-radius:12px;background:linear-gradient(145deg,#171819,#0c0d0e 62%);box-shadow:0 26px 80px rgba(0,0,0,.28)}
+.roster-art-head,.roster-art-foot{display:flex;justify-content:space-between;gap:12px;padding:7px 5px 15px}
+.roster-art-main{position:relative;display:block;overflow:hidden;aspect-ratio: .92;background:#1b1c1e;border-radius:6px}
+.roster-art-main:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.9))}
+.roster-art-main>img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:grayscale(1);transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .45s}
+.roster-art-main:hover>img{transform:scale(1.035);filter:grayscale(.65)}
+.roster-art-index{position:absolute;z-index:1;top:16px;left:16px;padding:7px 9px;background:rgba(7,8,9,.8);border:1px solid rgba(255,255,255,.22);border-radius:4px;font-size:.64rem;letter-spacing:.12em}
+.roster-art-caption{position:absolute;z-index:1;bottom:18px;left:20px;display:flex;flex-direction:column;gap:6px}
+.roster-art-caption strong{font-size:clamp(1.8rem,3vw,3.1rem);line-height:1;letter-spacing:-.06em}
+.roster-art-caption small,.roster-art-secondary small{font-size:.59rem;letter-spacing:.12em;color:#c1c2c4}
+.roster-art-arrow{position:absolute;z-index:1;right:18px;bottom:19px;width:36px;height:36px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.45);border-radius:50%;font-size:1.1rem}
+.roster-art-secondary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.roster-art-secondary>a{display:flex;align-items:center;gap:12px;min-width:0;padding:10px;border:1px solid #303134;border-radius:6px;background:#111213;transition:border-color .2s,background .2s}
+.roster-art-secondary>a:hover{border-color:#777;background:#191a1b}
+.roster-art-secondary img{width:48px;height:48px;flex:none;object-fit:cover;filter:grayscale(1);border-radius:4px}
+.roster-art-secondary span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.roster-art-secondary strong{font-size:.9rem;letter-spacing:-.025em}
+.roster-art-foot{padding:15px 5px 5px}
+.home-talent-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.talent-grid-five{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.talent-card{min-width:0;overflow:hidden;border:1px solid #2d2e30;border-radius:8px;background:linear-gradient(155deg,#171819 0%,#101112 72%);padding:14px;transition:transform .24s,border-color .24s,background .24s}
+.talent-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px;font-size:.59rem;letter-spacing:.09em}
+.talent-card-top span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.talent-photo{display:block;overflow:hidden;aspect-ratio:1.12;width:100%;border-radius:5px;background:#222; margin-bottom:17px}
+.talent-photo img{width:100%;height:100%;object-fit:cover;object-position:center;filter:grayscale(.8);transition:transform .35s,filter .35s}
+.talent-card-link:hover .talent-photo img{transform:scale(1.035);filter:grayscale(.25)}
+.talent-card h3{font-size:clamp(1.25rem,1.65vw,1.8rem);line-height:1.1;letter-spacing:-.045em}
+.talent-card p{font-size:.83rem;line-height:1.55;margin:7px 0 12px}
+.talent-social{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:11px;border-top:1px solid #2c2d2f;font-size:.72rem;color:#c4c5c6}
+.talent-card-link:hover{border-color:#626366;background:linear-gradient(155deg,#1b1c1e,#111213);transform:translateY(-3px)}
+.talent-controls{gap:16px}
+.talent-search input{min-height:48px}
+.talent-filter{min-height:42px;border-radius:5px}
+@media(max-width:1080px){
+ .hero-layout{grid-template-columns:minmax(0,1fr) minmax(290px,.8fr);gap:32px}
+ .hero-title{font-size:clamp(3.8rem,7.5vw,6.5rem)}
+ .talent-grid-five{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:820px){
+ .hero-layout{grid-template-columns:1fr;gap:38px}
+ .hero-title{font-size:clamp(4rem,11vw,7rem)}
+ .hero-roster-art{width:min(100%,620px);margin-inline:auto}
+ .roster-art-main{aspect-ratio:1.3}
+ .hero-proofline{gap:10px 16px}
+ .home-talent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .talent-grid-five{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .hero{padding:64px 0 52px}
+ .hero-title{font-size:clamp(3.35rem,13.2vw,5.1rem)}
+ .hero-bottom{margin-top:28px}
+ .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
+ .hero-actions .btn{width:100%}
+ .hero-proofline{display:grid;grid-template-columns:1fr;gap:8px;margin-top:30px}
+ .hero-roster-art{padding:9px}
+ .roster-art-main{aspect-ratio:.95}
+ .roster-art-secondary{gap:7px}
+ .roster-art-secondary>a{padding:8px;gap:8px}
+ .roster-art-secondary img{width:38px;height:38px}
+ .roster-art-secondary strong{font-size:.8rem}
+ .roster-art-secondary small{font-size:.52rem}
+ .roster-art-head,.roster-art-foot{font-size:.52rem}
+ .home-talent-grid,.talent-grid-five{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .talent-card{padding:9px}
+ .talent-card-top{font-size:.49rem;margin-bottom:9px}
+ .talent-photo{aspect-ratio:.95;margin-bottom:12px}
+ .talent-card h3{font-size:1.18rem}
+ .talent-card p{font-size:.73rem}
+ .talent-social{font-size:.64rem}
+}
+@media(hover:none){.roster-art-main:hover>img,.talent-card-link:hover .talent-photo img{transform:none}}
